@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BaseTheme">
+        <attr name="billing_status_bar" format="reference|color" />
+        <attr name="billing_background" format="reference|color" />
+        <attr name="billing_title" format="reference|color" />
+        <attr name="billing_description" format="reference|color" />
+
+        <attr name="billing_unselected_card" format="reference|color" />
+        <attr name="billing_selected_card" format="reference|color" />
+        <attr name="billing_unselected_text" format="reference|color" />
+        <attr name="billing_selected_text" format="reference|color" />
+        <attr name="billing_selected_subtext" format="reference|color" />
+
+        <attr name="billing_button_default" format="reference|color" />
+        <attr name="billing_button_pressed" format="reference|color" />
+        <attr name="billing_button_disabled" format="reference|color" />
+
+        <attr name="billing_button_text" format="reference|color" />
+        <attr name="billing_disclaimer" format="reference|color" />
+        <attr name="billing_close" format="reference|color" />
+
+        <attr name="billing_tabs_selected" format="reference|color" />
+        <attr name="billing_tabs_unselected" format="reference|color" />
+
+        <attr name="billing_title_text" format="reference|string" />
+        <attr name="billing_description_text" format="reference|string" />
+
+        <attr name="billing_default_trial" format="reference|string"/>
+        <attr name="billing_default_premium" format="reference|string"/>
+        <attr name="billing_default_privacy" format="reference|string"/>
+
+    </declare-styleable>
+</resources>

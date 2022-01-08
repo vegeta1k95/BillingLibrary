@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/billing_background">
+
+    <ImageView
+        android:id="@+id/img_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/circle"
+        app:tint="?attr/billing_button_default"
+        android:visibility="visible"/>
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/btn_close"
+            app:tint="?attr/billing_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/_20sdp"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabDots"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/subscription_info"
+            android:layout_marginBottom="-10dp"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabIndicatorColor="#03cf6e"
+            app:tabGravity="center"
+            app:tabMaxWidth="15dp"
+            app:tabIndicatorHeight="0dp"/>
+
+        <RelativeLayout
+            android:id="@+id/subscription_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_20sdp"
+            android:layout_above="@id/btn_continue">
+
+            <TextView
+                android:id="@+id/txt_app_title"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:textSize="24.1sp"
+                android:textColor="?attr/billing_title"
+                android:gravity="center_horizontal"
+                android:text="?attr/billing_title_text"
+                tools:text="NoHack PRO" />
+
+            <TextView
+                android:id="@+id/txt_descr"
+                android:layout_below="@+id/txt_app_title"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textSize="13.8sp"
+                android:textColor="?attr/billing_description"
+                android:gravity="center_horizontal"
+                android:text="?attr/billing_description_text"
+                tools:text="Provides continuous protection of the\ndevice from external threats and spyware" />
+
+            <RelativeLayout
+                android:id="@+id/card_full"
+                android:layout_marginVertical="@dimen/_5sdp"
+                android:layout_below="@id/txt_descr"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:background="@drawable/btn_card"
+                android:padding="@dimen/_10sdp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/checkbox_full"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/checkbox_choice"/>
+
+                <TextView
+                    android:id="@+id/txt_premium_period"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/checkbox_full"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="normal"
+                    android:textSize="13.8sp"
+                    android:textColor="@color/text"
+                    android:text="@string/txt_premium_period"/>
+
+                <TextView
+                    android:id="@+id/txt_premium_price"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/txt_premium_period"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="normal"
+                    android:textSize="13.8sp"
+                    android:textColor="@color/text"
+                    tools:text="UAH 1290.00"/>
+
+            </RelativeLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/txt_progress_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_5sdp"
+                android:layout_below="@id/card_full"
+                app:shimmer_auto_start="true"
+                app:shimmer_clip_to_children="true"
+                app:shimmer_direction="top_to_bottom"
+                app:shimmer_repeat_mode="reverse"
+                app:shimmer_duration="700"
+                app:shimmer_base_alpha="100"
+                app:shimmer_highlight_alpha="0">
+
+                <RelativeLayout
+                    android:id="@+id/card_trial"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:background="@drawable/btn_card"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/checkbox_trial"
+                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:src="@drawable/checkbox_choice"/>
+
+                    <TextView
+                        android:id="@+id/txt_free"
+                        android:layout_toRightOf="@id/checkbox_trial"
+                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="normal"
+                        android:textSize="13.8sp"
+                        android:textColor="@color/text"
+                        android:text="@string/txt_trial_title"/>
+
+                    <TextView
+                        android:id="@+id/txt_free_sub"
+                        android:layout_toRightOf="@id/checkbox_trial"
+                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:layout_below="@id/txt_free"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="normal"
+                        android:textSize="10sp"
+                        android:textColor="?attr/billing_selected_subtext"
+                        android:text="@string/txt_trial_body"
+                        />
+
+                </RelativeLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_continue"
+            android:layout_above="@id/txt_trial_disclaimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:padding="@dimen/_15sdp"
+            android:background="@drawable/btn_main"
+            android:textColor="?attr/billing_button_text"
+            android:textSize="25sp">
+
+            <TextView
+                android:id="@+id/btn_continue_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:textSize="24.9sp"
+                android:textColor="#ffffff"
+                android:gravity="center_horizontal"
+                android:text="@string/btn_continue" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/arrow"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/txt_premium_disclaimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textSize="9.9sp"
+            android:textColor="?attr/billing_disclaimer"
+            android:gravity="center_horizontal"
+            android:visibility="invisible"
+            android:text="@string/txt_premium_disclaimer" />
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/txt_trial_disclaimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textSize="9.9sp"
+            android:textColor="?attr/billing_disclaimer"
+            android:gravity="center_horizontal"
+            android:visibility="visible"
+            android:text="@string/txt_trial_disclaimer" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

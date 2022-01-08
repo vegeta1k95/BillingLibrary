@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/billing_background">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_above="@id/tabDots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_continue"
+        android:layout_margin="@dimen/_10sdp"
+        android:padding="@dimen/_10sdp"
+        android:background="@drawable/btn_main"
+        android:textColor="?attr/billing_button_text"
+        android:textSize="25sp"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tabDots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_30sdp"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabMaxWidth="15dp"
+        app:tabIndicatorHeight="0dp"/>
+
+</RelativeLayout>
