@@ -12,17 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_continue"
-        android:layout_above="@id/tabDots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_continue"
-        android:layout_margin="@dimen/_10sdp"
-        android:padding="@dimen/_10sdp"
+        android:layout_above="@id/tabDots"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/btn_main"
+        android:padding="@dimen/_10sdp"
+        android:text="@string/btn_continue"
         android:textColor="?attr/billing_button_text"
-        android:textSize="25sp"/>
+        android:textSize="25sp" />
 
     <com.google.android.material.tabs.TabLayout
         android:layout_centerHorizontal="true"

@@ -133,7 +133,7 @@
                 android:layout_marginVertical="@dimen/_20sdp"
                 android:orientation="horizontal">
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/rate_btn_later"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_35sdp"
@@ -153,7 +153,7 @@
                     card_view:layout_constraintRight_toLeftOf="@id/guideline"
                     tools:layout_editor_absoluteX="25dp" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/rate_btn_rate"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_35sdp"
