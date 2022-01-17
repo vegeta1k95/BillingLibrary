@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:state_selected="true" >
         <shape android:shape="oval">
-            <solid android:color="?attr/billing_button_default"/>
+            <solid android:color="?attr/billing_accent_color"/>
         </shape>
     </item>
     <item>
@@ -11,7 +11,7 @@
             android:shape="ring"
             android:thickness="2dp"
             android:useLevel="false">
-            <solid android:color="?attr/billing_unselected_text"/>
+            <solid android:color="#f0f0f0"/>
         </shape>
     </item>
 </selector>

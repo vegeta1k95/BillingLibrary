@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <stroke android:color="?attr/billing_accent_color"
+                android:width="@dimen/_2sdp"/>
+            <corners android:radius="@dimen/_15sdp"/>
+        </shape>
+    </item>
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <stroke android:color="?attr/billing_accent_color"
+                android:width="@dimen/_2sdp"/>
+            <corners android:radius="@dimen/_15sdp"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <stroke android:color="#f0f0f0"
+                android:width="@dimen/_2sdp"/>
+            <corners android:radius="@dimen/_15sdp"/>
+        </shape>
+    </item>
+
+</selector>

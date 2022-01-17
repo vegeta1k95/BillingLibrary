@@ -2,12 +2,10 @@ package com.sdk.billinglibrary;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.android.billingclient.api.AcknowledgePurchaseParams;
 import com.android.billingclient.api.BillingClient;
@@ -15,141 +13,141 @@ import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesResponseListener;
+import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
+import com.sdk.billinglibrary.interfaces.IOnInitializationComplete;
 import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
-import com.sdk.billinglibrary.interfaces.ISubscriptionListener;
 import com.sdk.billinglibrary.interfaces.ISkuListener;
-import com.sdk.billinglibrary.onboard.OnBoardActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillingManager {
+class BillingManager implements BillingClientStateListener,
+        PurchasesUpdatedListener, PurchasesResponseListener {
 
-    static final String LOG_TAG = "MYTAG";
+    static final String LOG_TAG = "MYTAG (Billing)";
 
-    public static void addOnBoardLayout(String layoutName) {
-        OnBoardActivity.onBoardLayouts.add(layoutName);
-    }
+    private static Context mContext;
+    private static BillingManager mManager;
 
-    public static void addBillingLayout(String layoutName) {
-        BillingActivity.billingLayouts.add(layoutName);
-    }
-
-    public static void init(Context context) {
+    static void initialize(@NonNull Context context, IOnInitializationComplete listener) {
         LocalConfig.init(context);
-        if (manager == null)
-            manager = new BillingManager(context.getApplicationContext());
+        mContext = context.getApplicationContext();
+        if (mManager == null)
+            mManager = new BillingManager(listener);
     }
 
-    static String DIALOG_EXIT_ICONS;
-
-    private static Handler handler = new Handler(Looper.getMainLooper());
-    private static BillingManager manager;
-    private static boolean TEST = false;
-
-    public static void setDialogExitIcons(String layout) { DIALOG_EXIT_ICONS = layout; }
-    public static void setTestMode(boolean test) { TEST = test; }
-
-    public static void setTimeProposed() { LocalConfig.setTimeProposed(); }
-    public static boolean isTimeToPropose() { return LocalConfig.isTimeToPropose(); }
-
-    public static BillingManager get(Context context) {
-        init(context);
-        return manager;
+    static BillingManager getInstance() {
+        return mManager;
     }
 
     private BillingClient mBillingClient;
     private IOnPurchaseListener mOnPurchaseListener;
+    private IOnInitializationComplete mOnInitializationListener;
 
-    private BillingManager(Context context) {
+    private BillingManager(IOnInitializationComplete listener) {
+        mOnInitializationListener = listener;
+        restart();
+    }
+
+    private void restart() {
+        if (mBillingClient != null) {
+            mBillingClient.endConnection();
+            mBillingClient = null;
+        }
         mBillingClient = BillingClient
-                .newBuilder(context)
-                .setListener((billingResult, list) -> {
-                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK
-                            && list != null) {
-
-                        boolean purchased = false;
-
-                        for (Purchase purchase : list) {
-                            if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
-                                if (!purchase.isAcknowledged())
-                                    acknowledgePurchase(purchase);
-                                LocalConfig.subscribeLocally(true);
-                                purchased = true;
-                            }
-                        }
-
-                        if (mOnPurchaseListener == null)
-                            return;
-
-                        if (purchased)
-                            mOnPurchaseListener.onPurchaseDone();
-                        else
-                            mOnPurchaseListener.onPurchaseCancelled();
-
-                    } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
-                        if (mOnPurchaseListener != null)
-                            mOnPurchaseListener.onPurchaseCancelled();
-                    } else {
-                        if (mOnPurchaseListener != null)
-                            mOnPurchaseListener.onPurchaseFail();
-                    }
-
-                })
+                .newBuilder(mContext)
+                .setListener(this)
                 .enablePendingPurchases()
                 .build();
+        mBillingClient.startConnection(this);
     }
 
-    public void startOnBoard(Context context) {
-        if (context == null)
-            return;
-        if (!LocalConfig.isOnBoardShown()) {
-            Intent intent = new Intent(context, OnBoardActivity.class);
-            intent.putExtra(OnBoardActivity.INTENT_ONLY_ONBOARD, true);
-            context.startActivity(intent);
-        }
-    }
+    @Override
+    public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+            Log.d(LOG_TAG, "Billing setup finished!");
 
-    public void startActivity(Context context) {
-        if (context == null)
-            return;
-        if (LocalConfig.isOnBoardShown()) {
-            Intent intent = new Intent(context, BillingActivity.class);
-            context.startActivity(intent);
+            boolean isSubSupported = isSubscriptionSupported();
+
+            if (isSubSupported) {
+                Log.d(LOG_TAG,"Subscriptions are supported!");
+                queryPurchases();
+            } else {
+                Log.d(LOG_TAG, "Subscription are not supported!");
+                LocalConfig.subscribeLocally(true);
+                mOnInitializationListener.onComplete();
+            }
+
         } else {
-            Intent intent = new Intent(context, OnBoardActivity.class);
-            context.startActivity(intent);
+            Log.d(LOG_TAG, "Billing setup failed: "
+                    + billingResult.getResponseCode() + " | "
+                    + billingResult.getDebugMessage());
+            mOnInitializationListener.onComplete();
         }
     }
 
-    public void requestSubscription(ISubscriptionListener callback) {
-
-        if (TEST) {
-            LocalConfig.subscribeLocally(true);
-            callback.onResult(true);
-            return;
-        }
-
-        updatePurchases(new ISubscriptionListener() {
-            @Override
-            public void onResult(boolean isSubscribed) {
-                handler.post(()->callback.onResult(isSubscribed));
-            }
-
-            @Override
-            public void onFailed(String error) {
-                handler.post(()->callback.onFailed(error));
-            }
-        });
+    @Override
+    public void onBillingServiceDisconnected() {
+        restart();
     }
 
-    private void acknowledgePurchase(Purchase purchase) {
-        AcknowledgePurchaseParams params = AcknowledgePurchaseParams.newBuilder()
-                .setPurchaseToken(purchase.getPurchaseToken())
-                .build();
-        mBillingClient.acknowledgePurchase(params, result -> {});
+    @Override
+    public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
+        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+            acknowledgePurchases(list);
+        } else {
+            Log.d(LOG_TAG, "Failed to query purchases: "
+                    + billingResult.getResponseCode() + " | "
+                    + billingResult.getDebugMessage());
+        }
+        mOnInitializationListener.onComplete();
+    }
+
+    @Override
+    public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
+
+        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK
+                && list != null) {
+
+            boolean purchased = acknowledgePurchases(list);
+
+            if (mOnPurchaseListener == null)
+                return;
+
+            if (purchased)
+                mOnPurchaseListener.onPurchaseDone();
+            else
+                mOnPurchaseListener.onPurchaseCancelled();
+
+        } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
+            if (mOnPurchaseListener != null)
+                mOnPurchaseListener.onPurchaseCancelled();
+        } else {
+            if (mOnPurchaseListener != null)
+                mOnPurchaseListener.onPurchaseFail();
+        }
+    }
+
+    private boolean acknowledgePurchases(List<Purchase> list) {
+
+        boolean purchased = false;
+
+        for (Purchase purchase : list) {
+            if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
+                if (!purchase.isAcknowledged()) {
+                    AcknowledgePurchaseParams params = AcknowledgePurchaseParams.newBuilder()
+                            .setPurchaseToken(purchase.getPurchaseToken())
+                            .build();
+                    mBillingClient.acknowledgePurchase(params, result -> {});
+                }
+                purchased = true;
+            }
+        }
+        LocalConfig.subscribeLocally(purchased);
+        return purchased;
     }
 
     private boolean isSubscriptionSupported() {
@@ -157,164 +155,81 @@ public class BillingManager {
                 .getResponseCode() == BillingClient.BillingResponseCode.OK;
     }
 
-    private interface IConnectionCallback {
-        void onConnectSuccess();
-        void onConnectFailed(int error);
-    }
-
-    private void startConnection(IConnectionCallback callback) {
-        if (mBillingClient.isReady()) {
-            callback.onConnectSuccess();
-        } else {
-            mBillingClient.startConnection(new BillingClientStateListener() {
-                @Override
-                public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
-                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                        Log.d(LOG_TAG, "Billing setup finished!");
-                        callback.onConnectSuccess();
-                    } else {
-                        callback.onConnectFailed(billingResult.getResponseCode());
-                    }
-                }
-
-                @Override
-                public void onBillingServiceDisconnected() { /* ... */ }
-            });
-        }
-    }
-
-    private void updatePurchases(ISubscriptionListener callback) {
-        startConnection(new IConnectionCallback() {
-            @Override
-            public void onConnectSuccess() {
-
-                if (!isSubscriptionSupported()) {
-                    Log.d(LOG_TAG, "Subscription are not supported!");
-                    LocalConfig.subscribeLocally(true);
-                    callback.onResult(true);
-                    return;
-                }
-
-                mBillingClient.queryPurchasesAsync(BillingClient.SkuType.SUBS, (result, purchases) -> {
-                    if (result.getResponseCode() != BillingClient.BillingResponseCode.OK) {
-                        callback.onFailed("Error code: " + result.getResponseCode());
-                        return;
-                    }
-                    boolean subscribed = false;
-                    for (Purchase purchase : purchases) {
-                        if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
-                            if (!purchase.isAcknowledged())
-                                acknowledgePurchase(purchase);
-                            subscribed = true;
-                        }
-                    }
-                    LocalConfig.subscribeLocally(subscribed);
-                    callback.onResult(subscribed);
-                });
-            }
-
-            @Override
-            public void onConnectFailed(int error) {
-                callback.onFailed("Connection failed: " + error);
-            }
-        });
+    void queryPurchases() {
+        mBillingClient.queryPurchasesAsync(BillingClient.SkuType.SUBS, this);
     }
 
     void retrieveSubs(String trialSubId, String premiumSubId, ISkuListener listener) {
+
         if (trialSubId == null
                 || trialSubId.isEmpty()
                 || premiumSubId == null
-                || premiumSubId.isEmpty()) {
+                || premiumSubId.isEmpty()
+                || !mBillingClient.isReady()) {
             listener.onFailed();
             return;
         }
 
-        startConnection(new IConnectionCallback() {
-            @Override
-            public void onConnectSuccess() {
-                SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+        SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
 
-                List<String> subs = new ArrayList<>();
-                subs.add(trialSubId);
-                subs.add(premiumSubId);
+        List<String> subs = new ArrayList<>();
+        subs.add(trialSubId);
+        subs.add(premiumSubId);
 
-                params.setSkusList(subs).setType(BillingClient.SkuType.SUBS);
-                mBillingClient.querySkuDetailsAsync(params.build(),
-                        (billingResult, skuDetailsList) -> {
-                            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+        params.setSkusList(subs).setType(BillingClient.SkuType.SUBS);
+        mBillingClient.querySkuDetailsAsync(params.build(),
+                (billingResult, skuDetailsList) -> {
+                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
 
-                                if (skuDetailsList == null) {
-                                    listener.onFailed();
-                                    return;
-                                }
+                        if (skuDetailsList == null) {
+                            listener.onFailed();
+                            return;
+                        }
 
-                                if (skuDetailsList.size() != 2) {
-                                    Log.d(LOG_TAG, "Fetched too few SKUs, should be 2!");
-                                    listener.onFailed();
-                                } else {
+                        if (skuDetailsList.size() != 2) {
+                            Log.d(LOG_TAG, "Fetched too few SKUs, should be 2!");
+                            listener.onFailed();
+                        } else {
 
-                                    SkuDetails trial = null;
-                                    SkuDetails full = null;
+                            SkuDetails trial = null;
+                            SkuDetails full = null;
 
-                                    for (SkuDetails sku : skuDetailsList) {
-                                        if (sku.getSku().equals(trialSubId))
-                                            trial = sku;
-                                        else if (sku.getSku().equals(premiumSubId))
-                                            full = sku;
-                                    }
-
-                                    if (trial != null && full != null)
-                                        listener.onResult(trial, full);
-                                    else
-                                        listener.onFailed();
-                                }
-
-                            } else {
-                                listener.onFailed();
+                            for (SkuDetails sku : skuDetailsList) {
+                                if (sku.getSku().equals(trialSubId))
+                                    trial = sku;
+                                else if (sku.getSku().equals(premiumSubId))
+                                    full = sku;
                             }
-                        });
-            }
 
-            @Override
-            public void onConnectFailed(int error) {
-                listener.onFailed();
-            }
-        });
+                            if (trial != null && full != null)
+                                listener.onResult(trial, full);
+                            else
+                                listener.onFailed();
+                        }
 
+                    } else {
+                        listener.onFailed();
+                    }
+                });
     }
 
     void launchPurchaseFlow(Activity activity, SkuDetails sub, IOnPurchaseListener listener) {
         mOnPurchaseListener = listener;
-        startConnection(new IConnectionCallback() {
-            @Override
-            public void onConnectSuccess() {
 
-                if (!isSubscriptionSupported()) {
-                    Log.d(LOG_TAG, "Subscriptions are not supported!");
-                    LocalConfig.subscribeLocally(true);
-                    if (mOnPurchaseListener != null)
-                        mOnPurchaseListener.onPurchaseDone();
-                    return;
-                }
-
-                if (sub == null)
-                    return;
-
-                try {
-                    BillingFlowParams flowParams = BillingFlowParams.newBuilder().setSkuDetails(sub).build();
-                    mBillingClient.launchBillingFlow(activity, flowParams);
-                } catch (IllegalArgumentException e) {
-                    mOnPurchaseListener.onError();
-                }
+        if (!mBillingClient.isReady() || sub == null) {
+            if (mOnPurchaseListener != null) {
+                mOnPurchaseListener.onError();
             }
+            return;
+        }
 
-            @Override
-            public void onConnectFailed(int error) {
-                if (mOnPurchaseListener != null) {
-                    mOnPurchaseListener.onError();
-                }
-            }
+        try {
+            BillingFlowParams flowParams = BillingFlowParams.newBuilder().setSkuDetails(sub).build();
+            mBillingClient.launchBillingFlow(activity, flowParams);
+        } catch (IllegalArgumentException e) {
+            mOnPurchaseListener.onError();
+        }
 
-        });
     }
+
 }

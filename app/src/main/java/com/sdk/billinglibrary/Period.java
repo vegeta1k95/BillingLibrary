@@ -3,7 +3,7 @@ package com.sdk.billinglibrary;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Period {
+class Period {
 
     int days = 0;
     int weeks = 0;

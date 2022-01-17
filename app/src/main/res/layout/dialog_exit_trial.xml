@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,13 +17,13 @@
         android:layout_marginVertical="@dimen/_10sdp"
         android:layout_marginHorizontal="-10dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentEnd="true">
 
         <ImageView
             android:layout_width="@dimen/_10sdp"
             android:layout_height="@dimen/_10sdp"
             android:src="@drawable/close"
-            app:tint="#80bcbcbc"/>
+            app:tint="#80ffffff"/>
 
     </RelativeLayout>
 
@@ -42,31 +40,30 @@
 
         <TextView
             android:id="@+id/dialog_title"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:textSize="18.3sp"
-            android:textColor="#060606"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/gilroy_bold"
             android:gravity="center_horizontal"
-            android:text="@string/dialog_exit_title"/>
+            android:text="@string/dialog_exit_title"
+            android:textColor="?attr/billing_text_color"
+            android:textSize="18.3sp"/>
 
         <TextView
             android:id="@+id/dialog_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/dialog_title"
+            android:layout_centerHorizontal="true"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginVertical="@dimen/_10sdp"
-            android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textSize="13.9sp"
-            android:textColor="#979797"
             android:gravity="center_horizontal"
-            android:text="@string/dialog_exit_body"/>
+            android:text="@string/dialog_exit_body"
+            android:textColor="#777777"
+            android:textSize="13.9sp"
+            android:textStyle="normal" />
 
         <RelativeLayout
             android:id="@+id/dialog_icons"
@@ -79,15 +76,15 @@
             android:id="@+id/dialog_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/dialog_icons"
+            android:layout_centerHorizontal="true"
             android:layout_marginVertical="@dimen/_15sdp"
             android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:textSize="14.4sp"
-            android:textColor="#ff7f01"
             android:gravity="center_horizontal"
-            android:text="@string/dialog_exit_timer_start" />
+            android:text="@string/dialog_exit_timer_start"
+            android:textColor="?attr/billing_offer_color"
+            android:textSize="14.4sp"
+            android:textStyle="bold" />
 
 
         <com.facebook.shimmer.ShimmerFrameLayout
@@ -105,7 +102,7 @@
             app:shimmer_intensity="0"
             app:shimmer_highlight_alpha="0">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/dialog_button_ok"
                 android:background="@drawable/btn_main"
                 android:layout_width="match_parent"
@@ -115,10 +112,30 @@
                 android:textAllCaps="false"
                 android:textSize="15.5sp"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="?attr/billing_button_text"
+                android:textColor="#ffffff"
                 android:foreground="?attr/selectableItemBackground"/>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <TextView
+            android:id="@+id/txt_dialog_disclaimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_progress_container"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_horizontal"
+            android:text="@string/dialog_disclaimer"
+            android:textSize="12sp"
+            android:textColor="#777777"
+            android:textStyle="normal"
+            android:visibility="visible" />
 
     </RelativeLayout>
 

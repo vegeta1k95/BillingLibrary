@@ -3,10 +3,9 @@ package com.sdk.billinglibrary;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class LocalConfig {
+class LocalConfig {
 
-    private static final String PREFERENCES = "ONBOARD";
-    private static final String KEY_ONBOARD_PASSED = "passed";
+    private static final String PREFERENCES = "billing";
     private static final String KEY_SUBSCRIBED = "subscribed";
     private static final String KEY_LAST_PROPOSED = "last_proposed";
     private static final String KEY_CONSENT = "consent";
@@ -24,39 +23,15 @@ public class LocalConfig {
     }
 
     static void setTimeProposed() {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putLong(KEY_LAST_PROPOSED, System.currentTimeMillis());
-        editor.commit();
-    }
-
-    static boolean isOnBoardShown() {
-        return preferences.getBoolean(KEY_ONBOARD_PASSED, false);
+        preferences.edit().putLong(KEY_LAST_PROPOSED, System.currentTimeMillis()).apply();
     }
 
     static void subscribeLocally(boolean subscribed) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(KEY_SUBSCRIBED, subscribed);
-        editor.commit();
+        preferences.edit().putBoolean(KEY_SUBSCRIBED, subscribed).apply();
     }
 
-    public static boolean isSubscribedLocally() {
+    static boolean isSubscribedLocally() {
         return preferences.getBoolean(KEY_SUBSCRIBED, false);
-    }
-
-    public static void setOnBoardShown() {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(KEY_ONBOARD_PASSED, true);
-        editor.commit();
-    }
-
-    public static void setConsent(boolean consent) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(KEY_CONSENT, consent);
-        editor.commit();
-    }
-
-    public static boolean getConsent() {
-        return preferences.getBoolean(KEY_CONSENT, true);
     }
 
 }

@@ -1,79 +1,42 @@
 package com.sdk.billinglibrary;
 
-import android.app.Dialog;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.android.billingclient.api.SkuDetails;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.FirebaseApp;
 import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
 import com.sdk.billinglibrary.interfaces.ISkuListener;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
+class BillingActivity extends AppCompatActivity {
 
-public class BillingActivity extends AppCompatActivity {
-
-    static List<String> billingLayouts = new ArrayList<>();
-    static class PageAdapter extends FragmentStateAdapter {
-
-        PageAdapter(@NonNull FragmentActivity fragmentActivity) {
-            super(fragmentActivity);
-        }
-
-        @NonNull
-        @Override
-        public Fragment createFragment(int position) {
-            return BillingFragment.getInstance(billingLayouts.get(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return billingLayouts.size();
-        }
-    }
-
-    private IOnPurchaseListener onPurchaseListener = new IOnPurchaseListener() {
+    private final IOnPurchaseListener onPurchaseListener = new IOnPurchaseListener() {
         @Override
         public void onPurchaseDone() {
             Toast.makeText(getApplicationContext(), R.string.purchase_done, Toast.LENGTH_LONG).show();
             finish();
-            overridePendingTransition(R.anim.from_right, R.anim.to_left);
         }
 
         @Override
         public void onPurchaseFail() {
             Toast.makeText(getApplicationContext(), R.string.purchase_fail, Toast.LENGTH_LONG).show();
             finish();
-            overridePendingTransition(R.anim.from_right, R.anim.to_left);
         }
 
         @Override
@@ -81,27 +44,26 @@ public class BillingActivity extends AppCompatActivity {
 
         @Override
         public void onError() {
-            Toast.makeText(getApplicationContext(), "Something went wrong...", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.purchase_fail, Toast.LENGTH_LONG).show();
             finish();
-            overridePendingTransition(R.anim.from_right, R.anim.to_left);
         }
     };
 
-    private int counter = 3600*24;
+    private LinearLayout featuresContainer;
 
-    private Handler handler;
-
-    private PageAdapter adapter;
-    private ViewPager2 pager;
-
-    private RelativeLayout cardFull;
-    private RelativeLayout cardTrial;
+    private LinearLayout cardFull;
+    private LinearLayout cardTrial;
 
     private ImageView imgLoading;
     private Animation animation;
 
-    private TextView tvPremiumPeriod;
+    private TextView tvTrialTitle;
+    private TextView tvTrialDescr;
+
+    private TextView tvPremiumTitle;
+    private TextView tvPremiumDescr;
     private TextView tvPremiumPrice;
+    private TextView tvPremiumPricePeriod;
 
     private TextView tvPremiumDisclaimer;
     private TextView tvTrialDisclaimer;
@@ -125,14 +87,14 @@ public class BillingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_billing);
 
         Window window = getWindow();
-        window.setStatusBarColor(MaterialColors.getColor(this, R.attr.billing_status_bar, R.attr.colorAccent));
+        window.setStatusBarColor(MaterialColors.getColor(this, R.attr.billing_background_color, R.attr.colorAccent));
 
-        handler = new Handler(Looper.getMainLooper());
+        featuresContainer = findViewById(R.id.features_container);
 
         imgLoading = findViewById(R.id.img_loading);
         animation = rotate(imgLoading);
 
-        manager = BillingManager.get(this);
+        manager = BillingManager.getInstance();
 
         btnClose = findViewById(R.id.btn_close);
         btnContinue = findViewById(R.id.btn_continue);
@@ -140,31 +102,26 @@ public class BillingActivity extends AppCompatActivity {
         cardFull = findViewById(R.id.card_full);
         cardTrial = findViewById(R.id.card_trial);
 
-        tvPremiumPeriod = findViewById(R.id.txt_premium_period);
+        tvTrialTitle = findViewById(R.id.txt_trial_title);
+        tvTrialDescr = findViewById(R.id.txt_trial_descr);
+
+        tvPremiumTitle = findViewById(R.id.txt_premium_title);
+        tvPremiumDescr = findViewById(R.id.txt_premium_descr);
         tvPremiumPrice = findViewById(R.id.txt_premium_price);
+        tvPremiumPricePeriod = findViewById(R.id.txt_premium_price_period);
 
         tvPremiumDisclaimer = findViewById(R.id.txt_premium_disclaimer);
         tvTrialDisclaimer = findViewById(R.id.txt_trial_disclaimer);
 
-        adapter = new PageAdapter(this);
-        pager = findViewById(R.id.pager);
-
-        setupTabs();
+        setFeatures();
         setButtons();
-        loopFragments();
         retrieveSubs();
     }
 
     @Override
-    public void onStop() {
-        handler.removeCallbacksAndMessages(null);
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        handler.removeCallbacksAndMessages(null);
-        super.onDestroy();
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.from_right, R.anim.to_left);
     }
 
     private void retrieveSubs() {
@@ -182,82 +139,31 @@ public class BillingActivity extends AppCompatActivity {
                     imgLoading.setVisibility(View.INVISIBLE);
                     findViewById(R.id.container).setVisibility(View.VISIBLE);
 
-                    long trialPriceMicros = trial.getOriginalPriceAmountMicros();
-                    long fullPriceMicros = full.getOriginalPriceAmountMicros();
-
-                    double trialPrice = (double) trialPriceMicros / 1000000;
-                    double fullPrice = (double) fullPriceMicros / 1000000;
-
-                    Locale locale = Locale.getDefault();
-
-                    String trialPriceString = trial.getPriceCurrencyCode() + String.format(locale, " %.2f", trialPrice);
-                    String premiumPriceString = full.getPriceCurrencyCode() + String.format(locale, " %.2f", fullPrice);
-
-                    Period periodTrial = Period.parse(trial.getSubscriptionPeriod());
-                    Period periodTrialFree = Period.parse(trial.getFreeTrialPeriod());
-                    Period periodPremium = Period.parse(full.getSubscriptionPeriod());
-
-                    tvPremiumPrice.setText(premiumPriceString);
-
-                    String premiumPriceWithSub;
-
                     Resources res = getResources();
 
-                    if (periodPremium.years > 0) {
-                        tvPremiumPeriod.setText(getString(R.string.txt_premium_period, res.getQuantityString(R.plurals.years, periodPremium.years, periodPremium.years)));
-                        premiumPriceWithSub = full.getPriceCurrencyCode() + String.format(locale," %.2f", fullPrice / (12 * periodPremium.years));
-                        tvPremiumDisclaimer.setText(getString(R.string.txt_premium_disclaimer,
-                                res.getQuantityString(R.plurals.yearly, periodTrial.years, periodTrial.years),
-                                premiumPriceString, premiumPriceWithSub, getString(R.string.month).toLowerCase()));
-                    } else if (periodPremium.months > 0) {
-                        tvPremiumPeriod.setText(getString(R.string.txt_premium_period, res.getQuantityString(R.plurals.months, periodPremium.months, periodPremium.months)));
-                        premiumPriceWithSub = full.getPriceCurrencyCode() + String.format(locale," %.2f", fullPrice / (4.35 * periodPremium.months));
-                        tvPremiumDisclaimer.setText(getString(R.string.txt_premium_disclaimer,
-                                res.getQuantityString(R.plurals.monthly, periodTrial.months, periodTrial.months),
-                                premiumPriceString, premiumPriceWithSub, getString(R.string.week).toLowerCase()));
-                    } else if (periodPremium.weeks > 0) {
-                        tvPremiumPeriod.setText(getString(R.string.txt_premium_period, res.getQuantityString(R.plurals.weeks, periodPremium.weeks, periodPremium.weeks)));
-                        premiumPriceWithSub = full.getPriceCurrencyCode() + String.format(locale," %.2f", fullPrice * 4.35 / periodPremium.weeks);
-                        tvPremiumDisclaimer.setText(getString(R.string.txt_premium_disclaimer,
-                                res.getQuantityString(R.plurals.weekly, periodTrial.weeks, periodTrial.weeks),
-                                premiumPriceString, premiumPriceWithSub, getString(R.string.month).toLowerCase()));
-                    } else if (periodPremium.days > 0) {
-                        tvPremiumPeriod.setText(getString(R.string.txt_premium_period, res.getQuantityString(R.plurals.days, periodPremium.days, periodPremium.days)));
-                        premiumPriceWithSub = full.getPriceCurrencyCode() + String.format(locale," %.2f", fullPrice * 7 / periodPremium.days);
-                        tvPremiumDisclaimer.setText(getString(R.string.txt_premium_disclaimer,
-                                res.getQuantityString(R.plurals.daily, periodTrial.days, periodTrial.days),
-                                premiumPriceString, premiumPriceWithSub, getString(R.string.week).toLowerCase()));
-                    }
+                    Price priceTrial = new Price(res, trialSku);
+                    Price pricePremium = new Price(res, fullSku);
 
-                    if (periodTrial.years > 0) {
-                        tvTrialDisclaimer.setText(getString(R.string.txt_trial_disclaimer,
-                                res.getQuantityString(R.plurals.days_free, periodTrialFree.days, periodTrialFree.days).toLowerCase(),
-                                res.getQuantityString(R.plurals.yearly, periodTrial.years, periodTrial.years),
-                                trialPriceString,
-                                trial.getPriceCurrencyCode() + String.format(locale, " %.2f", trialPrice / (12 * periodTrial.years)),
-                                getString(R.string.month).toLowerCase()));
-                    } else if (periodTrial.months > 0) {
-                        tvTrialDisclaimer.setText(getString(R.string.txt_trial_disclaimer,
-                                res.getQuantityString(R.plurals.days_free, periodTrialFree.days, periodTrialFree.days).toLowerCase(),
-                                res.getQuantityString(R.plurals.monthly, periodTrial.months, periodTrial.months),
-                                trialPriceString,
-                                trial.getPriceCurrencyCode() + String.format(locale, " %.2f", trialPrice / (4.35 * periodTrial.months)),
-                                getString(R.string.week).toLowerCase()));
-                    } else if (periodTrial.weeks > 0) {
-                        tvTrialDisclaimer.setText(getString(R.string.txt_trial_disclaimer,
-                                res.getQuantityString(R.plurals.days_free, periodTrialFree.days, periodTrialFree.days).toLowerCase(),
-                                res.getQuantityString(R.plurals.weekly, periodTrial.weeks, periodTrial.weeks),
-                                trialPriceString,
-                                trial.getPriceCurrencyCode() + String.format(locale, " %.2f", trialPrice  * 4.35 / periodTrial.weeks),
-                                getString(R.string.month).toLowerCase()));
-                    } else if (periodTrial.days > 0) {
-                        tvTrialDisclaimer.setText(getString(R.string.txt_trial_disclaimer,
-                                res.getQuantityString(R.plurals.days_free, periodTrialFree.days, periodTrialFree.days).toLowerCase(),
-                                res.getQuantityString(R.plurals.daily, periodTrial.days, periodTrial.days),
-                                trialPriceString,
-                                trial.getPriceCurrencyCode() + String.format(locale, " %.2f", trialPrice * 7 / periodTrial.days),
-                                getString(R.string.week).toLowerCase()));
-                    }
+                    tvTrialTitle.setText(getString(R.string.txt_trial_title, priceTrial.getTrialPeriod()));
+                    tvTrialDescr.setText(getString(R.string.txt_trial_descr, priceTrial.getPriceAndCurrency(), priceTrial.getSubscriptionPeriod()));
+                    tvTrialDisclaimer.setText(getString(R.string.txt_trial_disclaimer,
+                            priceTrial.getTrialPeriod(),
+                            priceTrial.getSubscriptionPeriod(),
+                            priceTrial.getPriceAndCurrency(),
+                            priceTrial.getTotalPriceAndCurrency(),
+                            priceTrial.getTotalPeriod()));
+
+                    tvPremiumTitle.setText(getString(R.string.txt_premium_title, pricePremium.getSubscriptionPeriod()));
+                    tvPremiumDescr.setText(getString(R.string.txt_premium_descr, pricePremium.getTotalPriceAndCurrency(), pricePremium.getTotalPeriod()));
+
+                    tvPremiumPrice.setText(pricePremium.getPriceAndCurrency());
+                    tvPremiumPricePeriod.setText(getString(R.string.txt_premium_price_period, pricePremium.getSubscriptionPeriod()));
+
+                    tvPremiumDisclaimer.setText(getString(R.string.txt_premium_disclaimer,
+                            pricePremium.getSubscriptionPeriod(),
+                            pricePremium.getPriceAndCurrency(),
+                            pricePremium.getTotalPriceAndCurrency(),
+                            pricePremium.getTotalPeriod()));
 
                 });
 
@@ -268,66 +174,30 @@ public class BillingActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     Toast.makeText(getApplicationContext(), "Something went wrong...", Toast.LENGTH_LONG).show();
                     BillingActivity.this.finish();
-                    overridePendingTransition(R.anim.from_right, R.anim.to_left);
                 });
             }
         }));
-    }
-
-    private void setupTabs() {
-        pager.setAdapter(adapter);
-        TabLayout tabs = findViewById(R.id.tabDots);
-        tabs.setTabRippleColor(null);
-        new TabLayoutMediator(tabs, pager, (tab, position) -> {}).attach();
     }
 
     private void setButtons() {
 
         btnClose.setOnClickListener(v -> {
 
-            final Dialog dialog = new Dialog(BillingActivity.this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_exit_trial);
-            dialog.setCancelable(false);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.show();
+            final ExitDialog dialog = new ExitDialog(this);
 
-            if (BillingManager.DIALOG_EXIT_ICONS != null) {
-                LayoutInflater inflater = dialog.getLayoutInflater();
-                int layoutId = getResources().getIdentifier(BillingManager.DIALOG_EXIT_ICONS, "layout", getPackageName());
-                View icons = inflater.inflate(layoutId, null);
-                ((ViewGroup) dialog.findViewById(R.id.dialog_icons)).addView(icons);
-            }
-
-            TextView tvTimer = dialog.findViewById(R.id.dialog_timer);
-
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    counter -= 1;
-
-                    long hours = TimeUnit.SECONDS.toHours(counter) % 24;
-                    long minutes = TimeUnit.SECONDS.toMinutes(counter) % 60;
-                    long seconds = TimeUnit.SECONDS.toSeconds(counter) % 60;
-
-                    tvTimer.setText(getString(R.string.dialog_exit_timer, hours, minutes, seconds));
-                    handler.postDelayed(this, 1000);
-                }
-            }, 1000);
-
-            dialog.findViewById(R.id.dialog_button_close).setOnClickListener(v1 -> {
-                handler.removeCallbacksAndMessages(null);
-                dialog.dismiss();
-                finish();
-                overridePendingTransition(R.anim.from_right, R.anim.to_left);
-            });
-
-            dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
-                handler.removeCallbacksAndMessages(null);
+            findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
                 dialog.dismiss();
                 manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
             });
+
+            Price price = new Price(getResources(), trialSku);
+
+            TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
+            tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
+                    price.getTrialPeriod(),
+                    price.getPriceAndCurrency(),
+                    price.getSubscriptionPeriod()));
+            dialog.show();
 
         });
         btnContinue.setOnClickListener(v -> {
@@ -374,24 +244,49 @@ public class BillingActivity extends AppCompatActivity {
         return rotate;
     }
 
-    private void loopFragments() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+    private static final int INDEX_STRING = 0;
+    private static final int INDEX_ICON = 1;
+    private static final int INDEX_BASIC = 2;
 
-                if (isFinishing() || isDestroyed())
-                    return;
-                try {
-                    if (pager.getCurrentItem() == adapter.getItemCount() - 1) {
-                        pager.setCurrentItem(0);
-                    } else {
-                        pager.setCurrentItem(pager.getCurrentItem() + 1);
-                    }
-                } catch (IllegalArgumentException | IllegalStateException e) {
-                    return;
-                }
-                handler.postDelayed(this, 2000);
-            }
-        }, 2000);
+    private void setFeatures() {
+
+        int[] attrs = new int[] { R.attr.billing_features };
+        TypedArray a = obtainStyledAttributes(attrs);
+        int id = a.getResourceId(0 , 0);
+
+        a.recycle();
+
+        if (id == 0)
+            return;
+
+        TypedArray features = getResources().obtainTypedArray(id);
+
+        if (features == null)
+            return;
+
+        for (int i = 0; i < features.length(); i++) {
+
+            int featureId = features.getResourceId(i, 0);
+
+            TypedArray feature = getResources().obtainTypedArray(featureId);
+
+            String featureName = feature.getString(INDEX_STRING);
+            Drawable featureIcon = feature.getDrawable(INDEX_ICON);
+            boolean featureBasic = feature.getBoolean(INDEX_BASIC, false);
+
+            View item = getLayoutInflater().inflate(R.layout.billing_feature, null);
+            ((TextView) item.findViewById(R.id.txt_feature_name)).setText(featureName);
+            ((ImageView) item.findViewById(R.id.img_icon)).setImageDrawable(featureIcon);
+            ((ImageView) item.findViewById(R.id.img_basic)).setImageDrawable(
+                    featureBasic ? AppCompatResources.getDrawable(this, R.drawable.check)
+                            : AppCompatResources.getDrawable(this, R.drawable.basic_none)
+            );
+
+            featuresContainer.addView(item);
+
+            feature.recycle();
+        }
+
+        features.recycle();
     }
 }

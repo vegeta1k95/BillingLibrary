@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="btn_continue">CONTINUE</string>
-    <string name="txt_trial_title">Free For New Users</string>
-    <string name="txt_trial_body">Special free trial just for new users. No charge. You can\ncancel anytime.</string>
-
     <plurals name="days">
         <item quantity="one">%d-Day</item>
         <item quantity="two">%d-Days</item>
@@ -39,50 +35,33 @@
     <string name="month">Month</string>
     <string name="year">Year</string>
 
-    <plurals name="daily">
-        <item quantity="one">%d-day</item>
-        <item quantity="two">%d-days</item>
-        <item quantity="other">%d-days</item>
-    </plurals>
+    <string name="btn_continue">CONTINUE</string>
 
-    <plurals name="weekly">
-        <item quantity="one">%d-week</item>
-        <item quantity="two">%d-weeks</item>
-        <item quantity="other">%d-weeks</item>
-    </plurals>
+    <string name="txt_trial_title">%1$s free version</string>
+    <string name="txt_trial_descr">Then %1$s per %2$s</string>
+    <string name="txt_trial_disclaimer">This enables a %1$s free trial. Then extends to an auto-renewable %2$s subscription for %3$s (only %4$s per %5$s). During the free trial, no money will be charged. Cancel anytime.</string>
 
-    <plurals name="monthly">
-        <item quantity="one">%d-month</item>
-        <item quantity="two">%d-months</item>
-        <item quantity="other">%d-months</item>
-    </plurals>
-
-    <plurals name="yearly">
-        <item quantity="one">%d-year</item>
-        <item quantity="two">%d-years</item>
-        <item quantity="other">%d-years</item>
-    </plurals>
-
-    <string name="txt_premium_period">%1$s subscription offer:</string>
-    <string name="txt_premium_subperiod">%1$s</string>
-
-    <string name="txt_premium_disclaimer">This enables a %1$s subscription for %2$s (only %3$s per %4$s). You can cancel anytime!</string>
-    <string name="txt_trial_disclaimer">This enables a %1$s free trial. Then extends to a %2$s subscription for %3$s (only %4$s per %5$s). During the free trial, no money will be charged. Cancel anytime.</string>
+    <string name="txt_premium_title">%1$s premium</string>
+    <string name="txt_premium_descr">Total %1$s per %2$s</string>
+    <string name="txt_premium_price_period">per %1$s</string>
+    <string name="txt_premium_disclaimer">This enables an auto-renewable %1$s subscription for %2$s (only %3$s per %4$s). You can cancel anytime!</string>
 
     <string name="dialog_exit_timer_start">Offer ends in 24:00:00</string>
     <string name="dialog_exit_timer">Offer ends in %1$d:%2$d:%3$d</string>
     <string name="dialog_exit_btn_ok">TRY FREE</string>
     <string name="dialog_exit_title">Really want to quit\nFree Trial?</string>
     <string name="dialog_exit_body">Premium features below are FREE to\nTRY now. You can CANCEL ANYTIME!</string>
+    <string name="dialog_disclaimer">The offer includes an auto-renewable subscription. The first %1$s are free, then it will be charged %2$s per %3$s</string>
 
     <string name="purchase_done">You have been subscribed!</string>
     <string name="purchase_fail">Something went wrong…</string>
 
-    <string name="rate_us_title">Did you like the app?</string>
-    <string name="rate_us_body">Let us know what you think</string>
-    <string name="rate_us_hint">Best thanks to us</string>
-    <string name="rate_us_thanks">Thanks for feedback!</string>
-    <string name="rate_us_later">Later</string>
-    <string name="rate_us_rate">Rate</string>
+    <string name="unlock_all_features">Unlock All Features</string>
+    <string name="trial_version">TRIAL VERSION</string>
+    <string name="great_price">GREAT PRICE</string>
+    <string name="best_choice">BEST CHOICE</string>
+    <string name="limited_offer">Limited offer</string>
+    <string name="premium">PREMIUM</string>
+    <string name="basic">BASIC</string>
 
 </resources>
