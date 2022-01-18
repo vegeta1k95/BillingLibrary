@@ -41,13 +41,13 @@
 
     <string name="txt_premium_title">%1$s премиум</string>
 
-    <string name="txt_premium_disclaimer">Это включает подписку %1$s на %2$s (только %3$s на %4$s). Вы можете отменить в любое время!</string>
-    <string name="txt_trial_disclaimer">Это позволяет использовать бесплатную пробную версию %1$s. Затем распространяется на подписку %2$s для %3$s (только %4$s на %5$s). Во время бесплатного пробного периода деньги не взимаются. Отменить в любое время.</string>
+    <string name="txt_premium_disclaimer">Это включает подписку на %1$s за %2$s (только %3$s за %4$s). Вы можете отменить в любое время!</string>
+    <string name="txt_trial_disclaimer">Это позволяет использовать бесплатную пробную версию %1$s. Затем распространяется на автоматическую подписку на %2$s за %3$s (только %4$s назза %5$s). Во время бесплатного пробного периода деньги не взимаются. Можно отменить в любое время.</string>
 
     <string name="dialog_exit_timer_start">Предложение заканчивается 24:00:00</string>
     <string name="dialog_exit_timer">Предложение заканчивается %1$d:%2$d:%3$d</string>
     <string name="dialog_exit_btn_ok">ПОПРОБУЙ БЕСПЛАТНО</string>
-    <string name="dialog_exit_title">Действительно хотите пропустить\nБесплатная пробная версия?</string>
+    <string name="dialog_exit_title">Действительно хотите пропустить\nбесплатную пробную версию?</string>
     <string name="dialog_exit_body">Премиум-функции, указанные ниже, можно БЕСПЛАТНО\nПОПРОБОВАТЬ прямо сейчас. ВЫ МОЖЕТЕ ОТМЕНИТЬ В ЛЮБОЕ ВРЕМЯ!</string>
 
     <string name="purchase_done">Вы подписаны!</string>
@@ -55,9 +55,9 @@
 
     <string name="txt_trial_title">%1$s бесплатная версия</string>
     <string name="txt_trial_descr">Затем %1$s за %2$s</string>
-    <string name="txt_premium_descr">Всего %1$s на %2$s</string>
+    <string name="txt_premium_descr">Всего %1$s за %2$s</string>
     <string name="txt_premium_price_period">за %1$s</string>
 
-    <string name="dialog_disclaimer">Предложение включает в себя автоматически продлеваемую подписку. Первые %1$d дней бесплатны, затем будет взиматься плата в размере %3$s за каждый %2$s.</string>
+    <string name="dialog_disclaimer">Предложение включает в себя автоматически продлеваемую подписку. Первые %1$s бесплатны, затем будет взиматься плата в размере %2$s за каждый %3$s.</string>
 
 </resources>

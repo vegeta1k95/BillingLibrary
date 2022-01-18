@@ -48,6 +48,6 @@
     <string name="txt_premium_descr">%2$s당 총 %1$s</string>
     <string name="txt_premium_price_period">%1$s당</string>
 
-    <string name="dialog_disclaimer">제안에는 자동 갱신 구독이 포함됩니다. 처음 %1$d일은 무료이며 이후에는 %2$s당 %3$s가 청구됩니다.</string>
+    <string name="dialog_disclaimer">제안에는 자동 갱신 구독이 포함됩니다. 처음 %1$s일은 무료이며 이후에는 %3$s당 %2$s가 청구됩니다.</string>
 
 </resources>

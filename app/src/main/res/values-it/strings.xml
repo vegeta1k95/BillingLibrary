@@ -52,6 +52,6 @@
     <string name="txt_premium_descr">Totale %1$s per %2$s</string>
     <string name="txt_premium_price_period">per %1$s</string>
 
-    <string name="dialog_disclaimer">L\'offerta include un abbonamento con rinnovo automatico. I primi %1$d giorni sono gratuiti, quindi verranno addebitati %3$s ogni %2$s</string>
+    <string name="dialog_disclaimer">L\'offerta include un abbonamento con rinnovo automatico. I primi %1$s giorni sono gratuiti, quindi verranno addebitati %2$s ogni %3$s</string>
 
 </resources>

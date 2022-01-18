@@ -53,6 +53,6 @@
     <string name="txt_premium_descr">%2$s başına toplam %1$s</string>
     <string name="txt_premium_price_period">%1$s başına</string>
 
-    <string name="dialog_disclaimer">Teklif, otomatik olarak yenilenebilir bir abonelik içerir. İlk %1$d gün ücretsizdir, ardından %2$s başına %3$s ücretlendirilir</string>
+    <string name="dialog_disclaimer">Teklif, otomatik olarak yenilenebilir bir abonelik içerir. İlk %1$s ücretsizdir, ardından %3$s başına %2$s ücretlendirilir</string>
 
 </resources>

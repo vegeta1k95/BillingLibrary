@@ -48,6 +48,6 @@
     <string name="txt_premium_descr">Tổng cộng %1$s mỗi %2$s</string>
     <string name="txt_premium_price_period">mỗi %1$s</string>
 
-    <string name="dialog_disclaimer">Ưu đãi bao gồm đăng ký tự động gia hạn. Người đầu tiên %1$d ngày miễn phí, sau đó nó sẽ được tính phí %3$s mỗi %2$s</string>
+    <string name="dialog_disclaimer">Ưu đãi bao gồm đăng ký tự động gia hạn. Người đầu tiên %1$s miễn phí, sau đó nó sẽ được tính phí %3$s mỗi %2$s</string>
 
 </resources>

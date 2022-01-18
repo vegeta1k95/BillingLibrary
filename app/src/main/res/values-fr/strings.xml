@@ -53,6 +53,6 @@
     <string name="txt_premium_descr">Total %1$s par %2$s</string>
     <string name="txt_premium_price_period">par %1$s</string>
 
-    <string name="dialog_disclaimer">L\'offre comprend un abonnement auto-renouvelable. Les %1$d premiers jours sont gratuits, puis ils seront facturés %3$s par %2$s</string>
+    <string name="dialog_disclaimer">L\'offre comprend un abonnement auto-renouvelable. Les %1$s premiers sont gratuits, puis ils seront facturés %2$s par %3$s</string>
 
 </resources>

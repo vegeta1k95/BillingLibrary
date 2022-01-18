@@ -53,6 +53,6 @@
     <string name="txt_premium_descr">Total %1$s por %2$s</string>
     <string name="txt_premium_price_period">per %1$s</string>
 
-    <string name="dialog_disclaimer">La oferta incluye una suscripción auto renovable. Los primeros %1$d días son gratis, luego se cobrará %3$s por %2$s</string>
+    <string name="dialog_disclaimer">La oferta incluye una suscripción auto renovable. Los primeros %1$s son gratis, luego se cobrará %2$s por %3$s</string>
 
 </resources>

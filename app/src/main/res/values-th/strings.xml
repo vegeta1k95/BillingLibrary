@@ -48,6 +48,6 @@
     <string name="txt_premium_descr">รวม %1$s ต่อ %2$s</string>
     <string name="txt_premium_price_period">ต่อ %1$s</string>
 
-    <string name="dialog_disclaimer">ข้อเสนอนี้รวมถึงการสมัครสมาชิกแบบต่ออายุอัตโนมัติ ฟรี %1$d วันแรก จากนั้นจะเรียกเก็บเงิน %3$s ต่อ %2$s</string>
+    <string name="dialog_disclaimer">ข้อเสนอนี้รวมถึงการสมัครสมาชิกแบบต่ออายุอัตโนมัติ ฟรี %1$s วันแรก จากนั้นจะเรียกเก็บเงิน %2$s ต่อ %3$s</string>
 
 </resources>
