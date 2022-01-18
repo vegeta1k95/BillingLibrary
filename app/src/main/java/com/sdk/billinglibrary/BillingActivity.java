@@ -289,7 +289,8 @@ public class BillingActivity extends AppCompatActivity {
 
             TypedArray feature = getResources().obtainTypedArray(featureId);
 
-            String featureName = feature.getString(INDEX_STRING);
+            int featureNameId = feature.getResourceId(INDEX_STRING, 0);
+            String featureName = getString(featureNameId);
             Drawable featureIcon = feature.getDrawable(INDEX_ICON);
             boolean featureBasic = feature.getBoolean(INDEX_BASIC, false);
 
