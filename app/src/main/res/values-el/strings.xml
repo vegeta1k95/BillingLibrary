@@ -47,7 +47,7 @@
     <string name="purchase_done">Έχετε εγγραφεί!</string>
     <string name="purchase_fail">Κάτι πήγε στραβά…</string>
 
-    <string name="txt_trial_title">%1$d ημέρες δωρεάν έκδοση</string>
+    <string name="txt_trial_title">%1$s δωρεάν έκδοση</string>
     <string name="txt_trial_descr">Στη συνέχεια, %1$s ανά %2$s</string>
     <string name="txt_premium_descr">Σύνολο %1$s ανά %2$s</string>
     <string name="txt_premium_price_period">ανά %1$s</string>

@@ -51,7 +51,7 @@
     <string name="purchase_done">لقد تم اشتراكك!</string>
     <string name="purchase_fail">هناك خطأ ما…</string>
 
-    <string name="txt_trial_title">%1$d أيام نسخة مجانية</string>
+    <string name="txt_trial_title">%1$s أيام نسخة مجانية</string>
     <string name="txt_trial_descr">ثم ((%1$s)) لكل ((%2$s))</string>
     <string name="txt_premium_descr">مجموع ((%1$s)) لكل ((%2$s))</string>
     <string name="txt_premium_price_period">لكل ((%1$s))</string>

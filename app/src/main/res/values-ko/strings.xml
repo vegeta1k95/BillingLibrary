@@ -43,7 +43,7 @@
     <string name="purchase_done">구독했습니다!</string>
     <string name="purchase_fail">문제가 발생했습니다…</string>
 
-    <string name="txt_trial_title">%1$d 일 무료 버전</string>
+    <string name="txt_trial_title">%1$s 일 무료 버전</string>
     <string name="txt_trial_descr">T암탉 %1$s/%2$s</string>
     <string name="txt_premium_descr">%2$s당 총 %1$s</string>
     <string name="txt_premium_price_period">%1$s당</string>

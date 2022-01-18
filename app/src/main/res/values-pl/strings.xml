@@ -53,7 +53,7 @@
     <string name="purchase_done">Zostałeś zasubskrybowany!</string>
     <string name="purchase_fail">Coś poszło nie tak…</string>
 
-    <string name="txt_trial_title">%1$d dni darmowa wersja</string>
+    <string name="txt_trial_title">%1$s darmowa wersja</string>
     <string name="txt_trial_descr">Następnie %1$s na %2$s</string>
     <string name="txt_premium_descr">Łącznie %1$s na %2$s</string>
     <string name="txt_premium_price_period">za %1$s</string>

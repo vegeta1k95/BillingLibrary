@@ -48,7 +48,7 @@
     <string name="purchase_done">شما مشترک شده اید!</string>
     <string name="purchase_fail">مشکلی پیش آمد…</string>
 
-    <string name="txt_trial_title">%1$d روز نسخه رایگان</string>
+    <string name="txt_trial_title">%1$s روز نسخه رایگان</string>
     <string name="txt_trial_descr">سپس ((%1$s)) در هر ((%2$s))</string>
     <string name="txt_premium_descr">مجموع ((%1$s)) در هر ((%2$s))</string>
     <string name="txt_premium_price_period">مطابق ((%1$s))</string>

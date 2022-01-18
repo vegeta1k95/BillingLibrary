@@ -48,7 +48,7 @@
     <string name="purchase_done">Abone oldunuz!</string>
     <string name="purchase_fail">Bir şeyler yanlış gitti…</string>
 
-    <string name="txt_trial_title">%1$d günlük ücretsiz sürüm</string>
+    <string name="txt_trial_title">%1$s ücretsiz sürüm</string>
     <string name="txt_trial_descr">Ardından %2$s başına %1$s</string>
     <string name="txt_premium_descr">%2$s başına toplam %1$s</string>
     <string name="txt_premium_price_period">%1$s başına</string>

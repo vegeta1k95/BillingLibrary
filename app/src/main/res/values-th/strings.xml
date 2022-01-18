@@ -43,7 +43,7 @@
     <string name="purchase_done">คุณได้รับการสมัครสมาชิก!</string>
     <string name="purchase_fail">อะไรบางอย่างผิดปกติ…</string>
 
-    <string name="txt_trial_title">เวอร์ชันฟรี %1$d วัน</string>
+    <string name="txt_trial_title">เวอร์ชันฟรี %1$s</string>
     <string name="txt_trial_descr">จากนั้น %1$s ต่อ %2$s</string>
     <string name="txt_premium_descr">รวม %1$s ต่อ %2$s</string>
     <string name="txt_premium_price_period">ต่อ %1$s</string>

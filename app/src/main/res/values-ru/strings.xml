@@ -53,7 +53,7 @@
     <string name="purchase_done">Вы подписаны!</string>
     <string name="purchase_fail">Что-то пошло не так…</string>
 
-    <string name="txt_trial_title">%1$d дней бесплатная версия</string>
+    <string name="txt_trial_title">%1$s бесплатная версия</string>
     <string name="txt_trial_descr">Затем %1$s за %2$s</string>
     <string name="txt_premium_descr">Всего %1$s на %2$s</string>
     <string name="txt_premium_price_period">за %1$s</string>

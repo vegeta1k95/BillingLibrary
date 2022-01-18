@@ -43,7 +43,7 @@
     <string name="purchase_done">Bạn đã được đăng ký!</string>
     <string name="purchase_fail">Đã xảy ra lỗi…</string>
 
-    <string name="txt_trial_title">%1$d ngày phiên bản miễn phí</string>
+    <string name="txt_trial_title">%1$s phiên bản miễn phí</string>
     <string name="txt_trial_descr">sau đó %1$s mỗi %2$s</string>
     <string name="txt_premium_descr">Tổng cộng %1$s mỗi %2$s</string>
     <string name="txt_premium_price_period">mỗi %1$s</string>

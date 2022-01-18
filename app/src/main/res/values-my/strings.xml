@@ -43,7 +43,7 @@
     <string name="purchase_done">စာရင်းသွင်းပြီးပါပြီ။</string>
     <string name="purchase_fail">တစ်ခုခုမှားသွားသည်…</string>
 
-    <string name="txt_trial_title">%1$d အခမဲ့ဗားရှင်း</string>
+    <string name="txt_trial_title">%1$s အခမဲ့ဗားရှင်း</string>
     <string name="txt_trial_descr">ထို့နောက် %2$s လျှင် %1$s</string>
     <string name="txt_premium_descr">စုစုပေါင်း %1$s %2$s နှုန်း</string>
     <string name="txt_premium_price_period">နှုန်း %1$s</string>

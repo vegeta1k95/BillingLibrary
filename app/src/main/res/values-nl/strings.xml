@@ -48,7 +48,7 @@
     <string name="purchase_done">Je bent geabonneerd!</string>
     <string name="purchase_fail">Er is iets fout gegaan…</string>
 
-    <string name="txt_trial_title">%1$d dagen gratis versie</string>
+    <string name="txt_trial_title">%1$s gratis versie</string>
     <string name="txt_trial_descr">Dan %1$s per %2$s</string>
     <string name="txt_premium_descr">Totaal %1$s per %2$s</string>
     <string name="txt_premium_price_period">per %1$s</string>

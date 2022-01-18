@@ -48,7 +48,7 @@
     <string name="purchase_done">Vous avez été abonné !</string>
     <string name="purchase_fail">Quelque chose s\'est mal passé…</string>
 
-    <string name="txt_trial_title">%1$d jours version gratuite</string>
+    <string name="txt_trial_title">%1$s version gratuite</string>
     <string name="txt_trial_descr">Puis %1$s par %2$s</string>
     <string name="txt_premium_descr">Total %1$s par %2$s</string>
     <string name="txt_premium_price_period">par %1$s</string>
