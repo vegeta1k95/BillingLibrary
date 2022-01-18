@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/layout/activity_billing.xml" value="0.20885416666666667" />
+        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/drawable/btn_main.xml" value="0.225" />
+        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/drawable/btn_oval.xml" value="0.33611111111111114" />
+        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/drawable/card_selector.xml" value="0.225" />
+        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/drawable/checkbox_choice.xml" value="0.225" />
+        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/drawable/dialog_shape.xml" value="0.225" />
+        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/layout/activity_billing.xml" value="0.25" />
         <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/layout/activity_on_board.xml" value="0.20885416666666667" />
-        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/layout/dialog_exit_trial.xml" value="0.20885416666666667" />
+        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/layout/billing_feature.xml" value="0.5" />
+        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/layout/dialog_exit_trial.xml" value="0.33" />
         <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/layout/rate_us.xml" value="0.20885416666666667" />
       </map>
     </option>

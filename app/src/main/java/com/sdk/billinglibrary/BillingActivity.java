@@ -24,7 +24,7 @@ import com.google.firebase.FirebaseApp;
 import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
 import com.sdk.billinglibrary.interfaces.ISkuListener;
 
-class BillingActivity extends AppCompatActivity {
+public class BillingActivity extends AppCompatActivity {
 
     private final IOnPurchaseListener onPurchaseListener = new IOnPurchaseListener() {
         @Override
