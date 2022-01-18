@@ -179,13 +179,32 @@ public class BillingActivity extends AppCompatActivity {
         }));
     }
 
+    @Override
+    public void onBackPressed() {
+        final ExitDialog dialog = new ExitDialog(this);
+
+        dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
+            dialog.dismiss();
+            manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
+        });
+
+        Price price = new Price(getResources(), trialSku);
+
+        TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
+        tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
+                price.getTrialPeriod(),
+                price.getPriceAndCurrency(),
+                price.getSubscriptionPeriod()));
+        dialog.show();
+    }
+
     private void setButtons() {
 
         btnClose.setOnClickListener(v -> {
 
             final ExitDialog dialog = new ExitDialog(this);
 
-            findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
+            dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
                 dialog.dismiss();
                 manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
             });
@@ -274,16 +293,14 @@ public class BillingActivity extends AppCompatActivity {
             Drawable featureIcon = feature.getDrawable(INDEX_ICON);
             boolean featureBasic = feature.getBoolean(INDEX_BASIC, false);
 
-            View item = getLayoutInflater().inflate(R.layout.billing_feature, null);
+            View item = getLayoutInflater().inflate(R.layout.billing_feature, featuresContainer, false);
             ((TextView) item.findViewById(R.id.txt_feature_name)).setText(featureName);
             ((ImageView) item.findViewById(R.id.img_icon)).setImageDrawable(featureIcon);
             ((ImageView) item.findViewById(R.id.img_basic)).setImageDrawable(
                     featureBasic ? AppCompatResources.getDrawable(this, R.drawable.check)
                             : AppCompatResources.getDrawable(this, R.drawable.basic_none)
             );
-
             featuresContainer.addView(item);
-
             feature.recycle();
         }
 

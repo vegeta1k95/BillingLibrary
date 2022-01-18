@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_continue">استمر</string>
+
+    <plurals name="days">
+        <item quantity="one">%d-يوم</item>
+        <item quantity="two">%d-أيام</item>
+        <item quantity="other">%d-أيام</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="one">%d-يوم</item>
+        <item quantity="two">%d-أيام</item>
+        <item quantity="other">%d-أيام</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="one">%d-أسبوع</item>
+        <item quantity="two">%d-أسابيع</item>
+        <item quantity="other">%d-أسابيع</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="one">%d-شهر</item>
+        <item quantity="two">%d-شهور</item>
+        <item quantity="other">%d-شهور</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="one">%d-عام</item>
+        <item quantity="two">%d-سنين</item>
+        <item quantity="other">%d-سنين</item>
+    </plurals>
+
+    <string name="day">يوم</string>
+    <string name="week">أسبوع</string>
+    <string name="month">شهر</string>
+    <string name="year">Year</string>
+
+    <string name="txt_premium_title">%1$s الممتازة</string>
+
+    <string name="txt_premium_disclaimer"> ل (%1$s)  هذا يتيح أ (%2$s) (فقط (%3$s) لكل (%4$s)). يمكنك الإلغاء في أي وقت!</string>
+    <string name="txt_trial_disclaimer">يتيح هذا الإصدار التجريبي المجاني لـ  (%1$s). (%2$s) يمتد بعد ذلك إلى اشتراك (%3$s) (%4$s فقط لكل (%5$s)). خلال الفترة التجريبية المجانية ، لن يتم تحصيل أي أموال. يمكنك الإلغاء في أي وقت.</string>
+
+    <string name="dialog_exit_timer_start">العرض ينتهي في 24:00:00</string>
+    <string name="dialog_exit_timer"> العرض ينتهي في (%1$d:%2$d:%3$d)</string>
+    <string name="dialog_exit_btn_ok">حاول مجانا</string>
+    <string name="dialog_exit_title">هل تريد حقًا إنهاء\n الإصدار التجريبي المجاني؟</string>
+    <string name="dialog_exit_body">الميزات المميزة أدناه مجانية\n المحاولة الآن. يمكنك الإلغاء في أي وقت!</string>
+
+    <string name="purchase_done">لقد تم اشتراكك!</string>
+    <string name="purchase_fail">هناك خطأ ما…</string>
+
+    <string name="txt_trial_title">%1$d أيام نسخة مجانية</string>
+    <string name="txt_trial_descr">ثم ((%1$s)) لكل ((%2$s))</string>
+    <string name="txt_premium_descr">مجموع ((%1$s)) لكل ((%2$s))</string>
+    <string name="txt_premium_price_period">لكل ((%1$s))</string>
+
+    <string name="dialog_disclaimer"> يشمل العرض اشتراكًا قابل للتجديد التلقائي. T الأولt ((%1$d) أيام مجانية ، ثم سيتم تحصيلها ((%3$s))) لكل (%2$s)</string>
+    <string name="unlock_all_features"> فتح جميع الميزات </string>
+
+
+</resources>

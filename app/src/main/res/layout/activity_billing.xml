@@ -25,13 +25,14 @@
 
         <ImageView
             android:id="@+id/btn_close"
+            android:padding="@dimen/_10sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_25sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
             android:src="@drawable/close"
             app:tint="#787878" />
 
@@ -149,11 +150,24 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/_15sdp">
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/txt_progress_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_5sdp"
+                app:shimmer_auto_start="true"
+                app:shimmer_clip_to_children="true"
+                app:shimmer_direction="left_to_right"
+                app:shimmer_repeat_mode="restart"
+                app:shimmer_duration="1500"
+                app:shimmer_base_alpha="100"
+                app:shimmer_intensity="0"
+                app:shimmer_highlight_alpha="0">
+
             <LinearLayout
                 android:id="@+id/card_trial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_5sdp"
                 android:background="@drawable/card_selector"
                 android:orientation="horizontal"
                 android:padding="@dimen/_10sdp">
@@ -258,6 +272,8 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
             <LinearLayout
                 android:id="@+id/card_full"

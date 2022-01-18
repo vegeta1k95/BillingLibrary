@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="unlock_all_features">باز کردن قفل همه ویژگی‌ها</string>
+    <string name="btn_continue">ادامه هید</string>
+
+    <plurals name="days">
+        <item quantity="one">%d-روز</item>
+        <item quantity="other">%d-روزها</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="one">%d-روز</item>
+        <item quantity="other">%d-روزها</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="one">%d-هفته</item>
+        <item quantity="other">%d-هفته ها</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="one">%d-ماه</item>
+        <item quantity="other">%d-ماه ها</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="one">%d-سال</item>
+        <item quantity="other">%d-سال ها</item>
+    </plurals>
+
+    <string name="day">روز</string>
+    <string name="week">هفته</string>
+    <string name="month">ماه</string>
+    <string name="year">سال</string>
+
+    <string name="txt_premium_title">%1$s حق بیمه</string>
+
+    <string name="txt_premium_disclaimer">این یک اشتراک ((%1$s)) را برای ((%2$s)) فعال می کند (فقط ((%3$s)) در هر ((%4$s))). شما می توانید هر زمان که بخواهید لغو کنید!</string>
+    <string name="txt_trial_disclaimer">این یک دوره آزمایشی رایگان ((%1$s)) را فعال می کند. سپس به اشتراک ((%2$s)) برای ((%3$s)) (فقط ((%4$s در %5$s))) گسترش می یابد. در طول دوره آزمایشی رایگان، هیچ هزینه ای دریافت نمی شود. هر زمان خواستید لغو کنید.</string>
+
+    <string name="dialog_exit_timer_start">پیشنهاد به پایان می رسد 24:00:00</string>
+    <string name="dialog_exit_timer">پیشنهاد به پایان می رسد (%1$d:%2$d:%3$d)</string>
+    <string name="dialog_exit_btn_ok">رایگان امتحان کنید</string>
+    <string name="dialog_exit_title">واقعاً می‌خواهید کار را ترک کنید\nآزمایی رایگان؟</string>
+    <string name="dialog_exit_body">ویژگی‌های ممتاز زیر اکنون می‌توانید\nرایگان را امتحان کنید. هرزمان خواستید می توانید لغو کنید!</string>
+
+    <string name="purchase_done">شما مشترک شده اید!</string>
+    <string name="purchase_fail">مشکلی پیش آمد…</string>
+
+    <string name="txt_trial_title">%1$d روز نسخه رایگان</string>
+    <string name="txt_trial_descr">سپس ((%1$s)) در هر ((%2$s))</string>
+    <string name="txt_premium_descr">مجموع ((%1$s)) در هر ((%2$s))</string>
+    <string name="txt_premium_price_period">مطابق ((%1$s))</string>
+
+    <string name="dialog_disclaimer">این پیشنهاد شامل یک اشتراک قابل تمدید خودکار است. اولین ((%1$d)) روز رایگان است، سپس هزینه آن ((%3$s)) در هر ((%2$s)) محاسبه می شود</string>
+
+</resources>

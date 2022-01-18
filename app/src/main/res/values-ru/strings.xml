@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="unlock_all_features">Разблокировать все функции</string>
+    <string name="btn_continue">ПРОДОЛЖИТЬ</string>
+
+    <plurals name="days">
+        <item quantity="one">%d-День</item>
+        <item quantity="two">%d-Дня</item>
+        <item quantity="other">%d-Дней</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="one">%d-День</item>
+        <item quantity="two">%d-Дня</item>
+        <item quantity="other">%d-Дней</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="one">%d-Неделя</item>
+        <item quantity="two">%d-Недели</item>
+        <item quantity="other">%d-Недели</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="one">%d-Месяц</item>
+        <item quantity="two">%d-Месяца</item>
+        <item quantity="other">%d-Месяца</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="one">%d-Год</item>
+        <item quantity="two">%d-Года</item>
+        <item quantity="other">%d-Года</item>
+    </plurals>
+
+    <string name="day">День</string>
+    <string name="week">Неделя</string>
+    <string name="month">Месяц</string>
+    <string name="year">Год</string>
+
+    <string name="txt_premium_title">%1$s премиум</string>
+
+    <string name="txt_premium_disclaimer">Это включает подписку %1$s на %2$s (только %3$s на %4$s). Вы можете отменить в любое время!</string>
+    <string name="txt_trial_disclaimer">Это позволяет использовать бесплатную пробную версию %1$s. Затем распространяется на подписку %2$s для %3$s (только %4$s на %5$s). Во время бесплатного пробного периода деньги не взимаются. Отменить в любое время.</string>
+
+    <string name="dialog_exit_timer_start">Предложение заканчивается 24:00:00</string>
+    <string name="dialog_exit_timer">Предложение заканчивается %1$d:%2$d:%3$d</string>
+    <string name="dialog_exit_btn_ok">ПОПРОБУЙ БЕСПЛАТНО</string>
+    <string name="dialog_exit_title">Действительно хотите пропустить\nБесплатная пробная версия?</string>
+    <string name="dialog_exit_body">Премиум-функции, указанные ниже, можно БЕСПЛАТНО\nПОПРОБОВАТЬ прямо сейчас. ВЫ МОЖЕТЕ ОТМЕНИТЬ В ЛЮБОЕ ВРЕМЯ!</string>
+
+    <string name="purchase_done">Вы подписаны!</string>
+    <string name="purchase_fail">Что-то пошло не так…</string>
+
+    <string name="txt_trial_title">%1$d дней бесплатная версия</string>
+    <string name="txt_trial_descr">Затем %1$s за %2$s</string>
+    <string name="txt_premium_descr">Всего %1$s на %2$s</string>
+    <string name="txt_premium_price_period">за %1$s</string>
+
+    <string name="dialog_disclaimer">Предложение включает в себя автоматически продлеваемую подписку. Первые %1$d дней бесплатны, затем будет взиматься плата в размере %3$s за каждый %2$s.</string>
+
+</resources>

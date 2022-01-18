@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="unlock_all_features">Desbloquear todos os recursos</string>
+    <string name="btn_continue">PROSSEGUIR</string>
+
+    <plurals name="days">
+        <item quantity="one">%d-Dia</item>
+        <item quantity="other">%d-Dias</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="one">%d-Dia</item>
+        <item quantity="other">%d-Dias</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="one">%d-Semana</item>
+        <item quantity="other">%d-Semanas</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="one">%d-Mês</item>
+        <item quantity="other">%d-Meses</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="one">%d-Ano</item>
+        <item quantity="other">%d-Anos</item>
+    </plurals>
+
+    <string name="day">Dia</string>
+    <string name="week">Semana</string>
+    <string name="month">Mês</string>
+    <string name="year">Anor</string>
+
+    <string name="txt_premium_title">%1$s Prêmio</string>
+
+    <string name="txt_premium_disclaimer">Isso permite uma assinatura de %1$s para %2$s (somente %3$s por %4$s). Você pode cancelar a qualquer momento!</string>
+    <string name="txt_trial_disclaimer">Isso permite uma avaliação gratuita de %1$s. Em seguida, estende-se a uma assinatura de %2$s para %3$s (apenas %4$s por %5$s). Durante o teste gratuito, nenhum dinheiro será cobrado. Cancele a qualquer momento.</string>
+
+    <string name="dialog_exit_timer_start">A oferta termina em 24:00:00</string>
+    <string name="dialog_exit_timer">A oferta termina em %1$d:%2$d:%3$d</string>
+    <string name="dialog_exit_btn_ok">TESTE GRÁTIS</string>
+    <string name="dialog_exit_title">Deseja realmente sair\nAvaliação Gratuita?</string>
+    <string name="dialog_exit_body">Os recursos premium abaixo são GRATUITOS para\nExperimentar agora. Você pode CANCELAR A QUALQUER MOMENTO!</string>
+
+    <string name="purchase_done">Você foi inscrito!</string>
+    <string name="purchase_fail">Algo deu errado…</string>
+
+    <string name="txt_trial_title">Versão gratuita de %1$d dias</string>
+    <string name="txt_trial_descr">Em seguida, %1$s por %2$s</string>
+    <string name="txt_premium_descr">Total de %1$s por %2$s</string>
+    <string name="txt_premium_price_period">por %1$s</string>
+
+    <string name="dialog_disclaimer">A oferta inclui uma assinatura auto-renovável. Os primeiros %1$d dias são gratuitos, depois serão cobrados %3$s por %2$s</string>
+
+</resources>

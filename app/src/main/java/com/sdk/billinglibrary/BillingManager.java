@@ -98,6 +98,7 @@ class BillingManager implements BillingClientStateListener,
     public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
         if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
             acknowledgePurchases(list);
+            Log.d(LOG_TAG, "Purchases are acknowledged!");
         } else {
             Log.d(LOG_TAG, "Failed to query purchases: "
                     + billingResult.getResponseCode() + " | "

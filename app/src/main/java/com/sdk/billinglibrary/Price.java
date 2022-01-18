@@ -26,7 +26,7 @@ public class Price {
     }
 
     public String getPriceAndCurrency() {
-        return mCurrencyCode + String.format(Locale.getDefault(), "%.2f", mPriceCurrency);
+        return mCurrencyCode + String.format(Locale.getDefault(), " %.2f", mPriceCurrency);
     }
 
     public String getTrialPeriod() {
@@ -55,13 +55,13 @@ public class Price {
 
     public String getTotalPriceAndCurrency() {
         if (mSubscriptionPeriod.years > 0)  // PER MONTH
-            return mCurrencyCode + String.format(Locale.getDefault(), "%.2f", mPriceCurrency / (12 * mSubscriptionPeriod.years));
+            return mCurrencyCode + String.format(Locale.getDefault(), " %.2f", mPriceCurrency / (12 * mSubscriptionPeriod.years));
         else if (mSubscriptionPeriod.months > 0) // PER WEEK
-            return mCurrencyCode + String.format(Locale.getDefault(), "%.2f", mPriceCurrency / (4.35 * mSubscriptionPeriod.months));
+            return mCurrencyCode + String.format(Locale.getDefault(), " %.2f", mPriceCurrency / (4.35 * mSubscriptionPeriod.months));
         else if (mSubscriptionPeriod.weeks > 0) // PER MONTH
-            return mCurrencyCode + String.format(Locale.getDefault(), "%.2f", mPriceCurrency  * 4.35 / mSubscriptionPeriod.years);
+            return mCurrencyCode + String.format(Locale.getDefault(), " %.2f", mPriceCurrency  * 4.35 / mSubscriptionPeriod.weeks);
         else if (mSubscriptionPeriod.days > 0) // PER WEEK
-            return mCurrencyCode + String.format(Locale.getDefault(), "%.2f", mPriceCurrency * 7 / mSubscriptionPeriod.days);
+            return mCurrencyCode + String.format(Locale.getDefault(), " %.2f", mPriceCurrency * 7 / mSubscriptionPeriod.days);
         return "";
     }
 

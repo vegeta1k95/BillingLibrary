@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="unlock_all_features">Tüm Özelliklerin Kilidini Açın</string>
+    <string name="btn_continue">DEVAM ET</string>
+
+    <plurals name="days">
+        <item quantity="one">%d-Gün</item>
+        <item quantity="other">%d-günler</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="one">%d-Gün</item>
+        <item quantity="other">%d-günler</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="one">%d-Hafta</item>
+        <item quantity="other">%d-Haftalar</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="one">%d-Ay</item>
+        <item quantity="other">%d-ay</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="one">%d-Yıl</item>
+        <item quantity="other">%d-yıllar</item>
+    </plurals>
+
+    <string name="day">Gün</string>
+    <string name="week">Hafta</string>
+    <string name="month">Ay</string>
+    <string name="year">Yıl</string>
+
+    <string name="txt_premium_title">%1$s ödül</string>
+
+    <string name="txt_premium_disclaimer">Bu, %2$s için %1$s aboneliğini etkinleştirir (%4$s başına yalnızca %3$s). İstediğiniz zaman iptal edebilirsiniz!</string>
+    <string name="txt_trial_disclaimer">Bu, %1$s ücretsiz deneme sürümünü etkinleştirir. Ardından %3$s için %2$s aboneliğine kadar genişletilir (%5$s başına yalnızca %4$s). Ücretsiz deneme süresi boyunca herhangi bir ücret talep edilmeyecektir. İstediğiniz zaman iptal edin.</string>
+
+    <string name="dialog_exit_timer_start">Teklif 24:00:00\'da sona eriyor</string>
+    <string name="dialog_exit_timer">Teklif %1$d:%2$d:%3$d içinde sona eriyor</string>
+    <string name="dialog_exit_btn_ok">ÜCRETSİZ DENEYİN</string>
+    <string name="dialog_exit_title">Gerçekten\nÜcretsiz Denemeden çıkmak istiyor musunuz?</string>
+    <string name="dialog_exit_body">Aşağıdaki premium özellikler ÜCRETSİZ\nŞİMDİ DENEYİN. HER ZAMAN İPTAL EDEBİLİRSİNİZ!</string>
+
+    <string name="purchase_done">Abone oldunuz!</string>
+    <string name="purchase_fail">Bir şeyler yanlış gitti…</string>
+
+    <string name="txt_trial_title">%1$d günlük ücretsiz sürüm</string>
+    <string name="txt_trial_descr">Ardından %2$s başına %1$s</string>
+    <string name="txt_premium_descr">%2$s başına toplam %1$s</string>
+    <string name="txt_premium_price_period">%1$s başına</string>
+
+    <string name="dialog_disclaimer">Teklif, otomatik olarak yenilenebilir bir abonelik içerir. İlk %1$d gün ücretsizdir, ardından %2$s başına %3$s ücretlendirilir</string>
+
+</resources>

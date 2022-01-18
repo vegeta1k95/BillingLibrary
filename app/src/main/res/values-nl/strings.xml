@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="unlock_all_features">Alle functies ontgrendelen</string>
+    <string name="btn_continue">DOORGAAN</string>
+
+    <plurals name="days">
+        <item quantity="one">%d-Dag</item>
+        <item quantity="other">%d-dagen</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="one">%d-Dag</item>
+        <item quantity="other">%d-dagen</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="one">%d-Week</item>
+        <item quantity="other">%d-Weken</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="one">%d-Maand</item>
+        <item quantity="other">%d-Maanden</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="one">%d-Jaar</item>
+        <item quantity="other">%d-jaren</item>
+    </plurals>
+
+    <string name="day">Dag</string>
+    <string name="week">Week</string>
+    <string name="month">Maand</string>
+    <string name="year">Jaar</string>
+
+    <string name="txt_premium_title">%1$s premie</string>
+
+    <string name="txt_premium_disclaimer">Dit maakt een %1$s-abonnement mogelijk voor %2$s (alleen %3$s per %4$s). U kunt op elk moment annuleren!</string>
+    <string name="txt_trial_disclaimer">Dit maakt een gratis proefperiode van %1$s mogelijk. Wordt vervolgens uitgebreid tot een %2$s-abonnement voor %3$s (alleen %4$s per %5$s). Tijdens de gratis proefperiode wordt er geen geld in rekening gebracht. Annuleer op elk moment.</string>
+
+    <string name="dialog_exit_timer_start">Aanbieding eindigt over 24:00:00</string>
+    <string name="dialog_exit_timer">Aanbieding eindigt over %1$d:%2$d:%3$d</string>
+    <string name="dialog_exit_btn_ok">PROBEER GRATIS</string>
+    <string name="dialog_exit_title">Wil je echt stoppen\nGratis proefversie?</string>
+    <string name="dialog_exit_body">Premium-functies hieronder zijn GRATIS om\nPROBEER het nu. U kunt ALTIJD ANNULEREN!</string>
+
+    <string name="purchase_done">Je bent geabonneerd!</string>
+    <string name="purchase_fail">Er is iets fout gegaan…</string>
+
+    <string name="txt_trial_title">%1$d dagen gratis versie</string>
+    <string name="txt_trial_descr">Dan %1$s per %2$s</string>
+    <string name="txt_premium_descr">Totaal %1$s per %2$s</string>
+    <string name="txt_premium_price_period">per %1$s</string>
+
+    <string name="dialog_disclaimer">De aanbieding omvat een automatisch verlengbaar abonnement. De eerste %1$d dagen zijn gratis, daarna wordt %3$s per %2$s in rekening gebracht</string>
+
+</resources>

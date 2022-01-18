@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="days">
+        <item quantity="one">%d-Ημέρα</item>
+        <item quantity="other">%d-Ημέρες</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="one">%d-Ημέρα</item>
+        <item quantity="other">%d-Ημέρες</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="one">%d-Εβδομάδα</item>
+        <item quantity="other">%d-Εβδομάδες</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="one">%d-Μήνας</item>
+        <item quantity="other">%d-Μήνες</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="one">%d-Ετος</item>
+        <item quantity="other">%d-Χρόνια</item>
+    </plurals>
+
+    <string name="day">Ημέρα</string>
+    <string name="week">Εβδομάδα</string>
+    <string name="month">Μήνας</string>
+    <string name="year">Ετος</string>
+
+    <string name="unlock_all_features">Ξεκλείδωμα όλων των δυνατοτήτων</string>
+    <string name="btn_continue">ΝΑ ΣΥΝΕΧΙΣΕΙ</string>
+
+    <string name="txt_premium_title">%1$s ασφάλιστρο</string>
+
+    <string name="txt_premium_disclaimer">Αυτό επιτρέπει μια συνδρομή %1$s για %2$s (μόνο %3$s ανά %4$s). Μπορείτε να ακυρώσετε οποιαδήποτε στιγμή!</string>
+    <string name="txt_trial_disclaimer">Αυτό επιτρέπει μια δωρεάν δοκιμή %1$s. Στη συνέχεια επεκτείνεται σε μια συνδρομή %2$s για %3$s (μόνο %4$s ανά %5$s). Κατά τη διάρκεια της δωρεάν δοκιμής, δεν θα χρεωθούν χρήματα. Ακύρωση ανά πάσα στιγμή.</string>
+
+    <string name="dialog_exit_timer_start">Η προσφορά λήγει στις 24:00:00</string>
+    <string name="dialog_exit_timer">Η προσφορά λήγει σε %1$d:%2$d:%3$d</string>
+    <string name="dialog_exit_btn_ok">ΔΟΚΙΜΑΣΕ ΔΩΡΕΑΝ</string>
+    <string name="dialog_exit_title">Θέλετε πραγματικά να σταματήσετε\nΔωρεάν δοκιμή;</string>
+    <string name="dialog_exit_body">Οι παρακάτω λειτουργίες Premium είναι ΔΩΡΕΑΝ για να\nΔΟΚΙΜΑΣΤΕ τώρα. Μπορείτε να ΑΚΥΡΩΣΕΤΕ ΟΠΟΙΑΔΗΠΟΤΕ ΣΤΙΓΜΗ!</string>
+
+    <string name="purchase_done">Έχετε εγγραφεί!</string>
+    <string name="purchase_fail">Κάτι πήγε στραβά…</string>
+
+    <string name="txt_trial_title">%1$d ημέρες δωρεάν έκδοση</string>
+    <string name="txt_trial_descr">Στη συνέχεια, %1$s ανά %2$s</string>
+    <string name="txt_premium_descr">Σύνολο %1$s ανά %2$s</string>
+    <string name="txt_premium_price_period">ανά %1$s</string>
+
+    <string name="dialog_disclaimer">Η προσφορά περιλαμβάνει συνδρομή με δυνατότητα αυτόματης ανανέωσης. Οι πρώτες %1$d ημέρες είναι δωρεάν και, στη συνέχεια, θα χρεωθεί %3$s ανά %2$s</string>
+
+</resources>

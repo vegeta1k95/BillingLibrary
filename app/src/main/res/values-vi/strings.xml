@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name = "unlock_all_features"> Mở khóa tất cả các tính năng </string>
+    <string name="btn_continue">TIẾP TỤC</string>
+
+    <plurals name="days">
+        <item quantity="other">%d-Ngày</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="other">%d-Ngày</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="other">%d-Tuần</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="other">%d-Tháng</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="other">%d-Năm</item>
+    </plurals>
+
+    <string name="day">Ngày</string>
+    <string name="week">Tuần</string>
+    <string name="month">Tháng</string>
+    <string name="year">Năm</string>
+
+    <string name="txt_premium_title">%1$s phần thưởng</string>
+
+    <string name="txt_premium_disclaimer">Điều này cho phép một %1$s đăng ký cho %2$s (chỉ có %3$s mỗi %4$s). Bạn có thể hủy bất cứ lúc nào!</string>
+    <string name="txt_trial_disclaimer">Điều này cho phép một %1$s dùng thử miễn phí. Sau đó, mở rộng đến một %2$s đăng ký cho %3$s (chỉ có %4$s mỗi %5$s). Trong thời gian dùng thử miễn phí, bạn sẽ không bị tính phí. Hủy bất cứ lúc nào.</string>
+
+    <string name="dialog_exit_timer_start">Ưu đãi kết thúc sau 24:00:00</string>
+    <string name="dialog_exit_timer">Ưu đãi kết thúc sau %1$d:%2$d:%3$d</string>
+    <string name="dialog_exit_btn_ok">THỬ MIỄN PHÍ</string>
+    <string name="dialog_exit_title">Bạn thực sự muốn thoát\nDùng dùng thử miễn phí?</string>
+    <string name="dialog_exit_body">Các tính năng cao cấp dưới đây MIỄN PHÍ để\nHÃY THAM GIA ngay bây giờ. Bạn có thể HỦY BẤT CỨ LÚC NÀO!</string>
+
+    <string name="purchase_done">Bạn đã được đăng ký!</string>
+    <string name="purchase_fail">Đã xảy ra lỗi…</string>
+
+    <string name="txt_trial_title">%1$d ngày phiên bản miễn phí</string>
+    <string name="txt_trial_descr">sau đó %1$s mỗi %2$s</string>
+    <string name="txt_premium_descr">Tổng cộng %1$s mỗi %2$s</string>
+    <string name="txt_premium_price_period">mỗi %1$s</string>
+
+    <string name="dialog_disclaimer">Ưu đãi bao gồm đăng ký tự động gia hạn. Người đầu tiên %1$d ngày miễn phí, sau đó nó sẽ được tính phí %3$s mỗi %2$s</string>
+
+</resources>

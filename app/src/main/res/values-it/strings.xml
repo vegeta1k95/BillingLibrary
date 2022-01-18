@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="unlock_all_features">Sblocca tutte le funzionalità</string>
+    <string name="btn_continue">CONTINUA</string>
+
+    <plurals name="days">
+        <item quantity="one">%d-Giorno</item>
+        <item quantity="other">%d-Giorni</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="one">%d-Giorno</item>
+        <item quantity="other">%d-Giorni</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="one">%d-Settimana</item>
+        <item quantity="other">%d-Settimane</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="one">%d-Mese</item>
+        <item quantity="other">%d-Mesi</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="one">%d-Anno</item>
+        <item quantity="other">%d-Anni</item>
+    </plurals>
+
+    <string name="day">Giorno</string>
+    <string name="week">Settimana</string>
+    <string name="month">Mese</string>
+    <string name="year">Anno</string>
+
+    <string name="txt_premium_title">%1$s premio</string>
+    <string name="txt_premium_disclaimer">Ciò consente un abbonamento a %1$s per %2$s (solo %3$s per %4$s). Puoi annullare in qualsiasi momento!</string>
+    <string name="txt_trial_disclaimer">Ciò consente una prova gratuita di %1$s. Quindi si estende a un abbonamento %2$s per %3$s (solo %4$s per %5$s). Durante la prova gratuita, non verrà addebitato alcun importo. Annulla in qualsiasi momento.</string>
+
+    <string name="dialog_exit_timer_start">L\'offerta finisce tra 24:00:00</string>
+    <string name="dialog_exit_timer">L\'offerta finisce tra %1$d:%2$d:%3$d</string>
+    <string name="dialog_exit_btn_ok">PROVA GRATIS</string>
+    <string name="dialog_exit_title">Vuoi davvero uscire dalla\nProva gratuita?</string>
+    <string name="dialog_exit_body">Le funzionalità premium sottostanti sono GRATUITE per\nPROVARE ora. Puoi ANNULLARE IN QUALSIASI MOMENTO!</string>
+
+    <string name="purchase_done">Sei stato iscritto!</string>
+    <string name="purchase_fail">Qualcosa è andato storto…</string>
+
+    <string name="txt_trial_title">%1$d giorni versione gratuita</string>
+    <string name="txt_trial_descr">Quindi %1$s per %2$s</string>
+    <string name="txt_premium_descr">Totale %1$s per %2$s</string>
+    <string name="txt_premium_price_period">per %1$s</string>
+
+    <string name="dialog_disclaimer">L\'offerta include un abbonamento con rinnovo automatico. I primi %1$d giorni sono gratuiti, quindi verranno addebitati %3$s ogni %2$s</string>
+
+</resources>

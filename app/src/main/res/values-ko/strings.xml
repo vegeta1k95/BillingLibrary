@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="unlock_all_features">모든 기능 잠금 해제</string>
+    <string name="btn_continue">계속하다</string>
+
+    <plurals name="days">
+        <item quantity="other">%d-날</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="other">%d-날</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="other">%d-주</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="other">%d-개월</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="other">%d-연령</item>
+    </plurals>
+
+    <string name="day">낮</string>
+    <string name="week">주</string>
+    <string name="month">월</string>
+    <string name="year">년도</string>
+
+    <string name="txt_premium_title">%1$s 프리미엄</string>
+
+    <string name="txt_premium_disclaimer">이렇게 하면 %2$s에 대한 %1$s 구독이 활성화됩니다(%4$s당 %3$s만). 언제든지 취소할 수 있습니다!</string>
+    <string name="txt_trial_disclaimer">이렇게 하면 %1$s 무료 평가판이 활성화됩니다. 그런 다음 %3$s에 대한 %2$s 구독으로 확장됩니다(%5$s당 %4$s만). 무료 평가판 중에는 비용이 청구되지 않습니다. 언제든지 취소하세요.</string>
+
+    <string name="dialog_exit_timer_start">혜택은 24:00:00에 종료됩니다.</string>
+    <string name="dialog_exit_timer">제안은 %1$d:%2$d:%3$d에 종료됩니다.</string>
+    <string name="dialog_exit_btn_ok">무료로 체험하다</string>
+    <string name="dialog_exit_title">정말\n무료 평가판을 종료하시겠습니까?</string>
+    <string name="dialog_exit_body">아래의 프리미엄 기능은 지금 무료로\n사용할 수 있습니다. 언제든지 취소할 수 있습니다!</string>
+
+    <string name="purchase_done">구독했습니다!</string>
+    <string name="purchase_fail">문제가 발생했습니다…</string>
+
+    <string name="txt_trial_title">%1$d 일 무료 버전</string>
+    <string name="txt_trial_descr">T암탉 %1$s/%2$s</string>
+    <string name="txt_premium_descr">%2$s당 총 %1$s</string>
+    <string name="txt_premium_price_period">%1$s당</string>
+
+    <string name="dialog_disclaimer">제안에는 자동 갱신 구독이 포함됩니다. 처음 %1$d일은 무료이며 이후에는 %2$s당 %3$s가 청구됩니다.</string>
+
+</resources>

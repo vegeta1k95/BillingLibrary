@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="unlock_all_features">အင်္ဂါရပ်များအားလုံးကို လော့ခ်ဖွင့်ပါ</string>
+    <string name="btn_continue">ဆက်လက်</string>
+
+    <plurals name="days">
+        <item quantity="other">%d-နေ့ရက်များ</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="other">%d-နေ့ရက်များ</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="other">%d-ပတ်</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="other">%d-လများ</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="other">%d-နှစ်တွေ</item>
+    </plurals>
+
+    <string name="day">နေ့</string>
+    <string name="week">အေးလေ</string>
+    <string name="month">လ</string>
+    <string name="year">တစ်နှစ်</string>
+
+    <string name="txt_premium_title">%1$s ပရီမီယံ</string>
+
+    <string name="txt_premium_disclaimer">၎င်းသည် %2$s အတွက် %1$s စာရင်းသွင်းမှုကို ဖွင့်ပေးသည် (%4$s လျှင် %3$s သာ)။ အချိန်မရွေး ပယ်ဖျက်နိုင်သည်။</string>
+    <string name="txt_trial_disclaimer">၎င်းသည် %1$s အခမဲ့ အစမ်းသုံးမှုကို လုပ်ဆောင်ပေးသည်။ ထို့နောက် %3$s အတွက် စာရင်းသွင်းမှု %2$s (%5$s လျှင် %4$s သာ) သက်တမ်းတိုးသည်။ အခမဲ့ အစမ်းသုံးကာလအတွင်း၊ ငွေကောက်ခံမည်မဟုတ်ပါ။ အချိန်မရွေး ပယ်ဖျက်ပါ။</string>
+
+    <string name="dialog_exit_timer_start">ကမ်းလှမ်းချက်သည် 24:00:00 တွင် ပြီးဆုံးပါမည်။</string>
+    <string name="dialog_exit_timer">ကမ်းလှမ်းချက်သည် %1$d:%2$d:%3$d ဖြင့် ပြီးဆုံးပါသည်။</string>
+    <string name="dialog_exit_btn_ok">အခမဲ့ စမ်းသုံးကြည့်ပါ။</string>
+    <string name="dialog_exit_title">အခမဲ့ အစမ်းသုံး\nခြင်းမှ အမှန်တကယ် ထွက်လိုပါသလား။</string>
+    <string name="dialog_exit_body">အောက်ပါ ပရီမီယံဝန်ဆောင်မှုများကို \nယခု စမ်းသုံးကြည့်ပါ။ အချိန်မရွေး Cancel လုပ်နိုင်ပါတယ်။</string>
+
+    <string name="purchase_done">စာရင်းသွင်းပြီးပါပြီ။</string>
+    <string name="purchase_fail">တစ်ခုခုမှားသွားသည်…</string>
+
+    <string name="txt_trial_title">%1$d အခမဲ့ဗားရှင်း</string>
+    <string name="txt_trial_descr">ထို့နောက် %2$s လျှင် %1$s</string>
+    <string name="txt_premium_descr">စုစုပေါင်း %1$s %2$s နှုန်း</string>
+    <string name="txt_premium_price_period">နှုန်း %1$s</string>
+
+    <string name="dialog_disclaimer">ကမ်းလှမ်းချက်တွင် အလိုအလျောက် ပြန်လည်သက်တမ်းတိုးနိုင်သော စာရင်းသွင်းမှုတစ်ခု ပါဝင်သည်။ ပထမ %1$d ရက်သည် အခမဲ့ဖြစ်ပြီး %2$s လျှင် %3$s ကောက်ခံပါမည်</string>
+
+</resources>

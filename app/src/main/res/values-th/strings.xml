@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="unlock_all_features">ปลดล็อกคุณลักษณะทั้งหมด</string>
+    <string name="btn_continue">ดำเนินต่อ</string>
+
+    <plurals name="days">
+        <item quantity="other">%d-วัน</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="other">%d-วัน</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="other">%d-สัปดาห์</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="other">%d-เดือน</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="other">%d-ปี</item>
+    </plurals>
+
+    <string name="day">วัน</string>
+    <string name="week">สัปดาห์</string>
+    <string name="month">เดือน</string>
+    <string name="year">ปี</string>
+
+    <string name="txt_premium_title">%1$s พรีเมี่ยม</string>
+
+    <string name="txt_premium_disclaimer">ซึ่งทำให้สามารถสมัคร %1$s ได้สำหรับ %2$s (เฉพาะ %3$s ต่อ %4$s เท่านั้น) คุณสามารถยกเลิกได้ตลอดเวลา!</string>
+    <string name="txt_trial_disclaimer">ซึ่งทำให้สามารถทดลองใช้ฟรี %1$s ได้ จากนั้นขยายไปสู่การสมัครสมาชิก %2$s สำหรับ %3$s (เฉพาะ %4$s ต่อ %5$s เท่านั้น) ในระหว่างการทดลองใช้ฟรี จะไม่มีการเรียกเก็บเงินใดๆ ยกเลิกได้ตลอดเวลา</string>
+
+    <string name="dialog_exit_timer_start">ข้อเสนอสิ้นสุดใน 24:00:00 น.</string>
+    <string name="dialog_exit_timer">ข้อเสนอสิ้นสุดใน %1$d:%2$d:%3$d</string>
+    <string name="dialog_exit_btn_ok">ทดลองฟรี</string>
+    <string name="dialog_exit_title">ต้องการเลิก\nทดลองใช้ฟรีจริงหรือ</string>
+    <string name="dialog_exit_body">ฟีเจอร์พรีเมียมด้านล่างใช้งานได้ฟรี\nTRY ตอนนี้ คุณสามารถยกเลิกได้ตลอดเวลา!</string>
+
+    <string name="purchase_done">คุณได้รับการสมัครสมาชิก!</string>
+    <string name="purchase_fail">อะไรบางอย่างผิดปกติ…</string>
+
+    <string name="txt_trial_title">เวอร์ชันฟรี %1$d วัน</string>
+    <string name="txt_trial_descr">จากนั้น %1$s ต่อ %2$s</string>
+    <string name="txt_premium_descr">รวม %1$s ต่อ %2$s</string>
+    <string name="txt_premium_price_period">ต่อ %1$s</string>
+
+    <string name="dialog_disclaimer">ข้อเสนอนี้รวมถึงการสมัครสมาชิกแบบต่ออายุอัตโนมัติ ฟรี %1$d วันแรก จากนั้นจะเรียกเก็บเงิน %3$s ต่อ %2$s</string>
+
+</resources>

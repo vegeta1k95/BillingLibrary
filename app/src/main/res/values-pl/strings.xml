@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="unlock_all_features">Odblokuj wszystkie funkcje</string>
+    <string name="btn_continue">KONTYNTYNUJ</string>
+
+    <plurals name="days">
+        <item quantity="one">%d-Dzień</item>
+        <item quantity="two">%d-Dni</item>
+        <item quantity="other">%d-Dni</item>
+    </plurals>
+
+    <plurals name="days_free">
+        <item quantity="one">%d-Dzień</item>
+        <item quantity="two">%d-Dni</item>
+        <item quantity="other">%d-Dni</item>
+    </plurals>
+
+    <plurals name="weeks">
+        <item quantity="one">%d-Tydzień</item>
+        <item quantity="two">%d-Tygodnie</item>
+        <item quantity="other">%d-Tygodnie</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="one">%d-Miesiąc</item>
+        <item quantity="two">%d-Miesiące</item>
+        <item quantity="other">%d-Miesiące</item>
+    </plurals>
+
+    <plurals name="years">
+        <item quantity="one">%d-Rok</item>
+        <item quantity="two">%d-Lata</item>
+        <item quantity="other">%d-Lata</item>
+    </plurals>
+
+    <string name="day">Dzień</string>
+    <string name="week">Tydzień</string>
+    <string name="month">Miesiąc</string>
+    <string name="year">Rok</string>
+
+    <string name="txt_premium_title">%1$s premia</string>
+
+    <string name="txt_premium_disclaimer">Umożliwia to subskrypcję %1$s za %2$s (tylko %3$s na %4$s). Możesz anulować w każdej chwili!</string>
+    <string name="txt_trial_disclaimer">To włącza bezpłatny okres próbny %1$s. Następnie zostaje rozszerzona na subskrypcję %2$s za %3$s (tylko %4$s na %5$s). Podczas bezpłatnego okresu próbnego nie zostaną naliczone żadne pieniądze. Anuluj w dowolnym momencie.</string>
+
+    <string name="dialog_exit_timer_start">Oferta kończy się o 24:00:00</string>
+    <string name="dialog_exit_timer">Oferta kończy się za %1$d:%2$d:%3$d</string>
+    <string name="dialog_exit_btn_ok">SPRÓBUJ ZA DARMO</string>
+    <string name="dialog_exit_title">Naprawdę chcesz zrezygnować\nBezpłatny okres próbny?</string>
+    <string name="dialog_exit_body">Poniższe funkcje premium są BEZPŁATNE,\nWYPRÓBUJ teraz. Możesz ANULOWAĆ W KAŻDEJ CHWILI!</string>
+
+    <string name="purchase_done">Zostałeś zasubskrybowany!</string>
+    <string name="purchase_fail">Coś poszło nie tak…</string>
+
+    <string name="txt_trial_title">%1$d dni darmowa wersja</string>
+    <string name="txt_trial_descr">Następnie %1$s na %2$s</string>
+    <string name="txt_premium_descr">Łącznie %1$s na %2$s</string>
+    <string name="txt_premium_price_period">za %1$s</string>
+
+    <string name="dialog_disclaimer">Oferta obejmuje subskrypcję autoodnawialną. Pierwsze %1$d dni są bezpłatne, a następnie zostanie naliczona opłata %3$s za %2$s</string>
+
+</resources>
