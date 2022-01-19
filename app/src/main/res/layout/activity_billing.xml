@@ -425,9 +425,8 @@
             android:fontFamily="@font/gilroy_regular"
             android:gravity="center_horizontal"
             android:text="@string/txt_premium_disclaimer"
-            android:textColor="#515151"
+            android:textColor="?attr/billing_text_color"
             android:textSize="12sp"
-            android:textStyle="normal"
             android:visibility="invisible" />
 
         <TextView
@@ -441,9 +440,8 @@
             android:fontFamily="@font/gilroy_regular"
             android:gravity="center_horizontal"
             android:text="@string/txt_trial_disclaimer"
-            android:textColor="#515151"
+            android:textColor="?attr/billing_text_color"
             android:textSize="12sp"
-            android:textStyle="normal"
             android:visibility="visible" />
 
     </RelativeLayout>

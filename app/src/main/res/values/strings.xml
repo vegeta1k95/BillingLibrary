@@ -35,7 +35,7 @@
     <string name="month">Month</string>
     <string name="year">Year</string>
 
-    <string name="btn_continue">CONTINUE</string>
+    <string name="btn_continue">ACCEPT</string>
 
     <string name="txt_trial_title">%1$s free version</string>
     <string name="txt_trial_descr">Then %1$s per %2$s</string>

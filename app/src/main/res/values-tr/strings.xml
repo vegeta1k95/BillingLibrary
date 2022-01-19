@@ -2,7 +2,7 @@
 <resources>
 
     <string name="unlock_all_features">Tüm Özelliklerin Kilidini Açın</string>
-    <string name="btn_continue">DEVAM ET</string>
+    <string name="btn_continue">TEKLİF</string>
 
     <plurals name="days">
         <item quantity="one">%d-Gün</item>
