@@ -2,7 +2,7 @@
 <resources>
 
     <string name="unlock_all_features">Alle functies ontgrendelen</string>
-    <string name="btn_continue">DOORGAAN</string>
+    <string name="btn_continue">ACCEPTEREN</string>
 
     <plurals name="days">
         <item quantity="one">%d-Dag</item>

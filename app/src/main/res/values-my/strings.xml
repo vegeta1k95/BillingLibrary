@@ -2,7 +2,7 @@
 <resources>
 
     <string name="unlock_all_features">အင်္ဂါရပ်များအားလုံးကို လော့ခ်ဖွင့်ပါ</string>
-    <string name="btn_continue">ဆက်လက်</string>
+    <string name="btn_continue">ကမ်းလှမ်းချက်ကို လက်ခံပါ။</string>
 
     <plurals name="days">
         <item quantity="other">%d-နေ့ရက်များ</item>

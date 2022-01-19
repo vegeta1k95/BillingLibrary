@@ -2,7 +2,7 @@
 <resources>
 
     <string name = "unlock_all_features"> Mở khóa tất cả các tính năng </string>
-    <string name="btn_continue">TIẾP TỤC</string>
+    <string name="btn_continue">CHẤP NHẬN ĐỀ NGHỊ</string>
 
     <plurals name="days">
         <item quantity="other">%d-Ngày</item>
