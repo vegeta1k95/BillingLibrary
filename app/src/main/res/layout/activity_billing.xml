@@ -25,7 +25,7 @@
         <RelativeLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:visibility="visible">
 
             <ImageView
@@ -88,7 +88,6 @@
                 android:id="@+id/features_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/cards"
                 android:layout_below="@id/title"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/_15sdp"
@@ -151,7 +150,7 @@
                 android:id="@+id/cards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/btn_continue"
+                android:layout_below="@id/features_container"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/_15sdp">
 
@@ -388,7 +387,7 @@
                 android:id="@+id/btn_continue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/btn_try"
+                android:layout_below="@id/cards"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
@@ -421,18 +420,18 @@
 
             <TextView
                 android:id="@+id/btn_try"
+                android:layout_below="@id/btn_continue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_20sdp"
                 android:textColor="?attr/billing_accent_color"
-                android:text="@string/btn_limited"
-                android:layout_above="@id/txt_premium_disclaimer"/>
+                android:text="@string/btn_limited" />
 
             <TextView
                 android:id="@+id/txt_premium_disclaimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/btn_try"
                 android:layout_centerHorizontal="true"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
@@ -447,7 +446,7 @@
                 android:id="@+id/txt_trial_disclaimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/btn_try"
                 android:layout_centerHorizontal="true"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
