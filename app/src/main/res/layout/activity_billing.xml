@@ -19,14 +19,14 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@drawable/circle"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:tint="?attr/billing_accent_color"/>
 
         <RelativeLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible">
+            android:visibility="invisible">
 
             <ImageView
                 android:id="@+id/btn_close"
@@ -425,7 +425,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btn_continue"
                 android:paddingHorizontal="@dimen/_20sdp"
-                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:text="@string/btn_limited"
                 android:textColor="?attr/billing_accent_color" />
 
