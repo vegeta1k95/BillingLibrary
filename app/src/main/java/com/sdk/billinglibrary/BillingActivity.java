@@ -86,22 +86,6 @@ public class BillingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_billing);
 
-        View btnTry = findViewById(R.id.btn_try);
-        View btnClose = findViewById(R.id.btn_close);
-
-        if (LocalConfig.isFirstTime()) {
-            btnClose.setEnabled(false);
-            btnClose.setVisibility(View.GONE);
-            btnTry.setEnabled(true);
-            btnTry.setVisibility(View.VISIBLE);
-            btnTry.setOnClickListener(v -> finish());
-        } else {
-            btnClose.setEnabled(true);
-            btnClose.setVisibility(View.VISIBLE);
-            btnTry.setEnabled(false);
-            btnTry.setVisibility(View.GONE);
-        }
-
         Window window = getWindow();
         window.setStatusBarColor(MaterialColors.getColor(this, R.attr.billing_background_color, R.attr.colorAccent));
 
@@ -216,25 +200,40 @@ public class BillingActivity extends AppCompatActivity {
 
     private void setButtons() {
 
-        btnClose.setOnClickListener(v -> {
+        View btnTry = findViewById(R.id.btn_try);
 
-            final ExitDialog dialog = new ExitDialog(this);
+        if (LocalConfig.isFirstTime()) {
+            btnClose.setEnabled(false);
+            btnClose.setVisibility(View.GONE);
+            btnTry.setEnabled(true);
+            btnTry.setVisibility(View.VISIBLE);
+            btnTry.setOnClickListener(v -> finish());
+        } else {
+            btnClose.setEnabled(true);
+            btnClose.setVisibility(View.VISIBLE);
+            btnClose.setOnClickListener(v -> {
 
-            dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
-                dialog.dismiss();
-                manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
+                final ExitDialog dialog = new ExitDialog(this);
+
+                dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
+                    dialog.dismiss();
+                    manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
+                });
+
+                Price price = new Price(getResources(), trialSku);
+
+                TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
+                tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
+                        price.getTrialPeriod(),
+                        price.getPriceAndCurrency(),
+                        price.getSubscriptionPeriod()));
+                dialog.show();
+
             });
 
-            Price price = new Price(getResources(), trialSku);
-
-            TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
-            tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
-                    price.getTrialPeriod(),
-                    price.getPriceAndCurrency(),
-                    price.getSubscriptionPeriod()));
-            dialog.show();
-
-        });
+            btnTry.setEnabled(false);
+            btnTry.setVisibility(View.GONE);
+        }
         btnContinue.setOnClickListener(v -> {
             if (trialSku == null || fullSku == null) {
                 retrieveSubs();
