@@ -54,5 +54,6 @@
     <string name="txt_premium_price_period">par %1$s</string>
 
     <string name="dialog_disclaimer">L\'offre comprend un abonnement auto-renouvelable. Les %1$s premiers sont gratuits, puis ils seront facturés %2$s par %3$s</string>
+    <string name="btn_limited">OU ESSAYEZ LA VERSION LIMITÉE</string>
 
 </resources>

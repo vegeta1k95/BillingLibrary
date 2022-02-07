@@ -53,5 +53,6 @@
     <string name="txt_premium_price_period">ανά %1$s</string>
 
     <string name="dialog_disclaimer">Η προσφορά περιλαμβάνει συνδρομή με δυνατότητα αυτόματης ανανέωσης. Οι πρώτες %1$s είναι δωρεάν και, στη συνέχεια, θα χρεωθεί %2$s ανά %3$s</string>
+    <string name="btn_limited">Ή ΔΟΚΙΜΑΣΤΕ ΠΕΡΙΟΡΙΣΜΕΝΗ ΕΚΔΟΣΗ</string>
 
 </resources>

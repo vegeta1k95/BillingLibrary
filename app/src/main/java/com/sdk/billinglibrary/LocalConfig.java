@@ -8,6 +8,7 @@ class LocalConfig {
     private static final String PREFERENCES = "billing";
     private static final String KEY_SUBSCRIBED = "subscribed";
     private static final String KEY_LAST_PROPOSED = "last_proposed";
+    private static final String KEY_IS_FIRST_TIME = "first_time";
     private static final String KEY_CONSENT = "consent";
 
     private static SharedPreferences preferences;
@@ -34,4 +35,9 @@ class LocalConfig {
         return preferences.getBoolean(KEY_SUBSCRIBED, false);
     }
 
+    static boolean isFirstTime() {
+        boolean isFirstTime = !preferences.contains(KEY_IS_FIRST_TIME);
+        preferences.edit().putBoolean(KEY_IS_FIRST_TIME, false).apply();
+        return isFirstTime;
+    }
 }

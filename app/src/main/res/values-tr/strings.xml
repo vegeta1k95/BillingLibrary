@@ -54,5 +54,6 @@
     <string name="txt_premium_price_period">%1$s başına</string>
 
     <string name="dialog_disclaimer">Teklif, otomatik olarak yenilenebilir bir abonelik içerir. İlk %1$s ücretsizdir, ardından %3$s başına %2$s ücretlendirilir</string>
+    <string name="btn_limited">VEYA SINIRLI VERSİYONU DENEYİN</string>
 
 </resources>

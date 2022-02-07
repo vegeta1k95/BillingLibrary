@@ -54,5 +54,6 @@
     <string name="txt_premium_price_period">مطابق ((%1$s))</string>
 
     <string name="dialog_disclaimer">این پیشنهاد شامل یک اشتراک قابل تمدید خودکار است. اولین ((%1$s)) روز رایگان است، سپس هزینه آن ((%2$s)) در هر ((%3$s)) محاسبه می شود</string>
+    <string name="btn_limited">یا نسخه محدود را امتحان کنید</string>
 
 </resources>

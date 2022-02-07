@@ -53,5 +53,6 @@
     <string name="txt_premium_price_period">per %1$s</string>
 
     <string name="dialog_disclaimer">L\'offerta include un abbonamento con rinnovo automatico. I primi %1$s giorni sono gratuiti, quindi verranno addebitati %2$s ogni %3$s</string>
+    <string name="btn_limited">O PROVA LA VERSIONE LIMITATA</string>
 
 </resources>

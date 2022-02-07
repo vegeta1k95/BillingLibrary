@@ -57,11 +57,13 @@
     <string name="purchase_fail">Something went wrong…</string>
 
     <string name="unlock_all_features">Unlock All Features</string>
-    <string name="trial_version">TRIAL VERSION</string>
-    <string name="great_price">GREAT PRICE</string>
-    <string name="best_choice">BEST CHOICE</string>
-    <string name="limited_offer">Limited offer</string>
-    <string name="premium">PREMIUM</string>
-    <string name="basic">BASIC</string>
+    <string name="trial_version" translatable="false">TRIAL VERSION</string>
+    <string name="great_price" translatable="false">GREAT PRICE</string>
+    <string name="best_choice" translatable="false">BEST CHOICE</string>
+    <string name="limited_offer" translatable="false">Limited offer</string>
+    <string name="premium" translatable="false">PREMIUM</string>
+    <string name="basic" translatable="false">BASIC</string>
+
+    <string name="btn_limited">OR TRY LIMITED VERSION</string>
 
 </resources>

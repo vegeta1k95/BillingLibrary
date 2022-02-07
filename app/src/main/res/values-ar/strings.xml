@@ -58,6 +58,7 @@
 
     <string name="dialog_disclaimer"> يشمل العرض اشتراكًا قابل للتجديد التلقائي. T الأولt ((%1$s) أيام مجانية ، ثم سيتم تحصيلها ((%2$s))) لكل (%3$s)</string>
     <string name="unlock_all_features"> فتح جميع الميزات </string>
+    <string name="btn_limited">أو جرِّب إصدارًا محدودًا</string>
 
 
 </resources>

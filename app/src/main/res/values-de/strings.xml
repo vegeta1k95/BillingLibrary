@@ -53,5 +53,6 @@
     <string name="txt_premium_price_period">pro %1$s</string>
 
     <string name="dialog_disclaimer">Das Angebot beinhaltet ein automatisch erneuerbares Abonnement. Die ersten %1$s sind kostenlos, danach werden %2$s pro %3$s berechnet</string>
+    <string name="btn_limited">ODER VERSUCHEN SIE DIE LIMITIERTE VERSION</string>
 
 </resources>

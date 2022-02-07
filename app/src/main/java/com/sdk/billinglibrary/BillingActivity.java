@@ -86,6 +86,22 @@ public class BillingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_billing);
 
+        View btnTry = findViewById(R.id.btn_try);
+        View btnClose = findViewById(R.id.btn_close);
+
+        if (LocalConfig.isFirstTime()) {
+            btnClose.setEnabled(false);
+            btnClose.setVisibility(View.GONE);
+            btnTry.setEnabled(true);
+            btnTry.setVisibility(View.VISIBLE);
+            btnTry.setOnClickListener(v -> finish());
+        } else {
+            btnClose.setEnabled(true);
+            btnClose.setVisibility(View.VISIBLE);
+            btnTry.setEnabled(false);
+            btnTry.setVisibility(View.GONE);
+        }
+
         Window window = getWindow();
         window.setStatusBarColor(MaterialColors.getColor(this, R.attr.billing_background_color, R.attr.colorAccent));
 

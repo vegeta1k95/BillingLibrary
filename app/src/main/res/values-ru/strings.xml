@@ -59,5 +59,6 @@
     <string name="txt_premium_price_period">за %1$s</string>
 
     <string name="dialog_disclaimer">Предложение включает в себя автоматически продлеваемую подписку. Первые %1$s бесплатны, затем будет взиматься плата в размере %2$s за каждый %3$s.</string>
+    <string name="btn_limited">ИЛИ ПОПРОБУЙТЕ ОГРАНИЧЕННУЮ ВЕРСИЮ</string>
 
 </resources>

@@ -49,5 +49,6 @@
     <string name="txt_premium_price_period">နှုန်း %1$s</string>
 
     <string name="dialog_disclaimer">ကမ်းလှမ်းချက်တွင် အလိုအလျောက် ပြန်လည်သက်တမ်းတိုးနိုင်သော စာရင်းသွင်းမှုတစ်ခု ပါဝင်သည်။ ပထမ %1$s ရက်သည် အခမဲ့ဖြစ်ပြီး %3$s လျှင် %2$s ကောက်ခံပါမည်</string>
+    <string name="btn_limited">သို့မဟုတ် ကန့်သတ်ဗားရှင်းကို စမ်းကြည့်ပါ။</string>
 
 </resources>

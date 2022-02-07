@@ -59,5 +59,6 @@
     <string name="txt_premium_price_period">za %1$s</string>
 
     <string name="dialog_disclaimer">Oferta obejmuje subskrypcję autoodnawialną. Pierwsze %1$s są bezpłatne, a następnie zostanie naliczona opłata %2$s za %3$s</string>
+    <string name="btn_limited">LUB WYPRÓBUJ WERSJĘ LIMITOWANĄ</string>
 
 </resources>

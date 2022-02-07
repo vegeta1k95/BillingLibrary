@@ -54,5 +54,6 @@
     <string name="txt_premium_price_period">per %1$s</string>
 
     <string name="dialog_disclaimer">De aanbieding omvat een automatisch verlengbaar abonnement. De eerste %1$s zijn gratis, daarna wordt %2$s per %3$s in rekening gebracht</string>
+    <string name="btn_limited">OF PROBEER DE BEPERKTE VERSIE</string>
 
 </resources>
