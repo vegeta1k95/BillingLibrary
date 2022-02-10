@@ -86,8 +86,8 @@ public class BillingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_billing);
 
-        Window window = getWindow();
-        window.setStatusBarColor(MaterialColors.getColor(this, R.attr.billing_background_color, R.attr.colorAccent));
+        //Window window = getWindow();
+        //window.setStatusBarColor(MaterialColors.getColor(this, R.attr.billing_background_color, R.attr.colorAccent));
 
         featuresContainer = findViewById(R.id.features_container);
 
