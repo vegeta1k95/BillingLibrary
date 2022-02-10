@@ -14,8 +14,7 @@
     <RelativeLayout
         android:id="@+id/background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/billing_background">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/img_loading"

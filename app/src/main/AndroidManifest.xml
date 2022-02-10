@@ -9,7 +9,6 @@
         <activity android:name=".BillingActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/CustomBillingTheme"
             tools:ignore="LockedOrientationActivity"/>
     </application>
 
