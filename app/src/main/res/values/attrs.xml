@@ -4,6 +4,7 @@
 
         <attr name="billing_title" format="reference|string" />
 
+        <attr name="billing_statusbar_color" format="reference|color" />
         <attr name="billing_background_color" format="reference|color" />
         <attr name="billing_text_color" format="reference|color" />
         <attr name="billing_accent_color" format="reference|color" />
