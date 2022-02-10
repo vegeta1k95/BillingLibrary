@@ -3,13 +3,13 @@
     <item android:state_pressed="true" >
         <shape android:shape="rectangle"  >
             <corners android:radius="25dp" />
-            <solid android:color="?attr/billing_accent_color"/>
+            <solid android:color="?attr/billing_button_color"/>
         </shape>
     </item>
     <item >
         <shape android:shape="rectangle"  >
             <corners android:radius="25dp" />
-            <solid android:color="?attr/billing_accent_color"/>
+            <solid android:color="?attr/billing_button_color"/>
         </shape>
     </item>
 </selector>
