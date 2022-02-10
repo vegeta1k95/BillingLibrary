@@ -428,7 +428,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:text="@string/btn_limited"
                 android:textSize="16sp"
-                android:textColor="?attr/billing_accent_color" />
+                android:textColor="?attr/billing_button_color" />
 
             <TextView
                 android:id="@+id/txt_premium_disclaimer"
