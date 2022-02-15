@@ -210,7 +210,25 @@ public class BillingActivity extends AppCompatActivity {
             btnClose.setVisibility(View.GONE);
             btnTry.setEnabled(true);
             btnTry.setVisibility(View.VISIBLE);
-            btnTry.setOnClickListener(v -> finish());
+            btnTry.setOnClickListener(v -> {
+
+                final ExitDialog dialog = new ExitDialog(this);
+
+                dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
+                    dialog.dismiss();
+                    manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
+                });
+
+                Price price = new Price(getResources(), trialSku);
+
+                TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
+                tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
+                        price.getTrialPeriod(),
+                        price.getPriceAndCurrency(),
+                        price.getSubscriptionPeriod()));
+                dialog.show();
+
+            });
         } else {
             btnClose.setEnabled(true);
             btnClose.setVisibility(View.VISIBLE);
