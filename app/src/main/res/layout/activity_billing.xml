@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/circle"
+            android:src="@drawable/billing_loading_circle"
             android:visibility="visible"
             app:tint="?attr/billing_accent_color"/>
 
@@ -42,7 +42,7 @@
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
-                android:src="@drawable/close"
+                android:src="@drawable/billing_close"
                 app:tint="#787878" />
 
             <LinearLayout
@@ -176,7 +176,7 @@
                     android:id="@+id/card_trial"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/card_selector"
+                    android:background="@drawable/billing_card_selector"
                     android:orientation="horizontal"
                     android:padding="@dimen/_10sdp">
 
@@ -191,7 +191,7 @@
                             android:layout_width="@dimen/_17sdp"
                             android:layout_height="@dimen/_17sdp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/checkbox_choice" />
+                            android:src="@drawable/billing_checkbox_choice" />
 
                     </RelativeLayout>
 
@@ -288,7 +288,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_5sdp"
-                    android:background="@drawable/card_selector"
+                    android:background="@drawable/billing_card_selector"
                     android:orientation="horizontal"
                     android:padding="@dimen/_10sdp">
 
@@ -303,7 +303,7 @@
                             android:layout_width="@dimen/_17sdp"
                             android:layout_height="@dimen/_17sdp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/checkbox_choice" />
+                            android:src="@drawable/billing_checkbox_choice" />
 
                     </RelativeLayout>
 
@@ -396,7 +396,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/btn_main"
+                android:background="@drawable/billing_btn_1"
                 android:padding="@dimen/_15sdp"
                 android:textSize="25sp">
 
@@ -417,7 +417,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/arrow"
+                    android:src="@drawable/billing_arrow"
                     app:tint="#ffffff"/>
 
             </RelativeLayout>

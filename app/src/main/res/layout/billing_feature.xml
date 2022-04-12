@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/check"
+                    android:src="@drawable/billing_check"
                     app:tint="?attr/billing_accent_color"/>
 
             </RelativeLayout>
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/check"/>
+            android:src="@drawable/billing_check"/>
 
     </RelativeLayout>
 
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/check"/>
+            android:src="@drawable/billing_check"/>
 
     </RelativeLayout>
 

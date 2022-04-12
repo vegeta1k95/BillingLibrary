@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.android.billingclient.api.SkuDetails;
-import com.google.android.material.color.MaterialColors;
 import com.google.firebase.FirebaseApp;
 import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
 import com.sdk.billinglibrary.interfaces.ISkuListener;
@@ -334,8 +333,8 @@ public class BillingActivity extends AppCompatActivity {
             ((TextView) item.findViewById(R.id.txt_feature_name)).setText(featureName);
             ((ImageView) item.findViewById(R.id.img_icon)).setImageDrawable(featureIcon);
             ((ImageView) item.findViewById(R.id.img_basic)).setImageDrawable(
-                    featureBasic ? AppCompatResources.getDrawable(this, R.drawable.check)
-                            : AppCompatResources.getDrawable(this, R.drawable.basic_none)
+                    featureBasic ? AppCompatResources.getDrawable(this, R.drawable.billing_check)
+                            : AppCompatResources.getDrawable(this, R.drawable.billing_cancel)
             );
             featuresContainer.addView(item);
             feature.recycle();

@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:id="@+id/dialog_button_close"
-        android:background="@drawable/btn_oval"
+        android:background="@drawable/billing_btn_2"
         android:padding="@dimen/_5sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         <ImageView
             android:layout_width="@dimen/_10sdp"
             android:layout_height="@dimen/_10sdp"
-            android:src="@drawable/close"
+            android:src="@drawable/billing_close"
             app:tint="#80ffffff"/>
 
     </RelativeLayout>
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/dialog_shape"
+        android:background="@drawable/billing_dialog_shape"
         android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_20sdp"
         android:clipToPadding="false"
@@ -104,7 +104,7 @@
 
             <Button
                 android:id="@+id/dialog_button_ok"
-                android:background="@drawable/btn_main"
+                android:background="@drawable/billing_btn_1"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="@dimen/_20sdp"
                 android:layout_height="@dimen/_40sdp"
