@@ -1,8 +1,10 @@
 package com.sdk.billinglibrary.interfaces;
 
+import androidx.annotation.NonNull;
+
 import com.android.billingclient.api.SkuDetails;
 
 public interface ISkuListener {
-    void onResult(SkuDetails trial, SkuDetails full);
+    void onResult(@NonNull SkuDetails trial, @NonNull SkuDetails full);
     void onFailed();
 }

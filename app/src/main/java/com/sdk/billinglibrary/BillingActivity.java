@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
@@ -130,7 +131,7 @@ public class BillingActivity extends AppCompatActivity {
         RemoteConfig.fetchSubs(this, (trialSubId, premiumSubId) ->
                 manager.retrieveSubs(trialSubId, premiumSubId, new ISkuListener() {
             @Override
-            public void onResult(SkuDetails trial, SkuDetails full) {
+            public void onResult(@NonNull SkuDetails trial, @NonNull SkuDetails full) {
                 trialSku = trial;
                 fullSku = full;
 
@@ -183,6 +184,12 @@ public class BillingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        if (trialSku == null) {
+            finish();
+            return;
+        }
+
         final ExitDialog dialog = new ExitDialog(this);
 
         dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {

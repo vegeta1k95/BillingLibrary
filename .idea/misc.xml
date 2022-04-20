@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/drawable/billing_btn_1.xml" value="0.2195" />
+        <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/drawable/billing_card_selector.xml" value="0.2195" />
         <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/drawable/btn_main.xml" value="0.225" />
         <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/drawable/btn_oval.xml" value="0.33611111111111114" />
         <entry key="..\:/Android/Apps/BillingLibrary/app/src/main/res/drawable/card_selector.xml" value="0.225" />
