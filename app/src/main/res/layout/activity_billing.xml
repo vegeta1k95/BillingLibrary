@@ -214,7 +214,7 @@
                                 android:layout_marginHorizontal="@dimen/_3sdp"
                                 android:fontFamily="@font/gilroy_semibold"
                                 android:text="@string/trial_version"
-                                android:textColor="?attr/billing_text_color"
+                                android:textColor="#ffffff"
                                 android:textSize="11sp" />
 
                         </androidx.cardview.widget.CardView>
@@ -326,7 +326,7 @@
                                 android:layout_marginHorizontal="@dimen/_3sdp"
                                 android:fontFamily="@font/gilroy_semibold"
                                 android:text="@string/great_price"
-                                android:textColor="?attr/billing_text_color"
+                                android:textColor="#ffffff"
                                 android:textSize="11sp" />
 
                         </androidx.cardview.widget.CardView>
