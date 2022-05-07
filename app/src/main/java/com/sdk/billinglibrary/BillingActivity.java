@@ -197,17 +197,41 @@ public class BillingActivity extends AppCompatActivity {
             manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
         });
 
-        Price price = new Price(getResources(), trialSku);
-
-        TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
-        tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
-                price.getTrialPeriod(),
-                price.getPriceAndCurrency(),
-                price.getSubscriptionPeriod()));
-        dialog.show();
+        try {
+            Price price = new Price(getResources(), trialSku);
+            TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
+            tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
+                    price.getTrialPeriod(),
+                    price.getPriceAndCurrency(),
+                    price.getSubscriptionPeriod()));
+            dialog.show();
+        } catch (NullPointerException ignore) {
+            finish();
+        }
     }
 
     private void setButtons() {
+
+        View.OnClickListener listener = v -> {
+            final ExitDialog dialog = new ExitDialog(BillingActivity.this);
+
+            dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
+                dialog.dismiss();
+                manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
+            });
+
+            try {
+                Price price = new Price(getResources(), trialSku);
+                TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
+                tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
+                        price.getTrialPeriod(),
+                        price.getPriceAndCurrency(),
+                        price.getSubscriptionPeriod()));
+                dialog.show();
+            } catch (NullPointerException ignore) {
+                finish();
+            }
+        };
 
         View btnTry = findViewById(R.id.btn_try);
 
@@ -216,48 +240,11 @@ public class BillingActivity extends AppCompatActivity {
             btnClose.setVisibility(View.GONE);
             btnTry.setEnabled(true);
             btnTry.setVisibility(View.VISIBLE);
-            btnTry.setOnClickListener(v -> {
-
-                final ExitDialog dialog = new ExitDialog(this);
-
-                dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
-                    dialog.dismiss();
-                    manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
-                });
-
-                Price price = new Price(getResources(), trialSku);
-
-                TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
-                tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
-                        price.getTrialPeriod(),
-                        price.getPriceAndCurrency(),
-                        price.getSubscriptionPeriod()));
-                dialog.show();
-
-            });
+            btnTry.setOnClickListener(listener);
         } else {
             btnClose.setEnabled(true);
             btnClose.setVisibility(View.VISIBLE);
-            btnClose.setOnClickListener(v -> {
-
-                final ExitDialog dialog = new ExitDialog(this);
-
-                dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
-                    dialog.dismiss();
-                    manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
-                });
-
-                Price price = new Price(getResources(), trialSku);
-
-                TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
-                tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
-                        price.getTrialPeriod(),
-                        price.getPriceAndCurrency(),
-                        price.getSubscriptionPeriod()));
-                dialog.show();
-
-            });
-
+            btnClose.setOnClickListener(listener);
             btnTry.setEnabled(false);
             btnTry.setVisibility(View.GONE);
         }

@@ -2,6 +2,8 @@ package com.sdk.billinglibrary;
 
 import android.content.res.Resources;
 
+import androidx.annotation.NonNull;
+
 import com.android.billingclient.api.SkuDetails;
 
 import java.util.Locale;
@@ -16,7 +18,7 @@ public class Price {
     private final Period mSubscriptionPeriod;
     private final Period mTrialPeriod;
 
-    public Price(Resources resources, SkuDetails sku) {
+    public Price(Resources resources, @NonNull SkuDetails sku) {
         mResources = resources;
         mPriceCurrency = (double) sku.getPriceAmountMicros() / 1000000;
         mCurrencyCode = sku.getPriceCurrencyCode();
