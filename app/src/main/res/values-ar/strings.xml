@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="btn_continue">اقبل العرض</string>
+    <string name="btn_accept">اقبل العرض</string>
 
     <plurals name="days">
         <item quantity="one">%d-يوم</item>

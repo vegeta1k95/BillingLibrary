@@ -2,7 +2,7 @@
 <resources>
 
     <string name="unlock_all_features">Desbloquear todas las funciones</string>
-    <string name="btn_continue">ACEPTAR</string>
+    <string name="btn_accept">ACEPTAR</string>
 
     <plurals name="days">
         <item quantity="one">%d-Día</item>

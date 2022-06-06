@@ -2,7 +2,7 @@
 <resources>
 
     <string name="unlock_all_features">باز کردن قفل همه ویژگی‌ها</string>
-    <string name="btn_continue">پیشنهاد را بپذیرید</string>
+    <string name="btn_accept">پیشنهاد را بپذیرید</string>
 
     <plurals name="days">
         <item quantity="one">%d-روز</item>

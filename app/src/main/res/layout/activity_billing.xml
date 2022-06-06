@@ -407,7 +407,7 @@
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/gilroy_bold"
                     android:gravity="center_horizontal"
-                    android:text="@string/btn_continue"
+                    android:text="@string/btn_accept"
                     android:textColor="#ffffff"
                     android:textSize="24.9sp"
                     android:textStyle="bold" />

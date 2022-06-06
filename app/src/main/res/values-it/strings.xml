@@ -2,7 +2,7 @@
 <resources>
 
     <string name="unlock_all_features">Sblocca tutte le funzionalità</string>
-    <string name="btn_continue">ACCETTARE</string>
+    <string name="btn_accept">ACCETTARE</string>
 
     <plurals name="days">
         <item quantity="one">%d-Giorno</item>

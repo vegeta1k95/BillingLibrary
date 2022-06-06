@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import androidx.annotation.NonNull;
 
 import com.android.billingclient.api.ProductDetails;
-import com.android.billingclient.api.SkuDetails;
 
 import java.util.Locale;
 

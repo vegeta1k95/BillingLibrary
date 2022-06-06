@@ -2,7 +2,7 @@
 <resources>
 
     <string name="unlock_all_features">ปลดล็อกคุณลักษณะทั้งหมด</string>
-    <string name="btn_continue">ยอมรับข้อเสนอ</string>
+    <string name="btn_accept">ยอมรับข้อเสนอ</string>
 
     <plurals name="days">
         <item quantity="other">%d-วัน</item>

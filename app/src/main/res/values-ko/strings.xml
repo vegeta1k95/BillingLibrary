@@ -2,7 +2,7 @@
 <resources>
 
     <string name="unlock_all_features">모든 기능 잠금 해제</string>
-    <string name="btn_continue">제안을 받아들이다</string>
+    <string name="btn_accept">제안을 받아들이다</string>
 
     <plurals name="days">
         <item quantity="other">%d-날</item>
