@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:baselineAligned="false"
     android:orientation="horizontal"
-    android:layout_marginVertical="@dimen/_3sdp"
+    android:layout_marginVertical="@dimen/_10sdp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -27,10 +27,9 @@
 
                 <ImageView
                     android:id="@+id/img_feature_icon"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_centerInParent="true"
-                    android:scaleType="fitXY"
                     android:src="@drawable/billing_check"
                     app:tint="?attr/billing_accent_color" />
 
@@ -60,11 +59,10 @@
 
         <ImageView
             android:id="@+id/img_basic"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:scaleType="fitXY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/billing_check"/>
+            android:src="@drawable/ic_offer_check" />
 
     </RelativeLayout>
 

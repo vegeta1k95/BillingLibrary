@@ -15,12 +15,46 @@ public class BillingOfferActivity extends AppCompatActivity {
     private static final int INDEX_STRING = 0;
     private static final int INDEX_ICON = 1;
 
+    private View cardWeekly;
+    private View cardTrial;
+    private View cardLifetime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing_offer);
 
         setFeatures();
+        setCards();
+    }
+
+    private void setCards() {
+        cardWeekly = findViewById(R.id.card_offer_weekly);
+        cardTrial = findViewById(R.id.card_offer_trial);
+        cardLifetime = findViewById(R.id.card_offer_lifetime);
+
+        cardWeekly.setOnClickListener(v -> {
+            cardWeekly.setSelected(true);
+            cardTrial.setSelected(false);
+            cardLifetime.setSelected(false);
+        });
+
+        cardTrial.setOnClickListener(v -> {
+            cardWeekly.setSelected(false);
+            cardTrial.setSelected(true);
+            cardLifetime.setSelected(false);
+        });
+
+        cardLifetime.setOnClickListener(v -> {
+            cardWeekly.setSelected(false);
+            cardTrial.setSelected(false);
+            cardLifetime.setSelected(true);
+        });
+
+        cardTrial.setSelected(true);
+        cardWeekly.setSelected(false);
+        cardTrial.setSelected(false);
+
     }
 
     private void setFeatures() {
