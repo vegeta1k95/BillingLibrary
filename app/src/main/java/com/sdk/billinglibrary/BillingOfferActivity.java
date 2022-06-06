@@ -1,6 +1,7 @@
 package com.sdk.billinglibrary;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -37,34 +38,41 @@ public class BillingOfferActivity extends AppCompatActivity {
             cardWeekly.setSelected(true);
             cardTrial.setSelected(false);
             cardLifetime.setSelected(false);
+            ((CardView) cardWeekly.findViewById(R.id.card_offer_weekly_card)).setCardElevation(0.f);
+            ((CardView) cardTrial.findViewById(R.id.card_offer_trial_card)).setCardElevation(7.f);
+            ((CardView) cardLifetime.findViewById(R.id.card_offer_lifetime_card)).setCardElevation(7.f);
+
         });
 
         cardTrial.setOnClickListener(v -> {
             cardWeekly.setSelected(false);
             cardTrial.setSelected(true);
             cardLifetime.setSelected(false);
+            ((CardView) cardWeekly.findViewById(R.id.card_offer_weekly_card)).setCardElevation(7.f);
+            ((CardView) cardTrial.findViewById(R.id.card_offer_trial_card)).setCardElevation(0.f);
+            ((CardView) cardLifetime.findViewById(R.id.card_offer_lifetime_card)).setCardElevation(7.f);
         });
 
         cardLifetime.setOnClickListener(v -> {
             cardWeekly.setSelected(false);
             cardTrial.setSelected(false);
             cardLifetime.setSelected(true);
+            ((CardView) cardWeekly.findViewById(R.id.card_offer_weekly_card)).setCardElevation(7.f);
+            ((CardView) cardTrial.findViewById(R.id.card_offer_trial_card)).setCardElevation(7.f);
+            ((CardView) cardLifetime.findViewById(R.id.card_offer_lifetime_card)).setCardElevation(0.f);
         });
 
         cardTrial.setSelected(true);
         cardWeekly.setSelected(false);
-        cardTrial.setSelected(false);
+        cardLifetime.setSelected(false);
 
     }
 
     private void setFeatures() {
 
         ViewGroup featuresContainer = findViewById(R.id.offer_features);
-
-        int[] attrs = new int[] { R.attr.billing_features };
-        TypedArray a = obtainStyledAttributes(attrs);
+        TypedArray a = obtainStyledAttributes(new int[] { R.attr.billing_offer_features }) ;
         int id = a.getResourceId(0 , 0);
-
         a.recycle();
 
         if (id == 0)
@@ -75,7 +83,7 @@ public class BillingOfferActivity extends AppCompatActivity {
         if (features == null)
             return;
 
-        for (int i = 4; i < features.length() - 1; i++) {
+        for (int i = 0; i < features.length(); i++) {
 
             int featureId = features.getResourceId(i, 0);
 

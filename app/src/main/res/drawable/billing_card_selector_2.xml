@@ -5,7 +5,7 @@
         <shape android:shape="rectangle">
             <stroke android:color="?attr/billing_accent_color"
                 android:width="@dimen/_2sdp"/>
-            <corners android:radius="@dimen/_15sdp"/>
+            <corners android:radius="@dimen/_8sdp"/>
         </shape>
     </item>
 
@@ -13,13 +13,13 @@
         <shape android:shape="rectangle">
             <stroke android:color="?attr/billing_accent_color"
                 android:width="@dimen/_2sdp"/>
-            <corners android:radius="@dimen/_15sdp"/>
+            <corners android:radius="@dimen/_8sdp"/>
         </shape>
     </item>
 
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/_15sdp"/>
+            <corners android:radius="@dimen/_8sdp"/>
         </shape>
     </item>
 

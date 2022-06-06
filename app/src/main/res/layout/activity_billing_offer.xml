@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginVertical="@dimen/_15sdp"
+            android:layout_marginVertical="@dimen/_20sdp"
             android:orientation="horizontal">
 
             <ImageView
@@ -118,13 +118,14 @@
                 android:padding="@dimen/_7sdp">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_offer_weekly_card"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     android:foreground="@drawable/billing_card_selector_2"
                     app:cardCornerRadius="@dimen/_8sdp"
-                    app:cardElevation="@dimen/_5sdp">
+                    app:cardElevation="7dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -203,11 +204,12 @@
                 android:padding="@dimen/_7sdp">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_offer_trial_card"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
                     android:foreground="@drawable/billing_card_selector_2"
                     app:cardCornerRadius="@dimen/_8sdp"
-                    app:cardElevation="@dimen/_5sdp">
+                    app:cardElevation="7dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -306,11 +308,12 @@
                 android:padding="@dimen/_7sdp">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_offer_lifetime_card"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
                     android:foreground="@drawable/billing_card_selector_2"
                     app:cardCornerRadius="@dimen/_8sdp"
-                    app:cardElevation="@dimen/_5sdp">
+                    app:cardElevation="7dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -386,7 +389,7 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:paddingHorizontal="@dimen/_15sdp"
+                android:paddingHorizontal="@dimen/_30sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/btn_continue"
@@ -440,13 +443,13 @@
             <TextView
                 android:id="@+id/txt_offer_disclaimer"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_50sdp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:fontFamily="@font/gilroy_regular"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:text="@string/txt_premium_disclaimer"
                 android:textColor="#6a6a6a"
                 android:textSize="12sp" />
