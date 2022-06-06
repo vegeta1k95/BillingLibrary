@@ -70,6 +70,11 @@ class ExitDialog extends Dialog {
                 mHandler.postDelayed(this, 1000);
             }
         }, 1000);
+    }
 
+    @Override
+    public void onStop() {
+        mHandler.removeCallbacksAndMessages(null);
+        super.onStop();
     }
 }

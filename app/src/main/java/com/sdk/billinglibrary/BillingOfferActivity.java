@@ -6,10 +6,14 @@ import androidx.cardview.widget.CardView;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.concurrent.TimeUnit;
 
 public class BillingOfferActivity extends AppCompatActivity {
 
@@ -19,6 +23,11 @@ public class BillingOfferActivity extends AppCompatActivity {
     private View cardWeekly;
     private View cardTrial;
     private View cardLifetime;
+    private TextView tvDisclaimer;
+
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private TextView tvTimer;
+    private int mCounter = 900;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +36,33 @@ public class BillingOfferActivity extends AppCompatActivity {
 
         setFeatures();
         setCards();
+        setTimer();
+    }
+
+    private void setTimer() {
+        tvTimer = findViewById(R.id.txt_offer_timer);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mCounter -= 1;
+                long minutes = TimeUnit.SECONDS.toMinutes(mCounter) % 60;
+                long seconds = TimeUnit.SECONDS.toSeconds(mCounter) % 60;
+                tvTimer.setText(getString(R.string.offer_timer, minutes, seconds));
+                mHandler.postDelayed(this, 1000);
+            }
+        }, 1000);
+    }
+
+    @Override
+    public void onDestroy() {
+        mHandler.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 
     private void setCards() {
+
+        tvDisclaimer = findViewById(R.id.txt_offer_disclaimer);
+
         cardWeekly = findViewById(R.id.card_offer_weekly);
         cardTrial = findViewById(R.id.card_offer_trial);
         cardLifetime = findViewById(R.id.card_offer_lifetime);
@@ -41,7 +74,7 @@ public class BillingOfferActivity extends AppCompatActivity {
             ((CardView) cardWeekly.findViewById(R.id.card_offer_weekly_card)).setCardElevation(0.f);
             ((CardView) cardTrial.findViewById(R.id.card_offer_trial_card)).setCardElevation(7.f);
             ((CardView) cardLifetime.findViewById(R.id.card_offer_lifetime_card)).setCardElevation(7.f);
-
+            tvDisclaimer.setText(R.string.offer_disclaimer_weekly);
         });
 
         cardTrial.setOnClickListener(v -> {
@@ -51,6 +84,7 @@ public class BillingOfferActivity extends AppCompatActivity {
             ((CardView) cardWeekly.findViewById(R.id.card_offer_weekly_card)).setCardElevation(7.f);
             ((CardView) cardTrial.findViewById(R.id.card_offer_trial_card)).setCardElevation(0.f);
             ((CardView) cardLifetime.findViewById(R.id.card_offer_lifetime_card)).setCardElevation(7.f);
+            tvDisclaimer.setText(R.string.offer_disclaimer_trial);
         });
 
         cardLifetime.setOnClickListener(v -> {
@@ -60,6 +94,7 @@ public class BillingOfferActivity extends AppCompatActivity {
             ((CardView) cardWeekly.findViewById(R.id.card_offer_weekly_card)).setCardElevation(7.f);
             ((CardView) cardTrial.findViewById(R.id.card_offer_trial_card)).setCardElevation(7.f);
             ((CardView) cardLifetime.findViewById(R.id.card_offer_lifetime_card)).setCardElevation(0.f);
+            tvDisclaimer.setText(R.string.offer_disclaimer_lifetime);
         });
 
         cardTrial.setSelected(true);
