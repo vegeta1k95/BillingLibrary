@@ -16,15 +16,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.android.billingclient.api.ProductDetails;
-import com.android.billingclient.api.SkuDetails;
 import com.google.firebase.FirebaseApp;
 import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
-import com.sdk.billinglibrary.interfaces.ISkuListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BillingActivity extends AppCompatActivity {
 
@@ -129,111 +129,73 @@ public class BillingActivity extends AppCompatActivity {
     }
 
     private void retrieveSubs() {
-        RemoteConfig.fetchSubs(this, (trialSubId, premiumSubId) ->
-                manager.retrieveSubs(trialSubId, premiumSubId, new ISkuListener() {
-            @Override
-            public void onResult(@NonNull ProductDetails trial, @NonNull ProductDetails full) {
-                trialSku = trial;
-                fullSku = full;
 
-                runOnUiThread(() -> {
+        RemoteConfig.fetchSubs(this, (isSuccessful) -> {
 
-                    animation.cancel();
-                    imgLoading.clearAnimation();
-                    imgLoading.setVisibility(View.INVISIBLE);
-                    findViewById(R.id.container).setVisibility(View.VISIBLE);
+            String trialSubId = RemoteConfig.getSubByKey(RemoteConfig.SUB_TRIAL);
+            String premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.SUB_PREMIUM);
 
-                    Resources res = getResources();
+            List<String> subIds = new ArrayList<>();
+            subIds.add(trialSubId);
+            subIds.add(premiumSubId);
 
-                    Price priceTrial = new Price(res, trialSku.getSubscriptionOfferDetails().get(0));
-                    Price pricePremium = new Price(res, fullSku.getSubscriptionOfferDetails().get(0));
+            manager.retrieveSubs(subIds, (isSuccessful1, products) ->
+                    runOnUiThread(() -> {
+                        if (isSuccessful1 && products != null) {
 
-                    tvTrialTitle.setText(getString(R.string.txt_trial_title, priceTrial.getTrialPeriod()));
-                    tvTrialDescr.setText(getString(R.string.txt_trial_descr, priceTrial.getPriceAndCurrency(), priceTrial.getSubscriptionPeriod()));
-                    tvTrialDisclaimer.setText(getString(R.string.txt_trial_disclaimer,
-                            priceTrial.getTrialPeriod(),
-                            priceTrial.getSubscriptionPeriod(),
-                            priceTrial.getPriceAndCurrency(),
-                            priceTrial.getTotalPriceAndCurrency(),
-                            priceTrial.getTotalPeriod()));
+                            trialSku = products.get(0);
+                            fullSku = products.get(1);
 
-                    tvPremiumTitle.setText(getString(R.string.txt_premium_title, pricePremium.getSubscriptionPeriod()));
-                    tvPremiumDescr.setText(getString(R.string.txt_premium_descr, pricePremium.getTotalPriceAndCurrency(), pricePremium.getTotalPeriod()));
+                            animation.cancel();
+                            imgLoading.clearAnimation();
+                            imgLoading.setVisibility(View.INVISIBLE);
+                            findViewById(R.id.container).setVisibility(View.VISIBLE);
 
-                    tvPremiumPrice.setText(pricePremium.getPriceAndCurrency());
-                    tvPremiumPricePeriod.setText(getString(R.string.txt_premium_price_period, pricePremium.getSubscriptionPeriod()));
+                            Resources res = getResources();
 
-                    tvPremiumDisclaimer.setText(getString(R.string.txt_premium_disclaimer,
-                            pricePremium.getSubscriptionPeriod(),
-                            pricePremium.getPriceAndCurrency(),
-                            pricePremium.getTotalPriceAndCurrency(),
-                            pricePremium.getTotalPeriod()));
+                            Price priceTrial = new Price(res, trialSku.getSubscriptionOfferDetails().get(0));
+                            Price pricePremium = new Price(res, fullSku.getSubscriptionOfferDetails().get(0));
 
-                });
+                            tvTrialTitle.setText(getString(R.string.txt_trial_title, priceTrial.getTrialPeriod()));
+                            tvTrialDescr.setText(getString(R.string.txt_trial_descr, priceTrial.getPriceAndCurrency(), priceTrial.getSubscriptionPeriod()));
+                            tvTrialDisclaimer.setText(getString(R.string.txt_trial_disclaimer,
+                                    priceTrial.getTrialPeriod(),
+                                    priceTrial.getSubscriptionPeriod(),
+                                    priceTrial.getPriceAndCurrency(),
+                                    priceTrial.getTotalPriceAndCurrency(),
+                                    priceTrial.getTotalPeriod()));
 
-            }
+                            tvPremiumTitle.setText(getString(R.string.txt_premium_title, pricePremium.getSubscriptionPeriod()));
+                            tvPremiumDescr.setText(getString(R.string.txt_premium_descr, pricePremium.getTotalPriceAndCurrency(), pricePremium.getTotalPeriod()));
 
-            @Override
-            public void onFailed() {
-                runOnUiThread(() -> {
-                    Toast.makeText(getApplicationContext(), "Something went wrong...", Toast.LENGTH_LONG).show();
-                    BillingActivity.this.finish();
-                });
-            }
-        }));
+                            tvPremiumPrice.setText(pricePremium.getPriceAndCurrency());
+                            tvPremiumPricePeriod.setText(getString(R.string.txt_premium_price_period, pricePremium.getSubscriptionPeriod()));
+
+                            tvPremiumDisclaimer.setText(getString(R.string.txt_premium_disclaimer,
+                                    pricePremium.getSubscriptionPeriod(),
+                                    pricePremium.getPriceAndCurrency(),
+                                    pricePremium.getTotalPriceAndCurrency(),
+                                    pricePremium.getTotalPeriod()));
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Something went wrong...", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    })
+            );
+        });
     }
 
     @Override
     public void onBackPressed() {
-
         if (trialSku == null) {
             finish();
             return;
         }
-
-        final ExitDialog dialog = new ExitDialog(this);
-
-        dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
-            dialog.dismiss();
-            manager.launchPurchaseFlow(BillingActivity.this, trialSku, trialSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
-        });
-
-        try {
-            Price price = new Price(getResources(), trialSku.getSubscriptionOfferDetails().get(0));
-            TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
-            tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
-                    price.getTrialPeriod(),
-                    price.getPriceAndCurrency(),
-                    price.getSubscriptionPeriod()));
-            dialog.show();
-        } catch (NullPointerException ignore) {
-            finish();
-        }
+        showExitDialog();
     }
 
     private void setButtons() {
-
-        View.OnClickListener listener = v -> {
-            final ExitDialog dialog = new ExitDialog(BillingActivity.this);
-
-            dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
-                dialog.dismiss();
-                manager.launchPurchaseFlow(BillingActivity.this, trialSku, trialSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
-            });
-
-            try {
-                Price price = new Price(getResources(), trialSku.getSubscriptionOfferDetails().get(0));
-                TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
-                tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
-                        price.getTrialPeriod(),
-                        price.getPriceAndCurrency(),
-                        price.getSubscriptionPeriod()));
-                dialog.show();
-            } catch (NullPointerException ignore) {
-                finish();
-            }
-        };
-
+        View.OnClickListener listener = v -> showExitDialog();
         View btnTry = findViewById(R.id.btn_try);
 
         if (LocalConfig.isFirstTime()) {
@@ -255,9 +217,11 @@ public class BillingActivity extends AppCompatActivity {
                 return;
             }
             if (isTrial)
-                manager.launchPurchaseFlow(BillingActivity.this, trialSku, trialSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
+                manager.launchPurchaseFlow(BillingActivity.this, trialSku,
+                        trialSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
             else
-                manager.launchPurchaseFlow(BillingActivity.this, fullSku, fullSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
+                manager.launchPurchaseFlow(BillingActivity.this, fullSku,
+                        fullSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
         });
 
         cardFull.setOnClickListener(v -> {
@@ -279,6 +243,28 @@ public class BillingActivity extends AppCompatActivity {
 
         cardTrial.setSelected(true);
         cardFull.setSelected(false);
+    }
+
+    private void showExitDialog() {
+        final ExitDialog dialog = new ExitDialog(this);
+
+        dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
+            dialog.dismiss();
+            manager.launchPurchaseFlow(BillingActivity.this, trialSku,
+                    trialSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
+        });
+
+        try {
+            Price price = new Price(getResources(), trialSku.getSubscriptionOfferDetails().get(0));
+            TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
+            tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
+                    price.getTrialPeriod(),
+                    price.getPriceAndCurrency(),
+                    price.getSubscriptionPeriod()));
+            dialog.show();
+        } catch (NullPointerException ignore) {
+            finish();
+        }
     }
 
     private Animation rotate(View view) {

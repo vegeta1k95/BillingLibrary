@@ -5,7 +5,8 @@ import androidx.annotation.NonNull;
 import com.android.billingclient.api.ProductDetails;
 import com.android.billingclient.api.SkuDetails;
 
-public interface ISkuListener {
-    void onResult(@NonNull ProductDetails trial, @NonNull ProductDetails full);
-    void onFailed();
+import java.util.List;
+
+public interface ISubsListener {
+    void onResult(boolean isSuccessful, List<ProductDetails> products);
 }

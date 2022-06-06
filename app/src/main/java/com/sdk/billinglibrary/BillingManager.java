@@ -13,17 +13,14 @@ import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.ProductDetails;
-import com.android.billingclient.api.ProductDetailsResponseListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesResponseListener;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
 import com.android.billingclient.api.QueryPurchasesParams;
-import com.android.billingclient.api.SkuDetails;
-import com.android.billingclient.api.SkuDetailsParams;
 import com.sdk.billinglibrary.interfaces.IOnInitializationComplete;
 import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
-import com.sdk.billinglibrary.interfaces.ISkuListener;
+import com.sdk.billinglibrary.interfaces.ISubsListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -168,27 +165,19 @@ class BillingManager implements BillingClientStateListener,
                 this);
     }
 
-    void retrieveSubs(String trialSubId, String premiumSubId, ISkuListener listener) {
+    void retrieveSubs(@NonNull List<String> subIds, ISubsListener listener) {
 
-        if (trialSubId == null
-                || trialSubId.isEmpty()
-                || premiumSubId == null
-                || premiumSubId.isEmpty()
-                || !mBillingClient.isReady()) {
-            listener.onFailed();
+        if (subIds.isEmpty() || !mBillingClient.isReady()) {
+            listener.onResult(false, null);
             return;
         }
 
-        SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
-        List<String> subs = new ArrayList<>();
-        subs.add(trialSubId);
-        subs.add(premiumSubId);
-        params.setSkusList(subs).setType(BillingClient.SkuType.SUBS);
-
         List<QueryProductDetailsParams.Product> products = new ArrayList<>();
         QueryProductDetailsParams.Product.Builder builder = QueryProductDetailsParams.Product.newBuilder();
-        products.add(builder.setProductId(trialSubId).setProductType(BillingClient.ProductType.SUBS).build());
-        products.add(builder.setProductId(premiumSubId).setProductType(BillingClient.ProductType.SUBS).build());
+
+        for (String subId : subIds) {
+            products.add(builder.setProductId(subId).setProductType(BillingClient.ProductType.SUBS).build());
+        }
 
         QueryProductDetailsParams queryProductDetailsParams =
                 QueryProductDetailsParams.newBuilder()
@@ -197,32 +186,16 @@ class BillingManager implements BillingClientStateListener,
 
         mBillingClient.queryProductDetailsAsync(queryProductDetailsParams,
                 (billingResult, productDetailsList) -> {
-
                     if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-
-                        if (productDetailsList.size() != 2) {
-                            Log.d(LOG_TAG, "Fetched too few SKUs, should be 2!");
-                            listener.onFailed();
+                        if (productDetailsList.size() != subIds.size()) {
+                            Log.d(LOG_TAG, "Fetched too few SUBS (" +
+                                    productDetailsList.size() + "), should be: " + subIds.size());
+                            listener.onResult(false, null);
                         } else {
-
-                            ProductDetails trial = null;
-                            ProductDetails full = null;
-
-                            for (ProductDetails product : productDetailsList) {
-                                if (product.getProductId().equals(trialSubId))
-                                    trial = product;
-                                else if (product.getProductId().equals(premiumSubId))
-                                    full = product;
-                            }
-
-                            if (trial != null && full != null)
-                                listener.onResult(trial, full);
-                            else
-                                listener.onFailed();
+                            listener.onResult(true,productDetailsList);
                         }
-
                     } else {
-                        listener.onFailed();
+                        listener.onResult(false, null);
                     }
         });
     }
