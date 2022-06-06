@@ -4,27 +4,47 @@ import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
 
+import com.android.billingclient.api.ProductDetails;
 import com.android.billingclient.api.SkuDetails;
 
 import java.util.Locale;
 
 public class Price {
 
+    private final ProductDetails.SubscriptionOfferDetails mOffer;
     private final Resources mResources;
 
-    private final double mPriceCurrency;
-    private final String mCurrencyCode;
+    private final String mToken;
 
-    private final Period mSubscriptionPeriod;
-    private final Period mTrialPeriod;
+    private double mPriceCurrency;
+    private String mCurrencyCode;
 
-    public Price(Resources resources, @NonNull SkuDetails sku) {
+    private Period mSubscriptionPeriod;
+    private Period mTrialPeriod;
+
+    public Price(Resources resources, @NonNull ProductDetails.SubscriptionOfferDetails offer) {
         mResources = resources;
-        mPriceCurrency = (double) sku.getPriceAmountMicros() / 1000000;
-        mCurrencyCode = sku.getPriceCurrencyCode();
+        mOffer = offer;
+        mToken = offer.getOfferToken();
+        parseOffer();
+    }
 
-        mSubscriptionPeriod = Period.parse(sku.getSubscriptionPeriod());
-        mTrialPeriod = Period.parse(sku.getFreeTrialPeriod());
+    private void parseOffer() {
+
+        for (ProductDetails.PricingPhase phase : mOffer.getPricingPhases().getPricingPhaseList()) {
+            if (phase.getPriceAmountMicros() == 0) {
+                mTrialPeriod = Period.parse(phase.getBillingPeriod());
+            } else {
+                mPriceCurrency = (double) phase.getPriceAmountMicros() / 1000000;
+                mCurrencyCode = phase.getPriceCurrencyCode();
+                mSubscriptionPeriod = Period.parse(phase.getBillingPeriod());
+            }
+
+        }
+    }
+
+    public String getToken() {
+        return mToken;
     }
 
     public String getPriceAndCurrency() {

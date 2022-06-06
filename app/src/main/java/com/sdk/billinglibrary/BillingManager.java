@@ -12,9 +12,13 @@ import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ProductDetails;
+import com.android.billingclient.api.ProductDetailsResponseListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesResponseListener;
 import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.QueryProductDetailsParams;
+import com.android.billingclient.api.QueryPurchasesParams;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.sdk.billinglibrary.interfaces.IOnInitializationComplete;
@@ -45,7 +49,7 @@ class BillingManager implements BillingClientStateListener,
 
     private BillingClient mBillingClient;
     private IOnPurchaseListener mOnPurchaseListener;
-    private IOnInitializationComplete mOnInitializationListener;
+    private final IOnInitializationComplete mOnInitializationListener;
 
     private BillingManager(IOnInitializationComplete listener) {
         mOnInitializationListener = listener;
@@ -157,7 +161,11 @@ class BillingManager implements BillingClientStateListener,
     }
 
     void queryPurchases() {
-        mBillingClient.queryPurchasesAsync(BillingClient.SkuType.SUBS, this);
+        mBillingClient.queryPurchasesAsync(
+                QueryPurchasesParams.newBuilder()
+                        .setProductType(BillingClient.ProductType.SUBS)
+                        .build(),
+                this);
     }
 
     void retrieveSubs(String trialSubId, String premiumSubId, ISkuListener listener) {
@@ -172,34 +180,39 @@ class BillingManager implements BillingClientStateListener,
         }
 
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
-
         List<String> subs = new ArrayList<>();
         subs.add(trialSubId);
         subs.add(premiumSubId);
-
         params.setSkusList(subs).setType(BillingClient.SkuType.SUBS);
-        mBillingClient.querySkuDetailsAsync(params.build(),
-                (billingResult, skuDetailsList) -> {
+
+        List<QueryProductDetailsParams.Product> products = new ArrayList<>();
+        QueryProductDetailsParams.Product.Builder builder = QueryProductDetailsParams.Product.newBuilder();
+        products.add(builder.setProductId(trialSubId).setProductType(BillingClient.ProductType.SUBS).build());
+        products.add(builder.setProductId(premiumSubId).setProductType(BillingClient.ProductType.SUBS).build());
+
+        QueryProductDetailsParams queryProductDetailsParams =
+                QueryProductDetailsParams.newBuilder()
+                        .setProductList(products)
+                        .build();
+
+        mBillingClient.queryProductDetailsAsync(queryProductDetailsParams,
+                (billingResult, productDetailsList) -> {
+
                     if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
 
-                        if (skuDetailsList == null) {
-                            listener.onFailed();
-                            return;
-                        }
-
-                        if (skuDetailsList.size() != 2) {
+                        if (productDetailsList.size() != 2) {
                             Log.d(LOG_TAG, "Fetched too few SKUs, should be 2!");
                             listener.onFailed();
                         } else {
 
-                            SkuDetails trial = null;
-                            SkuDetails full = null;
+                            ProductDetails trial = null;
+                            ProductDetails full = null;
 
-                            for (SkuDetails sku : skuDetailsList) {
-                                if (sku.getSku().equals(trialSubId))
-                                    trial = sku;
-                                else if (sku.getSku().equals(premiumSubId))
-                                    full = sku;
+                            for (ProductDetails product : productDetailsList) {
+                                if (product.getProductId().equals(trialSubId))
+                                    trial = product;
+                                else if (product.getProductId().equals(premiumSubId))
+                                    full = product;
                             }
 
                             if (trial != null && full != null)
@@ -211,13 +224,12 @@ class BillingManager implements BillingClientStateListener,
                     } else {
                         listener.onFailed();
                     }
-                });
+        });
     }
 
-    void launchPurchaseFlow(Activity activity, SkuDetails sub, IOnPurchaseListener listener) {
+    void launchPurchaseFlow(Activity activity, ProductDetails product, String token, IOnPurchaseListener listener) {
         mOnPurchaseListener = listener;
-
-        if (!mBillingClient.isReady() || sub == null) {
+        if (!mBillingClient.isReady() || product == null) {
             if (mOnPurchaseListener != null) {
                 mOnPurchaseListener.onError();
             }
@@ -225,7 +237,13 @@ class BillingManager implements BillingClientStateListener,
         }
 
         try {
-            BillingFlowParams flowParams = BillingFlowParams.newBuilder().setSkuDetails(sub).build();
+            List<BillingFlowParams.ProductDetailsParams> params = new ArrayList<>();
+            params.add(BillingFlowParams.ProductDetailsParams.newBuilder()
+                            .setProductDetails(product)
+                            .setOfferToken(token)
+                    .build());
+            BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                            .setProductDetailsParamsList(params).build();
             mBillingClient.launchBillingFlow(activity, flowParams);
         } catch (IllegalArgumentException e) {
             mOnPurchaseListener.onError();

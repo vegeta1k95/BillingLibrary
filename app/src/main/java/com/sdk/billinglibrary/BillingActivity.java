@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
+import com.android.billingclient.api.ProductDetails;
 import com.android.billingclient.api.SkuDetails;
 import com.google.firebase.FirebaseApp;
 import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
@@ -74,8 +75,8 @@ public class BillingActivity extends AppCompatActivity {
 
     private BillingManager manager;
 
-    private SkuDetails trialSku;
-    private SkuDetails fullSku;
+    private ProductDetails trialSku;
+    private ProductDetails fullSku;
 
     private boolean isTrial = true;
 
@@ -131,7 +132,7 @@ public class BillingActivity extends AppCompatActivity {
         RemoteConfig.fetchSubs(this, (trialSubId, premiumSubId) ->
                 manager.retrieveSubs(trialSubId, premiumSubId, new ISkuListener() {
             @Override
-            public void onResult(@NonNull SkuDetails trial, @NonNull SkuDetails full) {
+            public void onResult(@NonNull ProductDetails trial, @NonNull ProductDetails full) {
                 trialSku = trial;
                 fullSku = full;
 
@@ -144,8 +145,8 @@ public class BillingActivity extends AppCompatActivity {
 
                     Resources res = getResources();
 
-                    Price priceTrial = new Price(res, trialSku);
-                    Price pricePremium = new Price(res, fullSku);
+                    Price priceTrial = new Price(res, trialSku.getSubscriptionOfferDetails().get(0));
+                    Price pricePremium = new Price(res, fullSku.getSubscriptionOfferDetails().get(0));
 
                     tvTrialTitle.setText(getString(R.string.txt_trial_title, priceTrial.getTrialPeriod()));
                     tvTrialDescr.setText(getString(R.string.txt_trial_descr, priceTrial.getPriceAndCurrency(), priceTrial.getSubscriptionPeriod()));
@@ -194,11 +195,11 @@ public class BillingActivity extends AppCompatActivity {
 
         dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
             dialog.dismiss();
-            manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
+            manager.launchPurchaseFlow(BillingActivity.this, trialSku, trialSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
         });
 
         try {
-            Price price = new Price(getResources(), trialSku);
+            Price price = new Price(getResources(), trialSku.getSubscriptionOfferDetails().get(0));
             TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
             tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
                     price.getTrialPeriod(),
@@ -217,11 +218,11 @@ public class BillingActivity extends AppCompatActivity {
 
             dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
                 dialog.dismiss();
-                manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
+                manager.launchPurchaseFlow(BillingActivity.this, trialSku, trialSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
             });
 
             try {
-                Price price = new Price(getResources(), trialSku);
+                Price price = new Price(getResources(), trialSku.getSubscriptionOfferDetails().get(0));
                 TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
                 tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
                         price.getTrialPeriod(),
@@ -254,9 +255,9 @@ public class BillingActivity extends AppCompatActivity {
                 return;
             }
             if (isTrial)
-                manager.launchPurchaseFlow(BillingActivity.this, trialSku, onPurchaseListener);
+                manager.launchPurchaseFlow(BillingActivity.this, trialSku, trialSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
             else
-                manager.launchPurchaseFlow(BillingActivity.this, fullSku, onPurchaseListener);
+                manager.launchPurchaseFlow(BillingActivity.this, fullSku, fullSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
         });
 
         cardFull.setOnClickListener(v -> {
