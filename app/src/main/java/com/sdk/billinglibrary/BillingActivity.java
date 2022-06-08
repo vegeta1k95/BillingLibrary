@@ -143,8 +143,12 @@ public class BillingActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         if (isSuccessful1 && products != null) {
 
-                            trialSku = products.get(0);
-                            fullSku = products.get(1);
+                            for (ProductDetails product : products) {
+                                if (product.getProductId().equals(trialSubId))
+                                    trialSku = product;
+                                else if (product.getProductId().equals(premiumSubId))
+                                    fullSku = product;
+                            }
 
                             animation.cancel();
                             imgLoading.clearAnimation();

@@ -137,9 +137,20 @@ public class BillingOfferActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         if (isSuccessful1 && products != null) {
 
-                            mWeeklySub = products.get(0);
-                            mTrialSub = products.get(1);
-                            mLifetimeSub = products.get(2);
+                            for (ProductDetails product : products) {
+                                if (product.getProductId().equals(weeklySubId))
+                                    mWeeklySub = product;
+                                else if (product.getProductId().equals(trialSubId))
+                                    mTrialSub = product;
+                                else if (product.getProductId().equals(lifetimeSubId))
+                                    mLifetimeSub = product;
+                            }
+
+                            if (mWeeklySub == null || mTrialSub == null || mLifetimeSub == null) {
+                                finish();
+                                return;
+                            }
+
 
                             tvWeeklyFull.setText(getString(R.string.offer_weekly_full, mWeeklySub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1).getFormattedPrice()));
                             tvWeeklySale.setText(getString(R.string.offer_weekly_sale, mWeeklySub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice()));
@@ -153,7 +164,8 @@ public class BillingOfferActivity extends AppCompatActivity {
                             updateDisclaimer();
 
                         } else {
-                            Toast.makeText(getApplicationContext(), "Something went wrong...", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),
+                                    "Something went wrong...", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     })
