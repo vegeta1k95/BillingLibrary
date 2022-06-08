@@ -142,13 +142,14 @@
                             android:orientation="vertical">
 
                             <com.sdk.billinglibrary.CrossedTextView
+                                android:id="@+id/txt_weekly_full"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="@dimen/_9sdp"
                                 android:layout_marginBottom="@dimen/_7sdp"
                                 android:fontFamily="@font/gilroy_regular"
-                                android:text="$4.99/week"
+                                android:text="@string/offer_weekly_full"
                                 android:textColor="#141414"
                                 android:textSize="12sp" />
 
@@ -170,11 +171,12 @@
                                 android:textSize="14sp" />
 
                             <TextView
+                                android:id="@+id/txt_weekly_sale"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:fontFamily="@font/gilroy_regular"
-                                android:text="only 0.99$"
+                                android:text="@string/offer_weekly_sale"
                                 android:textColor="#141414"
                                 android:textSize="12sp" />
 
@@ -226,13 +228,14 @@
                             android:orientation="vertical">
 
                             <com.sdk.billinglibrary.CrossedTextView
+                                android:id="@+id/txt_trial_full"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="@dimen/_9sdp"
                                 android:layout_marginBottom="@dimen/_7sdp"
                                 android:fontFamily="@font/gilroy_regular"
-                                android:text="$4.99/week"
+                                android:text="@string/offer_weekly_full"
                                 android:textColor="#141414"
                                 android:textSize="12sp" />
 
@@ -254,11 +257,12 @@
                                 android:textSize="14sp" />
 
                             <TextView
+                                android:id="@+id/txt_trial_sale"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:fontFamily="@font/gilroy_regular"
-                                android:text="then 4.99$"
+                                android:text="@string/offer_trial_sale"
                                 android:textColor="#141414"
                                 android:textSize="12sp" />
 
@@ -330,13 +334,14 @@
                             android:orientation="vertical">
 
                             <com.sdk.billinglibrary.CrossedTextView
+                                android:id="@+id/txt_lifetime_full"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="@dimen/_9sdp"
                                 android:layout_marginBottom="@dimen/_7sdp"
                                 android:fontFamily="@font/gilroy_regular"
-                                android:text="$100.99/year"
+                                android:text="@string/offer_lifetime_full"
                                 android:textColor="#141414"
                                 android:textSize="12sp" />
 
@@ -358,11 +363,12 @@
                                 android:textSize="14sp" />
 
                             <TextView
+                                android:id="@+id/txt_lifetime_sale"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:fontFamily="@font/gilroy_regular"
-                                android:text="only 20$"
+                                android:text="@string/offer_weekly_sale"
                                 android:textColor="#141414"
                                 android:textSize="12sp" />
 
@@ -457,5 +463,13 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_15sdp"
+        android:layout_margin="@dimen/_5sdp"
+        android:src="@drawable/billing_close"/>
 
 </RelativeLayout>
