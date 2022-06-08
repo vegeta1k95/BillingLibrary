@@ -3,7 +3,6 @@ package com.sdk.billinglibrary;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import com.android.billingclient.api.ProductDetails;
 import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -150,16 +150,14 @@ public class BillingOfferActivity extends AppCompatActivity {
                                 finish();
                                 return;
                             }
+                            tvWeeklyFull.setText(getString(R.string.offer_weekly_full, formatPrice(mWeeklySub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1))));
+                            tvWeeklySale.setText(getString(R.string.offer_weekly_sale, formatPrice(mWeeklySub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0))));
 
+                            tvTrialFull.setText(getString(R.string.offer_weekly_full, formatPrice(mTrialSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(2))));
+                            tvTrialSale.setText(getString(R.string.offer_trial_sale, formatPrice(mTrialSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1))));
 
-                            tvWeeklyFull.setText(getString(R.string.offer_weekly_full, mWeeklySub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1).getFormattedPrice()));
-                            tvWeeklySale.setText(getString(R.string.offer_weekly_sale, mWeeklySub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice()));
-
-                            tvTrialFull.setText(getString(R.string.offer_weekly_full, mTrialSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(2).getFormattedPrice()));
-                            tvTrialSale.setText(getString(R.string.offer_trial_sale, mTrialSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1).getFormattedPrice()));
-
-                            tvLifetimeFull.setText(getString(R.string.offer_lifetime_full, mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice()));
-                            tvLifetimeSale.setText(getString(R.string.offer_weekly_sale, mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1).getFormattedPrice()));
+                            tvLifetimeFull.setText(getString(R.string.offer_lifetime_full, formatPrice(mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0))));
+                            tvLifetimeSale.setText(getString(R.string.offer_weekly_sale, formatPrice(mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1))));
 
                             updateDisclaimer();
 
@@ -173,25 +171,32 @@ public class BillingOfferActivity extends AppCompatActivity {
         });
     }
 
+    private String formatPrice(ProductDetails.PricingPhase phase) {
+        double price = (double) phase.getPriceAmountMicros() / 1000000;
+        String code = phase.getPriceCurrencyCode();
+        String sign = Currency.getInstance(code).getSymbol();
+        return price + sign;
+    }
+
     private void updateDisclaimer() {
         switch (mChosenSub) {
             case 0:
                 if (mWeeklySub != null)
                     tvDisclaimer.setText(getString(R.string.offer_disclaimer_weekly,
-                                    mWeeklySub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice(),
-                                    mWeeklySub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1).getFormattedPrice()));
+                                    formatPrice(mWeeklySub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0)),
+                                    formatPrice(mWeeklySub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1))));
                 break;
             case 1:
                 if (mTrialSub != null)
                     tvDisclaimer.setText(getString(R.string.offer_disclaimer_trial,
-                            mTrialSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1).getFormattedPrice(),
-                            mTrialSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(2).getFormattedPrice()));
+                            formatPrice(mTrialSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1)),
+                            formatPrice(mTrialSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(2))));
                 break;
             case 2:
                 if (mLifetimeSub != null)
                     tvDisclaimer.setText(getString(R.string.offer_disclaimer_lifetime,
-                            mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice(),
-                            mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1).getFormattedPrice()));
+                            formatPrice(mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0)),
+                            formatPrice(mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1))));
                 break;
             default:
                 break;

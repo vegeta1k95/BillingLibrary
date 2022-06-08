@@ -418,7 +418,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/billing_arrow"
-                    app:tint="#ffffff"/>
+                    app:tint="#ffffff" />
 
             </RelativeLayout>
 
