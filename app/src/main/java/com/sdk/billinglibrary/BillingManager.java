@@ -47,6 +47,7 @@ class BillingManager implements BillingClientStateListener,
     private BillingClient mBillingClient;
     private IOnPurchaseListener mOnPurchaseListener;
     private final IOnInitializationComplete mOnInitializationListener;
+    private Runnable mRunnableConsumable;
 
     private BillingManager(IOnInitializationComplete listener) {
         mOnInitializationListener = listener;
@@ -66,6 +67,14 @@ class BillingManager implements BillingClientStateListener,
         mBillingClient.startConnection(this);
     }
 
+    private void executeListeners() {
+        mOnInitializationListener.onComplete();
+        if (mRunnableConsumable != null) {
+            mRunnableConsumable.run();
+            mRunnableConsumable = null;
+        }
+    }
+
     @Override
     public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
         if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
@@ -79,14 +88,14 @@ class BillingManager implements BillingClientStateListener,
             } else {
                 Log.d(LOG_TAG, "Subscription are not supported!");
                 LocalConfig.subscribeLocally(true);
-                mOnInitializationListener.onComplete();
+                executeListeners();
             }
 
         } else {
             Log.d(LOG_TAG, "Billing setup failed: "
                     + billingResult.getResponseCode() + " | "
                     + billingResult.getDebugMessage());
-            mOnInitializationListener.onComplete();
+            executeListeners();
         }
     }
 
@@ -105,7 +114,7 @@ class BillingManager implements BillingClientStateListener,
                     + billingResult.getResponseCode() + " | "
                     + billingResult.getDebugMessage());
         }
-        mOnInitializationListener.onComplete();
+        executeListeners();
     }
 
     @Override
@@ -167,37 +176,44 @@ class BillingManager implements BillingClientStateListener,
 
     void retrieveSubs(@NonNull List<String> subIds, ISubsListener listener) {
 
-        if (subIds.isEmpty() || !mBillingClient.isReady()) {
+        if (subIds.isEmpty()) {
             listener.onResult(false, null);
             return;
         }
 
-        List<QueryProductDetailsParams.Product> products = new ArrayList<>();
-        QueryProductDetailsParams.Product.Builder builder = QueryProductDetailsParams.Product.newBuilder();
+        Runnable runnable = () -> {
+            List<QueryProductDetailsParams.Product> products = new ArrayList<>();
+            QueryProductDetailsParams.Product.Builder builder = QueryProductDetailsParams.Product.newBuilder();
 
-        for (String subId : subIds) {
-            products.add(builder.setProductId(subId).setProductType(BillingClient.ProductType.SUBS).build());
-        }
+            for (String subId : subIds) {
+                products.add(builder.setProductId(subId).setProductType(BillingClient.ProductType.SUBS).build());
+            }
 
-        QueryProductDetailsParams queryProductDetailsParams =
-                QueryProductDetailsParams.newBuilder()
-                        .setProductList(products)
-                        .build();
+            QueryProductDetailsParams queryProductDetailsParams =
+                    QueryProductDetailsParams.newBuilder()
+                            .setProductList(products)
+                            .build();
 
-        mBillingClient.queryProductDetailsAsync(queryProductDetailsParams,
-                (billingResult, productDetailsList) -> {
-                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                        if (productDetailsList.size() != subIds.size()) {
-                            Log.d(LOG_TAG, "Fetched too few SUBS (" +
-                                    productDetailsList.size() + "), should be: " + subIds.size());
-                            listener.onResult(false, null);
+            mBillingClient.queryProductDetailsAsync(queryProductDetailsParams,
+                    (billingResult, productDetailsList) -> {
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                            if (productDetailsList.size() != subIds.size()) {
+                                Log.d(LOG_TAG, "Fetched too few SUBS (" +
+                                        productDetailsList.size() + "), should be: " + subIds.size());
+                                listener.onResult(false, null);
+                            } else {
+                                listener.onResult(true,productDetailsList);
+                            }
                         } else {
-                            listener.onResult(true,productDetailsList);
+                            listener.onResult(false, null);
                         }
-                    } else {
-                        listener.onResult(false, null);
-                    }
-        });
+            });
+        };
+
+        if (mBillingClient.isReady())
+            runnable.run();
+        else
+            mRunnableConsumable = runnable;
     }
 
     void launchPurchaseFlow(Activity activity, ProductDetails product, String token, IOnPurchaseListener listener) {
