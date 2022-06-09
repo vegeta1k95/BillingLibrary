@@ -49,6 +49,12 @@ class RemoteConfig {
 
         config.setDefaultsAsync(defaults).addOnCompleteListener(t ->
                 config.fetchAndActivate().addOnCompleteListener(task -> {
+
+            if (t.isSuccessful())
+                Log.d(BillingManager.LOG_TAG, "Defaults are set!");
+            else
+                Log.d(BillingManager.LOG_TAG, "Defaults are not set!: " + task.getException().toString());
+
             if (task.isSuccessful()) {
                 Log.d(BillingManager.LOG_TAG, "Fetched new config!");
             } else {
