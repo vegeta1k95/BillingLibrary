@@ -79,6 +79,7 @@ public class BillingActivity extends AppCompatActivity {
     private ProductDetails fullSku;
 
     private boolean isTrial = true;
+    private boolean isFirstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,12 +204,14 @@ public class BillingActivity extends AppCompatActivity {
         View btnTry = findViewById(R.id.btn_try);
 
         if (LocalConfig.isFirstTimeBilling()) {
+            isFirstTime = true;
             btnClose.setEnabled(false);
             btnClose.setVisibility(View.GONE);
             btnTry.setEnabled(true);
             btnTry.setVisibility(View.VISIBLE);
             btnTry.setOnClickListener(listener);
         } else {
+            isFirstTime = false;
             btnClose.setEnabled(true);
             btnClose.setVisibility(View.VISIBLE);
             btnClose.setOnClickListener(listener);
@@ -250,7 +253,7 @@ public class BillingActivity extends AppCompatActivity {
     }
 
     private void showExitDialog() {
-        final ExitDialog dialog = new ExitDialog(this);
+        final ExitDialog dialog = new ExitDialog(this, isFirstTime);
 
         dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
             dialog.dismiss();

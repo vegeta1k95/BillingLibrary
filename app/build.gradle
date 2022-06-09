@@ -30,6 +30,7 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     implementation "androidx.work:work-runtime:2.7.1"
+    implementation 'com.github.vegeta1k95:AdsHelperLib:1.2.2'
 
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:29.3.0')

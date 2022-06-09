@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -15,17 +14,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.utilityapps.adshelperlib.AdsHelper;
+
 import java.util.concurrent.TimeUnit;
 
 class ExitDialog extends Dialog {
+
+    private final boolean mShowInterAfter;
 
     private final Resources mResources;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private int mCounter = 86400;
 
-    public ExitDialog(@NonNull Activity activity) {
+    public ExitDialog(@NonNull Activity activity, boolean showInter) {
         super(activity);
 
+        mShowInterAfter = showInter;
         mResources = activity.getResources();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -48,6 +52,8 @@ class ExitDialog extends Dialog {
         findViewById(R.id.dialog_button_close).setOnClickListener(v1 -> {
             mHandler.removeCallbacksAndMessages(null);
             dismiss();
+            if (mShowInterAfter)
+                AdsHelper.showInter(activity, true);
             activity.finish();
         });
     }
