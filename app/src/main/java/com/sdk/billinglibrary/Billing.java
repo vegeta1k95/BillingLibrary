@@ -7,6 +7,7 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -63,7 +64,9 @@ public class Billing {
 
         private PendingIntent createPendingIntent() {
             Intent intent = new Intent(mContext, BillingOfferActivity.class);
-            return PendingIntent.getActivity(mContext, 0, intent,
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext);
+            stackBuilder.addNextIntentWithParentStack(intent);
+            return stackBuilder.getPendingIntent(0,
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
 
@@ -85,6 +88,7 @@ public class Billing {
                     getApplicationContext(), CHANNEL_ID);
             mBuilder.setSmallIcon(R.drawable.ic_billing_push)
                     .setContentTitle("Special Offer")
+                    .setAutoCancel(true)
                     .setContentText("Special Offer just for You! Subscribe now!")
                     .setContentIntent(createPendingIntent())
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
