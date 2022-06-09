@@ -64,9 +64,7 @@ public class Billing {
 
         private PendingIntent createPendingIntent() {
             Intent intent = new Intent(mContext, BillingOfferActivity.class);
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext);
-            stackBuilder.addNextIntentWithParentStack(intent);
-            return stackBuilder.getPendingIntent(0,
+            return PendingIntent.getActivity(mContext, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
 
