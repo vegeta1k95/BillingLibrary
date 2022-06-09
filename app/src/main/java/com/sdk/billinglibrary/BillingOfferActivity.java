@@ -133,21 +133,29 @@ public class BillingOfferActivity extends AppCompatActivity {
             String trialSubId = RemoteConfig.getSubByKey(RemoteConfig.SUB_OFFER_TRIAL);
             String lifetimeSubId = RemoteConfig.getSubByKey(RemoteConfig.SUB_OFFER_LIFETIME);
 
+            weeklySubId = weeklySubId.isEmpty() ? RemoteConfig.DEFAULT_WEEKLY : weeklySubId;
+            trialSubId = trialSubId.isEmpty() ? RemoteConfig.DEFAULT_TRIAL : trialSubId;
+            lifetimeSubId = lifetimeSubId.isEmpty() ? RemoteConfig.DEFAULT_LIFETIME : lifetimeSubId;
+
             List<String> subIds = new ArrayList<>();
             subIds.add(weeklySubId);
             subIds.add(trialSubId);
             subIds.add(lifetimeSubId);;
+
+            String finalWeeklySubId = weeklySubId;
+            String finalTrialSubId = trialSubId;
+            String finalLifetimeSubId = lifetimeSubId;
 
             mBillingManager.retrieveSubs(subIds, (isSuccessful1, products) ->
                     runOnUiThread(() -> {
                         if (isSuccessful1 && products != null) {
 
                             for (ProductDetails product : products) {
-                                if (product.getProductId().equals(weeklySubId))
+                                if (product.getProductId().equals(finalWeeklySubId))
                                     mWeeklySub = product;
-                                else if (product.getProductId().equals(trialSubId))
+                                else if (product.getProductId().equals(finalTrialSubId))
                                     mTrialSub = product;
-                                else if (product.getProductId().equals(lifetimeSubId))
+                                else if (product.getProductId().equals(finalLifetimeSubId))
                                     mLifetimeSub = product;
                             }
 

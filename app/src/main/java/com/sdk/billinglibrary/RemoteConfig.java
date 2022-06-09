@@ -19,9 +19,9 @@ class RemoteConfig {
     static final String SUB_OFFER_TRIAL = "sub_offer_trial";
     static final String SUB_OFFER_LIFETIME = "sub_offer_lifetime";
 
-    private static final String DEFAULT_WEEKLY = "weeklyacessspecialoffer";
-    private static final String DEFAULT_TRIAL = "weeklytrialspecialoffer";
-    private static final String DEFAULT_LIFETIME = "lifetimespecialoffer";
+    static final String DEFAULT_WEEKLY = "weeklyacessspecialoffer";
+    static final String DEFAULT_TRIAL = "weeklytrialspecialoffer";
+    static final String DEFAULT_LIFETIME = "lifetimespecialoffer";
 
     public interface IOnFetchSubsListener {
         void onComplete(boolean isSuccessful);
