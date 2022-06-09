@@ -81,6 +81,11 @@ public class BillingOfferActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing_offer);
 
+        if (Billing.isSubscribed()) {
+            finish();
+            return;
+        }
+
         mBillingManager = BillingManager.getInstance();
 
         tvWeeklyFull = findViewById(R.id.txt_weekly_full);
@@ -156,8 +161,8 @@ public class BillingOfferActivity extends AppCompatActivity {
                             tvTrialFull.setText(getString(R.string.offer_weekly_full, formatPrice(mTrialSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(2))));
                             tvTrialSale.setText(getString(R.string.offer_trial_sale, formatPrice(mTrialSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1))));
 
-                            tvLifetimeFull.setText(getString(R.string.offer_lifetime_full, formatPrice(mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0))));
-                            tvLifetimeSale.setText(getString(R.string.offer_weekly_sale, formatPrice(mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1))));
+                            tvLifetimeFull.setText(getString(R.string.offer_lifetime_full, formatPrice(mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(1))));
+                            tvLifetimeSale.setText(getString(R.string.offer_weekly_sale, formatPrice(mLifetimeSub.getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0))));
 
                             updateDisclaimer();
 
@@ -174,7 +179,7 @@ public class BillingOfferActivity extends AppCompatActivity {
     private String formatPrice(ProductDetails.PricingPhase phase) {
         double price = (double) phase.getPriceAmountMicros() / 1000000;
         String code = phase.getPriceCurrencyCode();
-        String sign = Currency.getInstance(code).getSymbol();
+        String sign = Currency.getInstance(code).getSymbol().replace(".","");
         return price + sign;
     }
 
@@ -215,7 +220,11 @@ public class BillingOfferActivity extends AppCompatActivity {
                 }
                 long minutes = TimeUnit.SECONDS.toMinutes(mCounter) % 60;
                 long seconds = TimeUnit.SECONDS.toSeconds(mCounter) % 60;
-                tvTimer.setText(getString(R.string.offer_timer, minutes, seconds));
+
+                String minutesString = minutes < 10 ? "0" + minutes : String.valueOf(minutes);
+                String secondsString = seconds < 10 ? "0" + seconds : String.valueOf(seconds);
+
+                tvTimer.setText(getString(R.string.offer_timer, minutesString, secondsString));
                 mHandler.postDelayed(this, 1000);
             }
         }, 1000);

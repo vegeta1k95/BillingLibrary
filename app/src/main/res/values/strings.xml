@@ -74,7 +74,7 @@
     <string name="offer_lifetime">Annual\nAccess</string>
     <string name="offer_discount">70% DISCOUNT</string>
     <string name="offer_available">Only 8 Offers Available!</string>
-    <string name="offer_timer">Offer ends in %1$d:%2$d</string>
+    <string name="offer_timer">Offer ends in %1$s:%2$s</string>
     <string name="offer_title">Limited Offer!</string>
     <string name="offer_popular">Most popular</string>
 

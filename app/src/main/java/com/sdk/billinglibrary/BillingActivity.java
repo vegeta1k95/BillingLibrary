@@ -202,7 +202,7 @@ public class BillingActivity extends AppCompatActivity {
         View.OnClickListener listener = v -> showExitDialog();
         View btnTry = findViewById(R.id.btn_try);
 
-        if (LocalConfig.isFirstTime()) {
+        if (LocalConfig.isFirstTimeBilling()) {
             btnClose.setEnabled(false);
             btnClose.setVisibility(View.GONE);
             btnTry.setEnabled(true);
