@@ -103,7 +103,7 @@ public class Billing {
 
         if (LocalConfig.isFirstTimeOffer()) {
             WorkRequest uploadWorkRequest = new OneTimeWorkRequest.Builder(OfferWorker.class)
-                    .setInitialDelay(1, TimeUnit.SECONDS)
+                    .setInitialDelay(30, TimeUnit.MINUTES)
                     .build();
             WorkManager.getInstance(activity).enqueue(uploadWorkRequest);
         } else if (extras != null) {
