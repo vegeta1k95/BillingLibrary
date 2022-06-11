@@ -96,14 +96,14 @@ public class Billing {
         }
     }
 
-    public static void startOfferActivityIfNeeded(Activity activity) {
+    public static void startOfferActivityIfNeeded(Activity activity, long delay) {
 
         Intent intent = activity.getIntent();
         Bundle extras = intent.getExtras();
 
         if (LocalConfig.isFirstTimeOffer()) {
             WorkRequest uploadWorkRequest = new OneTimeWorkRequest.Builder(OfferWorker.class)
-                    .setInitialDelay(30, TimeUnit.MINUTES)
+                    .setInitialDelay(delay, TimeUnit.MINUTES)
                     .build();
             WorkManager.getInstance(activity).enqueue(uploadWorkRequest);
         } else if (extras != null) {
