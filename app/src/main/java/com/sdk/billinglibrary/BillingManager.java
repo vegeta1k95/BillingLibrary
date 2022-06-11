@@ -263,6 +263,8 @@ class BillingManager implements BillingClientStateListener,
     public void onStart(@NonNull LifecycleOwner owner) {
         if (mCurrentActivity != null
                 && mCurrentActivity.getPackageName().equals(mApplication.getPackageName())
+                && !(mCurrentActivity instanceof BillingActivity)
+                && !(mCurrentActivity instanceof BillingOfferActivity)
                 && !Billing.isSubscribed()
                 && !LocalConfig.isFirstTimeBilling()) {
             Billing.startBillingActivity(mCurrentActivity, true);
