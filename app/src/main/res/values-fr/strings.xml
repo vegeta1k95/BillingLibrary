@@ -60,17 +60,17 @@
     <string name="offer_per_week">par semaine</string>
     <string name="offer_per_year">par an</string>
     <string name="offer_weakly">Accès\nhebdomadaire</string>
-    <string name="offer_trial">3 jours\nd\'accès d'essai</string>
+    <string name="offer_trial">3 jours\nd\'accès d\'essai</string>
     <string name="offer_lifetime">Accès\nannuel</string>
-    <string name="offer_discount">70 % DE RÉDUCTION</string>
+    <string name="offer_discount">70% DE RÉDUCTION</string>
     <string name="offer_available">Seulement 8 offres disponibles !</string>
     <string name="offer_timer">L\'offre se termine dans %1$s :%2$s</string>
     <string name="offer_title">Offre limitée !</string>
     <string name="offer_popular">Le plus populaire</string>
 
     <string name="offer_disclaimer_weekly">Cela a activé un plan d\'une semaine avec une réduction de %1$s, puis s\'étend à %2$s/semaine de base renouvelable automatiquement.</string>
-    <string name="offer_disclaimer_trial">Cela a permis un essai de 3 jours, puis s\'étend à un plan d\'une semaine avec une réduction de 70 % pour %1$s, puis s\'étend à un plan de base renouvelable automatiquement de %2$s/semaine. </string>
-    <string name="offer_disclaimer_lifetime">Cela a activé un plan d\'un an avec une réduction de 80 % pour %1$s, puis s\'étend à un plan de base renouvelable automatiquement de %2$s/an</string>
+    <string name="offer_disclaimer_trial">Cela a permis un essai de 3 jours, puis s\'étend à un plan d\'une semaine avec une réduction de 70%% pour %1$s, puis s\'étend à un plan de base renouvelable automatiquement de %2$s/semaine. </string>
+    <string name="offer_disclaimer_lifetime">Cela a activé un plan d\'un an avec une réduction de 80%% pour %1$s, puis s\'étend à un plan de base renouvelable automatiquement de %2$s/an</string>
 
     <string name="offer_weekly_full">%1$s/semaine</string>
     <string name="offer_weekly_sale">seulement %1$s</string>
