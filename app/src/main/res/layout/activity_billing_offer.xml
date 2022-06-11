@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/billing_loading_circle"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:tint="?attr/billing_accent_color"/>
 
     <LinearLayout
@@ -22,7 +22,7 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/header"
@@ -45,15 +45,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gilroy_semibold"
                     android:text="@string/offer_title"
-                    android:textColor="?attr/billing_text_color"
+                    android:textColor="?billing_text_color"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:textSize="25sp" />
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="@dimen/_130sdp"
+                    android:layout_width="@dimen/_140sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_3sdp"
@@ -68,10 +70,10 @@
                         android:layout_gravity="center"
                         android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginVertical="@dimen/_5sdp"
+                        android:ellipsize="middle"
                         android:fontFamily="@font/gilroy_semibold"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:ellipsize="end"
                         android:text="@string/offer_timer"
                         android:textColor="#141414"
                         android:textSize="14sp" />
