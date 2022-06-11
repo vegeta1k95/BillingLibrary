@@ -38,10 +38,13 @@ class LocalConfig {
     static boolean isFirstTimeBilling() {
         long firstLaunch = preferences.getLong(KEY_IS_FIRST_TIME_BILLING, 0);
         if (firstLaunch == 0) {
-            preferences.edit().putLong(KEY_IS_FIRST_TIME_BILLING, System.currentTimeMillis()).apply();
             return true;
         } else
             return false;
+    }
+
+    static void didFirstBilling() {
+        preferences.edit().putLong(KEY_IS_FIRST_TIME_BILLING, System.currentTimeMillis()).apply();
     }
 
     static boolean isFirstTimeOffer() {
@@ -53,8 +56,8 @@ class LocalConfig {
             return false;
     }
 
-    static boolean daysPassedSinceFirstLaunch(int days) {
-        long firstLaunch = preferences.getLong(KEY_IS_FIRST_TIME_BILLING, 0);
+    static boolean daysPassedSinceFirstOffer(int days) {
+        long firstLaunch = preferences.getLong(KEY_IS_FIRST_TIME_OFFER, 0);
         if (firstLaunch == 0)
             return false;
         return System.currentTimeMillis() - firstLaunch >= days * 8600000L;

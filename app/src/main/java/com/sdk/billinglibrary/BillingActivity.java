@@ -121,6 +121,8 @@ public class BillingActivity extends AppCompatActivity {
         setFeatures();
         setButtons();
         retrieveSubs();
+
+        LocalConfig.didFirstBilling();
     }
 
     @Override

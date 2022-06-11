@@ -1,18 +1,14 @@
 package com.sdk.billinglibrary;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
-
 import android.app.Activity;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -113,7 +109,7 @@ public class Billing {
         } else if (extras != null) {
             if (extras.containsKey("billing_offer_data")
                     && !isSubscribed()
-                    && LocalConfig.daysPassedSinceFirstLaunch(1)) {
+                    && LocalConfig.daysPassedSinceFirstOffer(1)) {
                 activity.startActivity(new Intent(activity, BillingOfferActivity.class));
             }
         }
