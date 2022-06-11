@@ -70,7 +70,6 @@
     <string name = "offer_available"> يتوفر فقط 8 عروض! </string>
     <string name = "offer_timer"> ينتهي العرض في%1$s:%2$s </string>
     <string name = "offer_title"> عرض محدود! </string>
-    <string name = "offer_popular"> الأكثر شيوعًا </string>
 
     <string name = "offer_disclaimer_weekly"> أدى هذا إلى تمكين خطة لمدة أسبوع مع خصم بنسبة%1$s ، ثم تمتد إلى%2$s/ أسبوعًا من الخطة الأساسية القابلة للتجديد التلقائي. </string>
     <string name = "offer_disclaimer_trial"> أدى هذا إلى تمكين إصدار تجريبي لمدة 3 أيام ، ثم يمتد إلى خطة لمدة أسبوع واحد بخصم 70%% لـ٪ 1 $ s ، ثم يمتد إلى٪ 2 $ s/week خطة أساسية قابلة للتجديد التلقائي. </string>

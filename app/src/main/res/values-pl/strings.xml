@@ -71,7 +71,6 @@
     <string name="offer_available">Tylko 8 dostępnych ofert!</string>
     <string name="offer_timer">Oferta kończy się za %1$s:%2$s</string>
     <string name="offer_title">Oferta ograniczona!</string>
-    <string name="offer_popular">Najpopularniejsze</string>
 
     <string name="offer_disclaimer_weekly">Włączono tygodniowy plan ze zniżką na %1$s, a następnie rozciąga się na automatycznie odnawialny plan podstawowy %2$s/tydzień.</string>
     <string name="offer_disclaimer_trial">Umożliwiło to 3-dniowy okres próbny, następnie obejmuje plan 1-tygodniowy z 70%% rabatem na %1$s, a następnie rozciąga się do planu podstawowego z automatycznym odnawianiem %2$s/tydzień. </string>

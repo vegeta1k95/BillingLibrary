@@ -66,7 +66,6 @@
     <string name="offer_available">Slechts 8 aanbiedingen beschikbaar!</string>
     <string name="offer_timer">Aanbieding eindigt over %1$s:%2$s</string>
     <string name="offer_title">Beperkte aanbieding!</string>
-    <string name="offer_popular">Meest populair</string>
 
     <string name="offer_disclaimer_weekly">Hierdoor werd een abonnement van 1 week ingeschakeld met een korting van %1$s, dat vervolgens wordt uitgebreid tot een automatisch verlengbaar basisabonnement van %2$s/week.</string>
     <string name="offer_disclaimer_trial">Hiermee werd een proefperiode van drie dagen mogelijk gemaakt, daarna verlengd tot een abonnement van 1 week met 70%% korting voor %1$s, en vervolgens verlengd tot een automatisch verlengbaar basisabonnement van %2$s/week. </string>

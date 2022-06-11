@@ -61,7 +61,6 @@
     <string name = "offer_available"> Chỉ có 8 ưu đãi có sẵn! </string>
     <string name = "offer_timer"> Ưu đãi kết thúc sau %1$s:%2$s</string>
     <string name = "offer_title"> Ưu đãi có giới hạn! </string>
-    <string name = "offer_popular"> Phổ biến nhất </string>
 
     <string name = "offer_disclaimer_weekly"> Điều này đã kích hoạt gói 1 tuần với chiết khấu %1$s, sau đó mở rộng lên %2$s/tuần cho gói cơ sở tự động gia hạn. </string>
     <string name = "offer_disclaimer_trial"> Điều này cho phép dùng thử 3 ngày, sau đó mở rộng sang gói 1 tuần với chiết khấu 70 %% cho %1$s, sau đó mở rộng sang gói cơ sở tự động gia hạn %2$s/tuần. </string>

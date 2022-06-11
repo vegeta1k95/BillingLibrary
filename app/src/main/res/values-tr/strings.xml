@@ -66,7 +66,6 @@
     <string name="offer_available">Yalnızca 8 Teklif Mevcut!</string>
     <string name="offer_timer">Teklif %1$s:%2$s ile bitiyor</string>
     <string name="offer_title">Sınırlı Teklif!</string>
-    <string name="offer_popular">En popüler</string>
 
     <string name="offer_disclaimer_weekly">Bu, %1$s indirimli 1 haftalık planı etkinleştirdi, ardından %2$s/hafta otomatik yenilenebilir temel plana kadar genişletildi.</string>
     <string name="offer_disclaimer_trial">Bu, 3 günlük bir denemeyi etkinleştirdi, ardından %1$s için %%70 indirimle 1 haftalık plana, ardından %2$s/hafta otomatik yenilenebilir temel plana kadar genişletildi. </string>

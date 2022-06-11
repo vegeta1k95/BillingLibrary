@@ -66,7 +66,6 @@
     <string name="offer_available">فقط 8 پیشنهاد موجود است!</string>
     <string name="offer_timer">پایان پیشنهاد در %1$s:%2$s</string>
     <string name="offer_title">پیشنهاد محدود!</string>
-    <string name="offer_popular">محبوب ترین</string>
 
     <string name="offer_disclaimer_weekly">این یک طرح یک هفته‌ای را با تخفیف %1$s فعال کرد، سپس به %2$s/هفته طرح پایه قابل تمدید خودکار گسترش یافت.</string>
     <string name="offer_disclaimer_trial">این یک دوره آزمایشی 3 روزه را فعال کرد، سپس به طرح 1 هفته ای با 70%% تخفیف برای %1$s، سپس به %2$s/هفته طرح پایه قابل تمدید خودکار گسترش یافت. </string>

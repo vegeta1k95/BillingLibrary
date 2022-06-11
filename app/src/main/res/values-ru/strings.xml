@@ -71,7 +71,6 @@
     <string name="offer_available">Доступно только 8 предложений!</string>
     <string name="offer_timer">Заканчивается через %1$s:%2$s</string>
     <string name="offer_title">Ограниченное предложение!</string>
-    <string name="offer_popular">Самое популярное</string>
 
     <string name="offer_disclaimer_weekly">Это включает недельный план со скидкой за %1$s, затем продлевается до автоматического недельного базового плана за %2$s/неделю.</string>
     <string name="offer_disclaimer_trial">Это включает 3-дневную пробную версию, затем продлевается до недельного плана со скидкой 70%% за %1$s, затем продлевается до автоматического недельного базового плана за %2$s/неделю.</string>

@@ -61,7 +61,6 @@
     <string name="offer_available">มีเพียง 8 ข้อเสนอเท่านั้น!</string>
     <string name="offer_timer">ข้อเสนอสิ้นสุดใน %1$s:%2$s</string>
     <string name="offer_title">ข้อเสนอจำนวนจำกัด!</string>
-    <string name="offer_popular">นิยมมากที่สุด</string>
 
     <string name="offer_disclaimer_weekly">เปิดใช้งานแผน 1 สัปดาห์พร้อมส่วนลด %1$s จากนั้นขยายเป็นแผนฐานที่ต่ออายุอัตโนมัติได้ %2$s/สัปดาห์</string>
     <string name="offer_disclaimer_trial">เปิดใช้งานการทดลองใช้ 3 วัน จากนั้นขยายเป็นแผน 1 สัปดาห์พร้อมส่วนลด 70%% สำหรับ %1$s จากนั้นขยายเป็นแผนฐานที่ต่ออายุอัตโนมัติได้ %2$s/สัปดาห์ </string>

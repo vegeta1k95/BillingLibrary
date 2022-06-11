@@ -76,7 +76,7 @@
     <string name="offer_available">Only 8 Offers Available!</string>
     <string name="offer_timer">Offer ends in %1$s:%2$s</string>
     <string name="offer_title">Limited Offer!</string>
-    <string name="offer_popular">Most popular</string>
+    <string name="offer_popular" translatable="false">Most popular</string>
 
     <string name="offer_disclaimer_weekly">This enabled a 1-week plan with a discount for %1$s, then extends to %2$s/week auto-renewable base plan.</string>
     <string name="offer_disclaimer_trial">This enabled a 3-day trial, then extends to 1-week plan with a 70%% discount for %1$s, then extends to %2$s/week auto-renewable base plan.</string>

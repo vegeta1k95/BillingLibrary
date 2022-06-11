@@ -65,7 +65,6 @@
     <string name="offer_available">Nur 8 Angebote verfügbar!</string>
     <string name="offer_timer">Angebot endet in %1$s:%2$s</string>
     <string name="offer_title">Begrenztes Angebot!</string>
-    <string name="offer_popular">Am beliebtesten</string>
 
     <string name="offer_disclaimer_weekly">Dies aktivierte einen 1-Wochen-Plan mit einem Rabatt für %1$s, der sich dann auf %2$s/Woche mit automatisch verlängerbarem Basisplan erstreckt.</string>
     <string name="offer_disclaimer_trial">Dies aktivierte eine 3-Tage-Testversion, verlängert sich dann auf einen 1-Wochen-Plan mit einem Rabatt von 70 %% für %1$s und verlängert sich dann auf %2$s/Woche mit automatischer Verlängerung des Basisplans. </string>

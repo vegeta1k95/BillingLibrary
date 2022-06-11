@@ -61,7 +61,6 @@
     <string name="offer_available">8개만 제공됩니다!</string>
     <string name="offer_timer">혜택이 %1$s:%2$s에 종료됨</string>
     <string name="offer_title">제한된 제안!</string>
-    <string name="offer_popular">가장 인기 있는</string>
 
     <string name="offer_disclaimer_weekly">이렇게 하면 %1$s에 대한 할인이 포함된 1주 계획이 활성화되고 %2$s/주 자동 갱신 기본 계획으로 확장됩니다.</string>
     <string name="offer_disclaimer_trial">이렇게 하면 3일 평가판이 활성화된 다음 %1$s에 대해 70%% 할인이 있는 1주 계획으로 확장된 다음 %2$s/주 자동 갱신 기본 계획으로 확장됩니다. </string>
