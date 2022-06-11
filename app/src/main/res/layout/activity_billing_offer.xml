@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/billing_loading_circle"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:tint="?attr/billing_accent_color"/>
 
     <LinearLayout
@@ -22,7 +22,7 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/header"

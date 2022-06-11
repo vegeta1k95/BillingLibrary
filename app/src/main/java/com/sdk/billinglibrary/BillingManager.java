@@ -1,11 +1,15 @@
 package com.sdk.billinglibrary;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.Application;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.android.billingclient.api.AcknowledgePurchaseParams;
 import com.android.billingclient.api.BillingClient;
@@ -26,41 +30,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 class BillingManager implements BillingClientStateListener,
-        PurchasesUpdatedListener, PurchasesResponseListener {
+        PurchasesUpdatedListener, PurchasesResponseListener,
+        DefaultLifecycleObserver, Application.ActivityLifecycleCallbacks {
 
     static final String LOG_TAG = "MYTAG (Billing)";
 
-    private static Context mContext;
     private static BillingManager mManager;
 
-    static void initialize(@NonNull Context context, IOnInitializationComplete listener) {
-        LocalConfig.init(context);
-        mContext = context.getApplicationContext();
-        if (mManager == null)
-            mManager = new BillingManager(listener);
+    static void initialize(@NonNull Application application, IOnInitializationComplete listener) {
+        LocalConfig.init(application.getApplicationContext());
+        if (mManager == null) {
+            mManager = new BillingManager(application, listener);
+            mManager.restart();
+        }
     }
 
     static BillingManager getInstance() {
         return mManager;
     }
 
+    private final Application mApplication;
+    private Activity mCurrentActivity;
+
     private BillingClient mBillingClient;
     private IOnPurchaseListener mOnPurchaseListener;
     private final IOnInitializationComplete mOnInitializationListener;
     private Runnable mRunnableConsumable;
 
-    private BillingManager(IOnInitializationComplete listener) {
+    private BillingManager(@NonNull Application application, IOnInitializationComplete listener) {
+        mApplication = application;
+        mApplication.registerActivityLifecycleCallbacks(this);
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
+
         mOnInitializationListener = listener;
-        restart();
     }
 
-    private void restart() {
+    void restart() {
         if (mBillingClient != null) {
             mBillingClient.endConnection();
             mBillingClient = null;
         }
         mBillingClient = BillingClient
-                .newBuilder(mContext)
+                .newBuilder(mApplication)
                 .setListener(this)
                 .enablePendingPurchases()
                 .build();
@@ -240,4 +251,20 @@ class BillingManager implements BillingClientStateListener,
 
     }
 
+    @Override public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {}
+    @Override public void onActivityStarted(@NonNull Activity activity) { mCurrentActivity = activity; }
+    @Override public void onActivityResumed(@NonNull Activity activity) { mCurrentActivity = activity; }
+    @Override public void onActivityPaused(@NonNull Activity activity) {}
+    @Override public void onActivityStopped(@NonNull Activity activity) {}
+    @Override public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
+    @Override public void onActivityDestroyed(@NonNull Activity activity) { mCurrentActivity = null; }
+
+    @Override
+    public void onStart(@NonNull LifecycleOwner owner) {
+        if (mCurrentActivity != null
+                && mCurrentActivity.getPackageName().equals(mApplication.getPackageName())
+                && !Billing.isSubscribed()) {
+            Billing.startBillingActivity(mCurrentActivity, true);
+        }
+    }
 }

@@ -32,6 +32,9 @@ dependencies {
     implementation "androidx.work:work-runtime:2.7.1"
     implementation 'com.github.vegeta1k95:AdsHelperLib:1.2.3'
 
+    // Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-process:2.4.1'
+
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
     implementation 'com.google.firebase:firebase-analytics'

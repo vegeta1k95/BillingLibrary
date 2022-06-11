@@ -34,7 +34,7 @@ public class Billing {
     public static void initialize(Application application, boolean testMode,
                                   @Nullable IOnInitializationComplete listener) {
         mTestMode = testMode;
-        BillingManager.initialize(application.getApplicationContext(), () -> {
+        BillingManager.initialize(application, () -> {
             if (listener != null)
                 listener.onComplete();
         });
