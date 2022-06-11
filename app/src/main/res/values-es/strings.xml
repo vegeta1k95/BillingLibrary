@@ -56,4 +56,25 @@
     <string name="dialog_disclaimer">La oferta incluye una suscripción auto renovable. Los primeros %1$s son gratis, luego se cobrará %2$s por %3$s</string>
     <string name="btn_limited">O PRUEBE LA VERSIÓN LIMITADA</string>
 
+    <string name="btn_continue">CONTINUAR</string>
+    <string name="offer_per_week">por semana</string>
+    <string name="offer_per_year">por año</string>
+    <string name="offer_weakly">Acceso\nSemanal</string>
+    <string name="offer_trial">3 días\nAcceso de prueba</string>
+    <string name="offer_lifetime">Acceso\nanual</string>
+    <string name="offer_discount">70% DE DESCUENTO</string>
+    <string name="offer_available">¡Solo 8 ofertas disponibles!</string>
+    <string name="offer_timer">La oferta termina en %1$s:%2$s</string>
+    <string name="offer_title">¡Oferta limitada!</string>
+    <string name="offer_popular">Más popular</string>
+
+    <string name="offer_disclaimer_weekly">Esto habilitó un plan de 1 semana con un descuento para %1$s, luego se extiende a %2$s/semana del plan base renovable automáticamente.</string>
+    <string name="offer_disclaimer_trial">Esto habilitó una prueba de 3 días, luego se extiende a un plan de 1 semana con un 70%% de descuento para %1$s, luego se extiende a %2$s/semana del plan base renovable automáticamente. </string>
+    <string name="offer_disclaimer_lifetime">Esto habilitó un plan de 1 año con un 80%% de descuento para %1$s, luego se extiende a %2$s/año del plan base renovable automáticamente</string>
+
+    <string name="offer_weekly_full">%1$s/semana</string>
+    <string name="offer_weekly_sale">solo %1$s</string>
+    <string name="offer_trial_sale">luego %1$s</string>
+    <string name="offer_lifetime_full">%1$s/año</string>
+
 </resources>

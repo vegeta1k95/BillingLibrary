@@ -10,6 +10,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,6 +79,9 @@ public class BillingOfferActivity extends AppCompatActivity {
 
     private TextView tvDisclaimer;
 
+    private ImageView imgLoading;
+    private Animation animation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +91,9 @@ public class BillingOfferActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        imgLoading = findViewById(R.id.img_loading);
+        animation = rotate(imgLoading);
 
         mBillingManager = BillingManager.getInstance();
 
@@ -149,6 +158,11 @@ public class BillingOfferActivity extends AppCompatActivity {
             mBillingManager.retrieveSubs(subIds, (isSuccessful1, products) ->
                     runOnUiThread(() -> {
                         if (isSuccessful1 && products != null) {
+
+                            animation.cancel();
+                            imgLoading.clearAnimation();
+                            imgLoading.setVisibility(View.INVISIBLE);
+                            findViewById(R.id.container).setVisibility(View.VISIBLE);
 
                             for (ProductDetails product : products) {
                                 if (product.getProductId().equals(finalWeeklySubId))
@@ -324,5 +338,17 @@ public class BillingOfferActivity extends AppCompatActivity {
         }
 
         features.recycle();
+    }
+
+    private Animation rotate(View view) {
+        RotateAnimation rotate = new RotateAnimation(0, 1800,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotate.setDuration(4000);
+        rotate.setInterpolator(new AccelerateDecelerateInterpolator());
+        rotate.setRepeatCount(Animation.INFINITE);
+        rotate.setFillAfter(true);
+        rotate.setFillBefore(true);
+        view.startAnimation(rotate);
+        return rotate;
     }
 }

@@ -61,4 +61,25 @@
     <string name="dialog_disclaimer">Oferta obejmuje subskrypcję autoodnawialną. Pierwsze %1$s są bezpłatne, a następnie zostanie naliczona opłata %2$s za %3$s</string>
     <string name="btn_limited">LUB WYPRÓBUJ WERSJĘ LIMITOWANĄ</string>
 
+    <string name="btn_continue">KONTYNUUJ</string>
+    <string name="offer_per_week">na tydzień</string>
+    <string name="offer_per_year">rocznie</string>
+    <string name="offer_weakly">Tygodniowy\nDostęp</string>
+    <string name="offer_trial">3-dniowy\nDostęp próbny</string>
+    <string name="offer_lifetime">Roczny\nDostęp</string>
+    <string name="offer_discount">70% ZNIŻKI</string>
+    <string name="offer_available">Tylko 8 dostępnych ofert!</string>
+    <string name="offer_timer">Oferta kończy się za %1$s:%2$s</string>
+    <string name="offer_title">Oferta ograniczona!</string>
+    <string name="offer_popular">Najpopularniejsze</string>
+
+    <string name="offer_disclaimer_weekly">Włączono tygodniowy plan ze zniżką na %1$s, a następnie rozciąga się na automatycznie odnawialny plan podstawowy %2$s/tydzień.</string>
+    <string name="offer_disclaimer_trial">Umożliwiło to 3-dniowy okres próbny, następnie obejmuje plan 1-tygodniowy z 70%% rabatem na %1$s, a następnie rozciąga się do planu podstawowego z automatycznym odnawianiem %2$s/tydzień. </string>
+    <string name="offer_disclaimer_lifetime">Włączono roczny plan z 80%% rabatem na %1$s, a następnie rozciąga się do %2$s/rok planu podstawowego z automatycznym odnawianiem</string>
+
+    <string name="offer_weekly_full">%1$s/tydzień</string>
+    <string name="offer_weekly_sale">tylko %1$s</string>
+    <string name="offer_trial_sale">następnie %1$s</string>
+    <string name="offer_lifetime_full">%1$s/rok</string>
+
 </resources>

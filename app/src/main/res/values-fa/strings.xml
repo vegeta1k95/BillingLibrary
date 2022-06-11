@@ -56,4 +56,25 @@
     <string name="dialog_disclaimer">این پیشنهاد شامل یک اشتراک قابل تمدید خودکار است. اولین ((%1$s)) روز رایگان است، سپس هزینه آن ((%2$s)) در هر ((%3$s)) محاسبه می شود</string>
     <string name="btn_limited">یا نسخه محدود را امتحان کنید</string>
 
+    <string name="btn_continue">ادامه</string>
+    <string name="offer_per_week">در هفته</string>
+    <string name="offer_per_year">در سال</string>
+    <string name="offer_weakly">هفتگی\nدسترسی</string>
+    <string name="offer_trial">3 روزه\nدسترسی آزمایشی</string>
+    <string name="offer_lifetime">سالانه\nدسترسی</string>
+    <string name="offer_discount">70% تخفیف</string>
+    <string name="offer_available">فقط 8 پیشنهاد موجود است!</string>
+    <string name="offer_timer">پایان پیشنهاد در %1$s:%2$s</string>
+    <string name="offer_title">پیشنهاد محدود!</string>
+    <string name="offer_popular">محبوب ترین</string>
+
+    <string name="offer_disclaimer_weekly">این یک طرح یک هفته‌ای را با تخفیف %1$s فعال کرد، سپس به %2$s/هفته طرح پایه قابل تمدید خودکار گسترش یافت.</string>
+    <string name="offer_disclaimer_trial">این یک دوره آزمایشی 3 روزه را فعال کرد، سپس به طرح 1 هفته ای با 70%% تخفیف برای %1$s، سپس به %2$s/هفته طرح پایه قابل تمدید خودکار گسترش یافت. </string>
+    <string name="offer_disclaimer_lifetime">این یک طرح یک ساله را با 80%% تخفیف برای %1$s فعال کرد، سپس به %2$s/سال طرح پایه قابل تمدید خودکار گسترش یافت</string>
+
+    <string name="offer_weekly_full">%1$s/هفته</string>
+    <string name="offer_weekly_sale">فقط %1$s</string>
+    <string name="offer_trial_sale">سپس %1$s</string>
+    <string name="offer_lifetime_full">%1$s/سال</string>
+
 </resources>

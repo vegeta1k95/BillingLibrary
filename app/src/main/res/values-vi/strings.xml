@@ -51,4 +51,25 @@
     <string name="dialog_disclaimer">Ưu đãi bao gồm đăng ký tự động gia hạn. Người đầu tiên %1$s miễn phí, sau đó nó sẽ được tính phí %3$s mỗi %2$s</string>
     <string name="btn_limited">HOẶC DÙNG THỬ PHIÊN BẢN GIỚI HẠN</string>
 
+    <string name = "btn_continue"> TIẾP TỤC </string>
+    <string name = "offer_per_week"> mỗi tuần </string>
+    <string name = "offer_per_year"> mỗi năm </string>
+    <string name = "offer_weakly"> Hàng tuần \n Truy cập </string>
+    <string name = "offer_trial"> 3 ngày \nTruy cập theo dõi </string>
+    <string name = "offer_lifetime"> Hàng năm \n Truy cập </string>
+    <string name = "offer_discount"> GIẢM GIÁ 70% </string>
+    <string name = "offer_available"> Chỉ có 8 ưu đãi có sẵn! </string>
+    <string name = "offer_timer"> Ưu đãi kết thúc sau %1$s:%2$s</string>
+    <string name = "offer_title"> Ưu đãi có giới hạn! </string>
+    <string name = "offer_popular"> Phổ biến nhất </string>
+
+    <string name = "offer_disclaimer_weekly"> Điều này đã kích hoạt gói 1 tuần với chiết khấu %1$s, sau đó mở rộng lên %2$s/tuần cho gói cơ sở tự động gia hạn. </string>
+    <string name = "offer_disclaimer_trial"> Điều này cho phép dùng thử 3 ngày, sau đó mở rộng sang gói 1 tuần với chiết khấu 70 %% cho %1$s, sau đó mở rộng sang gói cơ sở tự động gia hạn %2$s/tuần. </string>
+    <string name = "offer_disclaimer_lifetime"> Điều này đã kích hoạt gói 1 năm với chiết khấu 80 %% cho %1$s, sau đó mở rộng lên %2$s/năm gói cơ sở tự động gia hạn </string>
+
+    <string name = "offer_weekly_full">%1$s/tuần </string>
+    <string name = "offer_weekly_sale"> chỉ %1$s</string>
+    <string name = "offer_trial_sale"> rồi đến %1$s</string>
+    <string name = "offer_lifetime_full">%1$s/năm </string>
+
 </resources>

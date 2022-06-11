@@ -55,4 +55,25 @@
     <string name="dialog_disclaimer">Das Angebot beinhaltet ein automatisch erneuerbares Abonnement. Die ersten %1$s sind kostenlos, danach werden %2$s pro %3$s berechnet</string>
     <string name="btn_limited">ODER VERSUCHEN SIE DIE LIMITIERTE VERSION</string>
 
+    <string name="btn_continue">WEITER</string>
+    <string name="offer_per_week">pro Woche</string>
+    <string name="offer_per_year">pro Jahr</string>
+    <string name="offer_weakly">Wöchentlicher\nZugriff</string>
+    <string name="offer_trial">3-Tage\nTestzugang</string>
+    <string name="offer_lifetime">Jährlicher\nZugang</string>
+    <string name="offer_discount">70 % RABATT</string>
+    <string name="offer_available">Nur 8 Angebote verfügbar!</string>
+    <string name="offer_timer">Angebot endet in %1$s:%2$s</string>
+    <string name="offer_title">Begrenztes Angebot!</string>
+    <string name="offer_popular">Am beliebtesten</string>
+
+    <string name="offer_disclaimer_weekly">Dies aktivierte einen 1-Wochen-Plan mit einem Rabatt für %1$s, der sich dann auf %2$s/Woche mit automatisch verlängerbarem Basisplan erstreckt.</string>
+    <string name="offer_disclaimer_trial">Dies aktivierte eine 3-Tage-Testversion, verlängert sich dann auf einen 1-Wochen-Plan mit einem Rabatt von 70 %% für %1$s und verlängert sich dann auf %2$s/Woche mit automatischer Verlängerung des Basisplans. </string>
+    <string name="offer_disclaimer_lifetime">Dies aktivierte einen 1-Jahres-Plan mit 80 %% Rabatt für %1$s, der sich dann auf %2$s/Jahr mit automatischer Verlängerung des Basisplans erstreckte</string>
+
+    <string name="offer_weekly_full">%1$s/Woche</string>
+    <string name="offer_weekly_sale">nur %1$s</string>
+    <string name="offer_trial_sale">dann %1$s</string>
+    <string name="offer_lifetime_full">%1$s/Jahr</string>
+
 </resources>

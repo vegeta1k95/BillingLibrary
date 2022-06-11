@@ -51,4 +51,25 @@
     <string name="dialog_disclaimer">ကမ်းလှမ်းချက်တွင် အလိုအလျောက် ပြန်လည်သက်တမ်းတိုးနိုင်သော စာရင်းသွင်းမှုတစ်ခု ပါဝင်သည်။ ပထမ %1$s ရက်သည် အခမဲ့ဖြစ်ပြီး %3$s လျှင် %2$s ကောက်ခံပါမည်</string>
     <string name="btn_limited">သို့မဟုတ် ကန့်သတ်ဗားရှင်းကို စမ်းကြည့်ပါ။</string>
 
+    <string name="btn_continue">ဆက်လုပ်ရန်</string>
+    <string name="offer_per_week">တစ်ပတ်လျှင်</string>
+    <string name="offer_per_year">တစ်နှစ်</string>
+    <string name="offer_weakly">အပတ်စဉ်\nအသုံးပြုခွင့်</string>
+    <string name="offer_trial">3 ရက်\nအစမ်းသုံးခွင့်</string>
+    <string name="offer_lifetime">နှစ်စဉ်\nအသုံးပြုခွင့်</string>
+    <string name="offer_discount">70% လျှော့စျေး</string>
+    <string name="offer_available">ကမ်းလှမ်းချက် ၈ ခုသာ ရနိုင်သည်!</string>
+    <string name="offer_timer">ကမ်းလှမ်းချက်သည် %1$s:%2$s</string>
+    <string name="offer_title">ကန့်သတ်ထားသော ကမ်းလှမ်းချက်။</string>
+    <string name="offer_popular">လူကြိုက်အများဆုံး</string>
+
+    <string name="offer_disclaimer_weekly">၎င်းသည် %1$s အတွက် လျှော့စျေးဖြင့် 1-ပတ်အစီအစဉ်ကို ဖွင့်ထားပြီးနောက် %2$s/ပတ် အလိုအလျောက်ပြန်လည်အသုံးပြုနိုင်သော အခြေခံအစီအစဉ်ကို သက်တမ်းတိုးပါသည်။</string>
+    <string name="offer_disclaimer_trial">၎င်းသည် 3 ရက်အစမ်းသုံးမှုကို ဖွင့်ထားပြီးနောက် %1$s အတွက် 70%% လျှော့စျေးဖြင့် 1-ပတ်အစီအစဉ်သို့ သက်တမ်းတိုးကာ %2$s/ပတ် အလိုအလျောက်ပြန်လည်အသုံးပြုနိုင်သော အခြေခံအစီအစဉ်သို့ သက်တမ်းတိုးပါသည်။ </string>
+    <string name="offer_disclaimer_lifetime">၎င်းသည် %1$s အတွက် 80%% လျှော့စျေးဖြင့် 1 နှစ်အစီအစဉ်ကို ဖွင့်ပေးပြီးနောက် %2$s/နှစ် အလိုအလျောက်ပြန်လည်အသုံးပြုနိုင်သော အခြေခံအစီအစဉ်</string>
+
+    <string name="offer_weekly_full">%1$s/week</string>
+    <string name="offer_weekly_sale">%1$s သာ</string>
+    <string name="offer_trial_sale">ထို့နောက် %1$s</string>
+    <string name="offer_lifetime_full">%1$s/နှစ်</string>
+
 </resources>
