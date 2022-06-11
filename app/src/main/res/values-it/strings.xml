@@ -58,9 +58,9 @@
     <string name="btn_continue">CONTINUA</string>
     <string name="offer_per_week">a settimana</string>
     <string name="offer_per_year">all\'anno</string>
-    <string name="offer_weakly">Accesso settimanale\n</string>
-    <string name="offer_trial">3 giorni\nAccesso di prova</string>
-    <string name="offer_lifetime">Accesso annuale\n</string>
+    <string name="offer_weakly">Accesso\nsettimanale</string>
+    <string name="offer_trial">3 giorni\ntrial</string>
+    <string name="offer_lifetime">Accesso\nannuale</string>
     <string name="offer_discount">70% DI SCONTO</string>
     <string name="offer_available">Solo 8 offerte disponibili!</string>
     <string name="offer_timer">L\'offerta termina tra %1$s:%2$s</string>

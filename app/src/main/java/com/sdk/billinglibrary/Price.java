@@ -51,6 +51,10 @@ public class Price {
     }
 
     public String getTrialPeriod() {
+
+        if (mTrialPeriod == null)
+            return mResources.getQuantityString(R.plurals.days, 0, 0);
+
         if (mTrialPeriod.years > 0)
             return mResources.getQuantityString(R.plurals.years, mTrialPeriod.years, mTrialPeriod.years);
         else if (mTrialPeriod.months > 0)

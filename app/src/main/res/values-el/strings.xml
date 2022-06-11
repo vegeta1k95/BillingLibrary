@@ -59,7 +59,7 @@
     <string name="offer_per_week">ανά εβδομάδα</string>
     <string name="offer_per_year">ανά έτος</string>
     <string name="offer_weakly">Εβδομαδιαία\nΠρόσβαση</string>
-    <string name="offer_trial">3 ημέρες\nΔοκιμαστική πρόσβαση</string>
+    <string name="offer_trial">3 ημέρες\ntrial</string>
     <string name="offer_lifetime">Ετήσια\nΠρόσβαση</string>
     <string name="offer_discount">ΕΚΠΤΩΣΗ 70%</string>
     <string name="offer_available">Μόνο 8 προσφορές είναι διαθέσιμες!</string>
