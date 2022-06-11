@@ -69,7 +69,7 @@
     <string name="offer_lifetime">Ежегодный\nдоступ</string>
     <string name="offer_discount">СКИДКА 70%</string>
     <string name="offer_available">Доступно только 8 предложений!</string>
-    <string name="offer_timer">Предложение заканчивается через %1$s:%2$s</string>
+    <string name="offer_timer">Заканчивается через %1$s:%2$s</string>
     <string name="offer_title">Ограниченное предложение!</string>
     <string name="offer_popular">Самое популярное</string>
 
