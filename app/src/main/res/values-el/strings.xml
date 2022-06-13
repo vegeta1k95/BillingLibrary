@@ -74,5 +74,7 @@
     <string name="offer_weekly_sale">μόνο %1$s</string>
     <string name="offer_trial_sale">και μετά %1$s</string>
     <string name="offer_lifetime_full">%1$s/έτος</string>
+    <string name="offer_notification_title">Γειά σου! Είστε τυχεροί 💥</string>
+    <string name="offer_notificatoin_body">Η προσφορά λήγει σε 15 λεπτά 🎁</string>
 
 </resources>

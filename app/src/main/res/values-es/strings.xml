@@ -75,5 +75,7 @@
     <string name="offer_weekly_sale">solo %1$s</string>
     <string name="offer_trial_sale">luego %1$s</string>
     <string name="offer_lifetime_full">%1$s/año</string>
+    <string name="offer_notification_title">¡Hola! Tienes suerte 💥</string>
+    <string name="offer_notificatoin_body">La oferta termina en 15 minutos 🎁</string>
 
 </resources>

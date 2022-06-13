@@ -70,5 +70,7 @@
     <string name="offer_weekly_sale">%1$s သာ</string>
     <string name="offer_trial_sale">ထို့နောက် %1$s</string>
     <string name="offer_lifetime_full">%1$s/နှစ်</string>
+    <string name="offer_notification_title">ဟယ်လို! မင်းကံကောင်းတယ်။ 💥</string>
+    <string name="offer_notificatoin_body">ကမ်းလှမ်းချက်သည် 15 မိနစ်အတွင်း ပြီးဆုံးသည်။ 🎁</string>
 
 </resources>

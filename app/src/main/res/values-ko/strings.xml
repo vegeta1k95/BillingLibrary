@@ -70,5 +70,7 @@
     <string name="offer_weekly_sale">%1$s만</string>
     <string name="offer_trial_sale">다음 %1$s</string>
     <string name="offer_lifetime_full">%1$s/년</string>
+    <string name="offer_notification_title">안녕하세요! 당신은 운이 좋다 💥</string>
+    <string name="offer_notificatoin_body">제안은 15분 후에 종료됩니다. 🎁</string>
 
 </resources>

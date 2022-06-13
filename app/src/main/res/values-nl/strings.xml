@@ -75,5 +75,7 @@
     <string name="offer_weekly_sale">alleen %1$s</string>
     <string name="offer_trial_sale">vervolgens %1$s</string>
     <string name="offer_lifetime_full">%1$s/jaar</string>
+    <string name="offer_notification_title">Hallo! Jij hebt geluk 💥</string>
+    <string name="offer_notificatoin_body">Aanbieding eindigt over 15 minuten 🎁</string>
 
 </resources>

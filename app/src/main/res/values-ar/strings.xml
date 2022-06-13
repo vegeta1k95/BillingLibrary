@@ -79,6 +79,8 @@
     <string name = "offer_weekly_sale">%1$s فقط </string>
     <string name = "offer_trial_sale"> ثم%1$s </string>
     <string name = "offer_lifetime_full">%1$s/year </string>
+    <string name="offer_notification_title">مرحبًا! انت محظوظ💥</string>
+    <string name="offer_notificatoin_body">العرض ينتهي في 15 دقيقة 🎁</string>
 
 
 </resources>

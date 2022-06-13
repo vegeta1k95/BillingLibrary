@@ -70,5 +70,7 @@
     <string name = "offer_weekly_sale"> chỉ %1$s</string>
     <string name = "offer_trial_sale"> rồi đến %1$s</string>
     <string name = "offer_lifetime_full">%1$s/năm </string>
+    <string name="offer_notification_title">Xin chào! Bạn thật may mắn 💥</string>
+    <string name="offer_notificatoin_body">Ưu đãi kết thúc sau 15 phút 🎁</string>
 
 </resources>

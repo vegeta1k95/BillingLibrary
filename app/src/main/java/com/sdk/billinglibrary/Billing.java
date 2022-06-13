@@ -81,9 +81,9 @@ public class Billing {
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                     getApplicationContext(), CHANNEL_ID);
             mBuilder.setSmallIcon(R.drawable.ic_billing_push)
-                    .setContentTitle("Special Offer")
+                    .setContentTitle(mContext.getString(R.string.offer_notification_title))
+                    .setContentText(mContext.getString(R.string.offer_notificatoin_body))
                     .setAutoCancel(true)
-                    .setContentText("Special Offer just for You! Subscribe now!")
                     .setContentIntent(createPendingIntent())
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);

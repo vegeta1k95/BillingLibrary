@@ -70,5 +70,7 @@
     <string name="offer_weekly_sale">เฉพาะ %1$s</string>
     <string name="offer_trial_sale">จากนั้น %1$s</string>
     <string name="offer_lifetime_full">%1$s/ปี</string>
+    <string name="offer_notification_title">สวัสดี! คุณโชคดี 💥</string>
+    <string name="offer_notificatoin_body">ข้อเสนอจะสิ้นสุดใน 15 นาที 🎁</string>
 
 </resources>

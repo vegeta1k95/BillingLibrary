@@ -80,5 +80,7 @@
     <string name="offer_weekly_sale">только %1$s</string>
     <string name="offer_trial_sale">затем %1$s</string>
     <string name="offer_lifetime_full">%1$s/год</string>
+    <string name="offer_notification_title">Привет! Тебе повезло 💥</string>
+    <string name="offer_notificatoin_body">Предложение заканчивается через 15 минут 🎁</string>
 
 </resources>
