@@ -107,7 +107,7 @@ public class Billing {
                     .build();
             WorkManager.getInstance(activity).enqueue(uploadWorkRequest);
         } else if (extras != null) {
-            if (extras.containsKey("billing_offer_data")
+            if (extras.containsKey("billing_push_offer")
                     && !isSubscribed()
                     && LocalConfig.daysPassedSinceFirstOffer(1)) {
                 activity.startActivity(new Intent(activity, BillingOfferActivity.class));

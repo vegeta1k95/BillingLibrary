@@ -2,6 +2,7 @@ package com.sdk.billinglibrary;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -266,8 +267,18 @@ class BillingManager implements BillingClientStateListener,
                 && !(mCurrentActivity instanceof BillingActivity)
                 && !(mCurrentActivity instanceof BillingOfferActivity)
                 && !Billing.isSubscribed()
-                && !LocalConfig.isFirstTimeBilling()) {
+                && !LocalConfig.isFirstTimeBilling()
+                && !isLaunchedFromPush(mCurrentActivity)) {
             Billing.startBillingActivity(mCurrentActivity, true);
         }
+    }
+
+    private static boolean isLaunchedFromPush(Activity activity) {
+        Intent intent = activity.getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras == null)
+            return false;
+        return extras.containsKey("billing_push_text")
+                || extras.containsKey("billing_push_offer");
     }
 }
