@@ -268,17 +268,8 @@ class BillingManager implements BillingClientStateListener,
                 && !(mCurrentActivity instanceof BillingOfferActivity)
                 && !Billing.isSubscribed()
                 && !LocalConfig.isFirstTimeBilling()
-                && !isLaunchedFromPush(mCurrentActivity)) {
+                && !Billing.isLaunchedFromPush(mCurrentActivity)) {
             Billing.startBillingActivity(mCurrentActivity, true);
         }
-    }
-
-    private static boolean isLaunchedFromPush(Activity activity) {
-        Intent intent = activity.getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras == null)
-            return false;
-        return extras.containsKey("billing_push_text")
-                || extras.containsKey("billing_push_offer");
     }
 }

@@ -139,4 +139,13 @@ public class Billing {
         Intent intent = new Intent(activity, BillingActivity.class);
         activity.startActivity(intent);
     }
+
+    public static boolean isLaunchedFromPush(Activity activity) {
+        Intent intent = activity.getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras == null)
+            return false;
+        return extras.containsKey("billing_push_text")
+                || extras.containsKey("billing_push_offer");
+    }
 }
