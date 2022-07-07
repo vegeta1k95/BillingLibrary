@@ -136,7 +136,7 @@ public class Billing {
         if (activity == null)
             return;
 
-        if (isLaunchedFromPush(activity))
+        if (isLaunchedFromPush(activity) && doChecks)
             return;
 
         Intent intent = new Intent(activity, BillingActivity.class);
