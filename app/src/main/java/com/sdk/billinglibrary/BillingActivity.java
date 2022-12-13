@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -255,6 +256,13 @@ public class BillingActivity extends AppCompatActivity {
     }
 
     private void showExitDialog() {
+
+        TypedValue typedValue = new TypedValue();
+        if (getTheme().resolveAttribute(R.attr.billing_show_dialog, typedValue, true))
+            if (typedValue.data == 0) {
+                return;
+            }
+
         final ExitDialog dialog = new ExitDialog(this, isFirstTime);
 
         dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
