@@ -260,6 +260,7 @@ public class BillingActivity extends AppCompatActivity {
         TypedValue typedValue = new TypedValue();
         if (getTheme().resolveAttribute(R.attr.billing_show_dialog, typedValue, true))
             if (typedValue.data == 0) {
+                finish();
                 return;
             }
 
