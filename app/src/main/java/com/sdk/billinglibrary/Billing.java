@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Billing {
 
-    interface ICallback {
+    public interface ICallback {
         void onDismiss();
     }
 
