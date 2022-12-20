@@ -18,15 +18,6 @@ class LocalConfig {
             preferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
     }
 
-    static boolean isTimeToPropose() {
-        long lastProposed = preferences.getLong(KEY_LAST_PROPOSED, 0);
-        return lastProposed == 0 || System.currentTimeMillis() - lastProposed >= 60000;
-    }
-
-    static void setTimeProposed() {
-        preferences.edit().putLong(KEY_LAST_PROPOSED, System.currentTimeMillis()).apply();
-    }
-
     static void subscribeLocally(boolean subscribed) {
         preferences.edit().putBoolean(KEY_SUBSCRIBED, subscribed).apply();
     }

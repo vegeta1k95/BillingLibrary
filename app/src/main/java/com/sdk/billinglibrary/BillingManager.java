@@ -31,8 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class BillingManager implements BillingClientStateListener,
-        PurchasesUpdatedListener, PurchasesResponseListener,
-        DefaultLifecycleObserver, Application.ActivityLifecycleCallbacks {
+        PurchasesUpdatedListener, PurchasesResponseListener {
 
     static final String LOG_TAG = "MYTAG (Billing)";
 
@@ -51,7 +50,6 @@ class BillingManager implements BillingClientStateListener,
     }
 
     private final Application mApplication;
-    private Activity mCurrentActivity;
 
     private BillingClient mBillingClient;
     private IOnPurchaseListener mOnPurchaseListener;
@@ -60,9 +58,6 @@ class BillingManager implements BillingClientStateListener,
 
     private BillingManager(@NonNull Application application, IOnInitializationComplete listener) {
         mApplication = application;
-        mApplication.registerActivityLifecycleCallbacks(this);
-        ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
-
         mOnInitializationListener = listener;
     }
 
@@ -250,26 +245,5 @@ class BillingManager implements BillingClientStateListener,
             mOnPurchaseListener.onError();
         }
 
-    }
-
-    @Override public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {}
-    @Override public void onActivityStarted(@NonNull Activity activity) { mCurrentActivity = activity; }
-    @Override public void onActivityResumed(@NonNull Activity activity) { mCurrentActivity = activity; }
-    @Override public void onActivityPaused(@NonNull Activity activity) {}
-    @Override public void onActivityStopped(@NonNull Activity activity) {}
-    @Override public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
-    @Override public void onActivityDestroyed(@NonNull Activity activity) { mCurrentActivity = null; }
-
-    @Override
-    public void onStart(@NonNull LifecycleOwner owner) {
-        if (mCurrentActivity != null
-                && mCurrentActivity.getPackageName().equals(mApplication.getPackageName())
-                && !(mCurrentActivity instanceof BillingActivity)
-                && !(mCurrentActivity instanceof BillingOfferActivity)
-                && !Billing.isSubscribed()
-                && !LocalConfig.isFirstTimeBilling()
-                && !Billing.isLaunchedFromPush(mCurrentActivity)) {
-            Billing.startBillingActivity(mCurrentActivity, true);
-        }
     }
 }

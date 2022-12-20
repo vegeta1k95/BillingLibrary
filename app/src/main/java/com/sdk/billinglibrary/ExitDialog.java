@@ -14,22 +14,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.utilityapps.adshelperlib.AdsHelper;
-
 import java.util.concurrent.TimeUnit;
 
 class ExitDialog extends Dialog {
-
-    private final boolean mShowInterAfter;
 
     private final Resources mResources;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private int mCounter = 86400;
 
-    public ExitDialog(@NonNull Activity activity, boolean showInter) {
+    public ExitDialog(@NonNull Activity activity) {
         super(activity);
 
-        mShowInterAfter = showInter;
         mResources = activity.getResources();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -52,8 +47,8 @@ class ExitDialog extends Dialog {
         findViewById(R.id.dialog_button_close).setOnClickListener(v1 -> {
             mHandler.removeCallbacksAndMessages(null);
             dismiss();
-            if (mShowInterAfter)
-                AdsHelper.showInter(activity, true);
+            if (Billing.mCallback != null)
+                Billing.mCallback.onDismiss();
             activity.finish();
         });
     }

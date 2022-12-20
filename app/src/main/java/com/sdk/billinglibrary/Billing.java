@@ -25,7 +25,12 @@ import java.util.concurrent.TimeUnit;
 
 public class Billing {
 
-    private static boolean mTestMode;
+    interface ICallback {
+        void onDismiss();
+    }
+
+    static boolean mTestMode;
+    static ICallback mCallback;
 
     public static void initialize(Application application, boolean testMode,
                                   @Nullable IOnInitializationComplete listener) {
@@ -36,65 +41,10 @@ public class Billing {
         });
     }
 
-    public static class OfferWorker extends Worker {
-
-        private static final String CHANNEL_ID = "billing_offer_channel";
-        private static final Integer NOTIFICATION_ID = 1440;
-
-        private Context mContext;
-
-        public OfferWorker(
-                @NonNull Context context,
-                @NonNull WorkerParameters workerParams) {
-            super(context, workerParams);
-            mContext = context;
-        }
-
-        @NonNull
-        @Override
-        public Result doWork() {
-            if (!Billing.isSubscribed())
-                createNotification();
-            return Result.success();
-        }
-
-        private PendingIntent createPendingIntent() {
-            Intent intent = new Intent(mContext, BillingOfferActivity.class);
-            intent.putExtra("billing_push_offer", true);
-            return PendingIntent.getActivity(mContext, 0, intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        }
-
-        private void createNotification() {
-
-            NotificationManager nm = (NotificationManager)
-                    mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = nm.getNotificationChannel(CHANNEL_ID);
-                if (channel == null) {
-                    channel = new NotificationChannel(CHANNEL_ID, "Subscription Offer",
-                            NotificationManager.IMPORTANCE_HIGH);
-                    nm.createNotificationChannel(channel);
-                }
-            }
-
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                    getApplicationContext(), CHANNEL_ID);
-            mBuilder.setSmallIcon(R.drawable.ic_billing_push)
-                    .setContentTitle(mContext.getString(R.string.offer_notification_title))
-                    .setContentText(mContext.getString(R.string.offer_notificatoin_body))
-                    .setAutoCancel(true)
-                    .setContentIntent(createPendingIntent())
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                mBuilder.setChannelId(CHANNEL_ID);
-            }
-
-            nm.notify(NOTIFICATION_ID, mBuilder.build());
-        }
+    public static boolean isSubscribed() {
+        if (mTestMode)
+            return true;
+        return LocalConfig.isSubscribedLocally();
     }
 
     public static void startOfferActivityIfNeeded(Activity activity, long delay) {
@@ -116,40 +66,22 @@ public class Billing {
         }
     }
 
-    public static boolean isSubscribed() {
-        if (mTestMode)
-            return true;
-        return LocalConfig.isSubscribedLocally();
-    }
-
     public static void startBillingActivity(Activity activity) {
-        startBillingActivity(activity, false);
+        startBillingActivity(activity, null);
     }
 
-    public static void startBillingActivity(Activity activity, boolean doChecks) {
+    public static void startBillingActivity(Activity activity, ICallback callback) {
 
-        if (doChecks) {
-            if (isSubscribed() || !LocalConfig.isTimeToPropose())
-                return;
-            LocalConfig.setTimeProposed();
+        mCallback = callback;
+
+        if (activity == null) {
+            if (callback != null)
+                callback.onDismiss();
+            return;
         }
-
-        if (activity == null)
-            return;
-
-        if (isLaunchedFromPush(activity) && doChecks)
-            return;
 
         Intent intent = new Intent(activity, BillingActivity.class);
         activity.startActivity(intent);
     }
 
-    public static boolean isLaunchedFromPush(Activity activity) {
-        Intent intent = activity.getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras == null)
-            return false;
-        return extras.containsKey("billing_push_text")
-                || extras.containsKey("billing_push_offer");
-    }
 }
