@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -51,6 +52,19 @@ public class Billing {
         if (mTestMode)
             return "TEST_MODE";
         return LocalConfig.getCurrentSubscription();
+    }
+
+    public static void manageSubs(Activity activity) {
+        String url = "https://play.google.com/store/account/subscriptions";
+        String sub = Billing.getCurrentSubscription();
+        if (sub != null && !sub.equals("TEST_MODE") && !sub.equals("NOT_SUPPORTED")) {
+            url += "?sku=" + sub + "&package=" + activity.getPackageName();
+        }
+        Uri page = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, page);
+        if (intent.resolveActivity(activity.getPackageManager()) != null) {
+            activity.startActivity(intent);
+        }
     }
 
     public static void startOfferActivityIfNeeded(Activity activity, long delay) {
