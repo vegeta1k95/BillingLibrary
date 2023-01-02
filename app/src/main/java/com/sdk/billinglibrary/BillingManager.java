@@ -94,7 +94,7 @@ class BillingManager implements BillingClientStateListener,
                 queryPurchases();
             } else {
                 Log.d(LOG_TAG, "Subscription are not supported!");
-                LocalConfig.subscribeLocally(true);
+                LocalConfig.subscribeLocally("NOT_SUPPORTED");
                 executeListeners();
             }
 
@@ -151,7 +151,7 @@ class BillingManager implements BillingClientStateListener,
 
     private boolean acknowledgePurchases(List<Purchase> list) {
 
-        boolean purchased = false;
+        String purchasedSub = null;
 
         for (Purchase purchase : list) {
             if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
@@ -161,11 +161,11 @@ class BillingManager implements BillingClientStateListener,
                             .build();
                     mBillingClient.acknowledgePurchase(params, result -> {});
                 }
-                purchased = true;
+                purchasedSub = purchase.getProducts().get(0);
             }
         }
-        LocalConfig.subscribeLocally(purchased);
-        return purchased;
+        LocalConfig.subscribeLocally(purchasedSub);
+        return purchasedSub != null;
     }
 
     private boolean isSubscriptionSupported() {

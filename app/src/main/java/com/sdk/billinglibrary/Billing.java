@@ -47,6 +47,12 @@ public class Billing {
         return LocalConfig.isSubscribedLocally();
     }
 
+    public static String getCurrentSubscription() {
+        if (mTestMode)
+            return "TEST_MODE";
+        return LocalConfig.getCurrentSubscription();
+    }
+
     public static void startOfferActivityIfNeeded(Activity activity, long delay) {
 
         Intent intent = activity.getIntent();

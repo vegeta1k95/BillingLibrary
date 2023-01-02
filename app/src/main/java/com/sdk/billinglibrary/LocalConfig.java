@@ -18,12 +18,19 @@ class LocalConfig {
             preferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
     }
 
-    static void subscribeLocally(boolean subscribed) {
-        preferences.edit().putBoolean(KEY_SUBSCRIBED, subscribed).apply();
+    static void subscribeLocally(String subId) {
+        if (subId != null)
+            preferences.edit().putString(KEY_SUBSCRIBED, subId).apply();
+        else
+            preferences.edit().remove(KEY_SUBSCRIBED).apply();
+    }
+
+    static String getCurrentSubscription() {
+        return preferences.getString(KEY_SUBSCRIBED, null);
     }
 
     static boolean isSubscribedLocally() {
-        return preferences.getBoolean(KEY_SUBSCRIBED, false);
+        return preferences.contains(KEY_SUBSCRIBED);
     }
 
     static boolean isFirstTimeBilling() {
