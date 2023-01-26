@@ -5,6 +5,7 @@ import android.util.Log;
 import android.util.TypedValue;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +48,7 @@ class RemoteConfig {
         defaults.put(SUB_OFFER_TRIAL, DEFAULT_TRIAL);
         defaults.put(SUB_OFFER_LIFETIME, DEFAULT_LIFETIME);
 
-        config.setDefaultsAsync(defaults).addOnCompleteListener(t ->
+        config.setDefaultsAsync(mergeDefaults(config, defaults)).addOnCompleteListener(t ->
                 config.fetchAndActivate().addOnCompleteListener(task -> {
 
             if (t.isSuccessful())
@@ -75,5 +76,16 @@ class RemoteConfig {
 
             listener.onComplete(task.isSuccessful());
         }));
+    }
+
+    private static Map<String, Object> mergeDefaults(FirebaseRemoteConfig config, Map<String, Object> newDefaults) {
+        Map<String, FirebaseRemoteConfigValue> oldValues = config.getAll();
+        Map<String, Object> oldDefaults = new HashMap<>();
+        for (Map.Entry<String, FirebaseRemoteConfigValue> entry : oldValues.entrySet()) {
+            if (entry.getValue().getSource() == FirebaseRemoteConfig.VALUE_SOURCE_DEFAULT)
+                oldDefaults.put(entry.getKey(), entry.getValue().toString());
+        }
+        oldDefaults.putAll(newDefaults);
+        return oldDefaults;
     }
 }
