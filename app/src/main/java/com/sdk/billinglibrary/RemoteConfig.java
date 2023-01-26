@@ -83,7 +83,7 @@ class RemoteConfig {
         Map<String, Object> oldDefaults = new HashMap<>();
         for (Map.Entry<String, FirebaseRemoteConfigValue> entry : oldValues.entrySet()) {
             if (entry.getValue().getSource() == FirebaseRemoteConfig.VALUE_SOURCE_DEFAULT)
-                oldDefaults.put(entry.getKey(), entry.getValue().toString());
+                oldDefaults.put(entry.getKey(), entry.getValue().asString());
         }
         oldDefaults.putAll(newDefaults);
         return oldDefaults;
