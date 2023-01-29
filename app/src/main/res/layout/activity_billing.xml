@@ -208,6 +208,7 @@
                             app:cardCornerRadius="@dimen/_3sdp">
 
                             <TextView
+                                android:id="@+id/txt_trial_version"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -320,6 +321,7 @@
                             app:cardCornerRadius="@dimen/_3sdp">
 
                             <TextView
+                                android:id="@+id/txt_great_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"

@@ -226,6 +226,8 @@ public class BillingActivity extends AppCompatActivity {
         if (theme.resolveAttribute(R.attr.billing_button_text_color, typedValue, true)) {
             @ColorInt int color = typedValue.data;
             ((TextView) findViewById(R.id.btn_continue_text)).setTextColor(color);
+            ((TextView) findViewById(R.id.txt_trial_version)).setTextColor(color);
+            ((TextView) findViewById(R.id.txt_great_price)).setTextColor(color);
             ((ImageView) findViewById(R.id.btn_continue_arrow)).setColorFilter(color);
         }
 
