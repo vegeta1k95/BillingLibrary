@@ -3,6 +3,7 @@ package com.sdk.billinglibrary;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
@@ -218,6 +220,15 @@ public class BillingActivity extends AppCompatActivity {
             btnTry.setEnabled(false);
             btnTry.setVisibility(View.GONE);
         }
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getTheme();
+        if (theme.resolveAttribute(R.attr.billing_button_text_color, typedValue, true)) {
+            @ColorInt int color = typedValue.data;
+            ((TextView) findViewById(R.id.btn_continue_text)).setTextColor(color);
+            ((ImageView) findViewById(R.id.btn_continue_arrow)).setColorFilter(color);
+        }
+
         btnContinue.setOnClickListener(v -> {
             if (trialSku == null || fullSku == null) {
                 retrieveSubs();

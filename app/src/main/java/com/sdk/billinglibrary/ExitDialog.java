@@ -7,12 +7,15 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 
 import java.util.concurrent.TimeUnit;
 
@@ -43,6 +46,12 @@ class ExitDialog extends Dialog {
             ((ViewGroup) findViewById(R.id.dialog_icons)).addView(icons);
         }
 
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = activity.getTheme();
+        if (theme.resolveAttribute(R.attr.billing_button_text_color, typedValue, true)) {
+            @ColorInt int color = typedValue.data;
+            ((AppCompatButton) findViewById(R.id.dialog_button_ok)).setTextColor(color);
+        }
 
         findViewById(R.id.dialog_button_close).setOnClickListener(v1 -> {
             mHandler.removeCallbacksAndMessages(null);

@@ -7,6 +7,7 @@
         <attr name="billing_accent_color" format="reference|color" />
         <attr name="billing_offer_color" format="reference|color" />
         <attr name="billing_button_color" format="reference|color" />
+        <attr name="billing_button_text_color" format="reference|color" />
 
         <attr name="billing_background" format="reference|color" />
         <attr name="billing_background_dialog" format="reference|color" />

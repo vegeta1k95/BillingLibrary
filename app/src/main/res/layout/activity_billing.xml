@@ -413,6 +413,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:id="@+id/btn_continue_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
