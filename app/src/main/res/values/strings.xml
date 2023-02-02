@@ -37,7 +37,7 @@
 
     <string name="btn_accept">ACCEPT</string>
 
-    <string name="txt_trial_title">%1$s free version</string>
+    <string name="txt_trial_title">%1$s trial version</string>
     <string name="txt_trial_descr">Then %1$s per %2$s</string>
     <string name="txt_trial_disclaimer">This enables a %1$s free trial. Then extends to an auto-renewable %2$s subscription for %3$s (only %4$s per %5$s). During the free trial, no money will be charged. Cancel anytime.</string>
 
