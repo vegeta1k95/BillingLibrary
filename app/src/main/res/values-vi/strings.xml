@@ -24,6 +24,7 @@
         <item quantity="other">%d-Năm</item>
     </plurals>
 
+    <string name="billing_subscriptions">đăng ký</string>
     <string name="day">Ngày</string>
     <string name="week">Tuần</string>
     <string name="month">Tháng</string>

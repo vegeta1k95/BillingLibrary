@@ -25,6 +25,7 @@
         <item quantity="other">%d-Χρόνια</item>
     </plurals>
 
+    <string name="billing_subscriptions">Συνδρομές</string>
     <string name="day">Ημέρα</string>
     <string name="week">Εβδομάδα</string>
     <string name="month">Μήνας</string>

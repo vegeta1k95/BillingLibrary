@@ -34,6 +34,7 @@
         <item quantity="other">%d-Года</item>
     </plurals>
 
+    <string name="billing_subscriptions">Подписки</string>
     <string name="day">День</string>
     <string name="week">Неделя</string>
     <string name="month">Месяц</string>

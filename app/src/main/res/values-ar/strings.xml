@@ -32,6 +32,7 @@
         <item quantity="other">%d-سنين</item>
     </plurals>
 
+    <string name="billing_subscriptions">الاشتراكات</string>
     <string name="day">يوم</string>
     <string name="week">أسبوع</string>
     <string name="month">شهر</string>

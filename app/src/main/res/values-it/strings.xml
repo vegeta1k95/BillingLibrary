@@ -29,6 +29,7 @@
         <item quantity="other">%d-Anni</item>
     </plurals>
 
+    <string name="billing_subscriptions">Abbonamenti</string>
     <string name="day">Giorno</string>
     <string name="week">Settimana</string>
     <string name="month">Mese</string>

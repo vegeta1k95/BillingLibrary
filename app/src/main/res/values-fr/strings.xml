@@ -29,6 +29,7 @@
         <item quantity="other">%d-Ans</item>
     </plurals>
 
+    <string name="billing_subscriptions">Abonnements</string>
     <string name="day">Jour</string>
     <string name="week">La semaine</string>
     <string name="month">Mois</string>

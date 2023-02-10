@@ -29,6 +29,7 @@
         <item quantity="other">%d-yıllar</item>
     </plurals>
 
+    <string name="billing_subscriptions">Abonelikler</string>
     <string name="day">Gün</string>
     <string name="week">Hafta</string>
     <string name="month">Ay</string>

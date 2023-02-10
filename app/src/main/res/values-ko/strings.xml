@@ -24,6 +24,7 @@
         <item quantity="other">%d-연령</item>
     </plurals>
 
+    <string name="billing_subscriptions">구독</string>
     <string name="day">낮</string>
     <string name="week">주</string>
     <string name="month">월</string>

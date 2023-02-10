@@ -24,6 +24,7 @@
         <item quantity="other">%d-နှစ်တွေ</item>
     </plurals>
 
+    <string name="billing_subscriptions">စာရင်းသွင်းမှုများ</string>
     <string name="day">နေ့</string>
     <string name="week">အေးလေ</string>
     <string name="month">လ</string>

@@ -29,6 +29,7 @@
         <item quantity="other">%d-سال ها</item>
     </plurals>
 
+    <string name="billing_subscriptions">اشتراک ها</string>
     <string name="day">روز</string>
     <string name="week">هفته</string>
     <string name="month">ماه</string>

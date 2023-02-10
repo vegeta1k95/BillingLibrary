@@ -29,6 +29,7 @@
         <item quantity="other">%d-jaren</item>
     </plurals>
 
+    <string name="billing_subscriptions">Abonnementen</string>
     <string name="day">Dag</string>
     <string name="week">Week</string>
     <string name="month">Maand</string>

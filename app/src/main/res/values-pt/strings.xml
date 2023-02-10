@@ -29,6 +29,7 @@
         <item quantity="other">%d-Anos</item>
     </plurals>
 
+    <string name="billing_subscriptions">Assinaturas</string>
     <string name="day">Dia</string>
     <string name="week">Semana</string>
     <string name="month">Mês</string>
