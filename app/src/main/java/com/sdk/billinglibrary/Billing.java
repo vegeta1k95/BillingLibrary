@@ -12,6 +12,8 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.ktx.Firebase;
 import com.sdk.billinglibrary.interfaces.IOnInitializationComplete;
 
 import java.util.concurrent.TimeUnit;
@@ -39,6 +41,8 @@ public class Billing {
         mTestMode = testMode;
 
         Context context = application.getApplicationContext();
+
+        FirebaseApp.initializeApp(context);
 
         // Init shared preferences
         LocalConfig.init(context);

@@ -1,14 +1,15 @@
 plugins {
     id 'com.android.library'
     id 'maven-publish'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 2
         versionName "2.0.0"
     }
@@ -22,24 +23,23 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
 
     implementation "com.android.billingclient:billing:5.1.0"
+    implementation "com.android.billingclient:billing-ktx:5.1.0"
+
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
-    implementation "androidx.work:work-runtime:2.7.1"
-
-    // Lifecycle
-    implementation 'com.google.guava:guava:29.0-android'
-    implementation 'androidx.lifecycle:lifecycle-process:2.5.1'
+    implementation "androidx.work:work-runtime:2.8.0"
 
     // Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:30.3.0')
-    implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-config'
-    implementation 'com.google.firebase:firebase-messaging'
+    implementation platform('com.google.firebase:firebase-bom:31.2.2')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-config-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
 }
 
 afterEvaluate {
