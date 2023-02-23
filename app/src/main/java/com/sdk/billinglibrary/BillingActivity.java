@@ -3,7 +3,6 @@ package com.sdk.billinglibrary;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -23,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.android.billingclient.api.ProductDetails;
-import com.google.firebase.FirebaseApp;
 import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
 
 import java.util.ArrayList;
@@ -87,21 +85,23 @@ public class BillingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FirebaseApp.initializeApp(this);
+        manager = BillingManager.getInstance();
+
+        if (manager == null || Billing.getStatus() != Billing.Status.NOT_SUBSCRIBED) {
+            finish();
+            return;
+        }
 
         setContentView(R.layout.activity_billing);
 
         Window window = getWindow();
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         window.setStatusBarColor(Color.TRANSPARENT);
-        //window.setStatusBarColor(MaterialColors.getColor(this, R.attr.billing_background_color, R.attr.colorAccent));
 
         featuresContainer = findViewById(R.id.features_container);
 
         imgLoading = findViewById(R.id.img_loading);
         animation = rotate(imgLoading);
-
-        manager = BillingManager.getInstance();
 
         btnClose = findViewById(R.id.btn_close);
         btnContinue = findViewById(R.id.btn_continue);
@@ -137,8 +137,8 @@ public class BillingActivity extends AppCompatActivity {
 
         RemoteConfig.fetchSubs(this, (isSuccessful) -> {
 
-            String trialSubId = RemoteConfig.getSubByKey(RemoteConfig.SUB_TRIAL);
-            String premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.SUB_PREMIUM);
+            String trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL);
+            String premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_PREMIUM);
 
             List<String> subIds = new ArrayList<>();
             subIds.add(trialSubId);

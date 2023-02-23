@@ -29,7 +29,7 @@ public class OfferWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        if (!Billing.isSubscribed())
+        if (Billing.getStatus() == Billing.Status.NOT_SUBSCRIBED)
             createNotification();
         return Result.success();
     }

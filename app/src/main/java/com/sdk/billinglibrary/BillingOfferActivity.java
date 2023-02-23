@@ -85,17 +85,18 @@ public class BillingOfferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_billing_offer);
 
-        if (Billing.isSubscribed()) {
+        mBillingManager = BillingManager.getInstance();
+
+        if (mBillingManager == null || Billing.getStatus() != Billing.Status.NOT_SUBSCRIBED) {
             finish();
             return;
         }
 
+        setContentView(R.layout.activity_billing_offer);
+
         imgLoading = findViewById(R.id.img_loading);
         animation = rotate(imgLoading);
-
-        mBillingManager = BillingManager.getInstance();
 
         tvWeeklyFull = findViewById(R.id.txt_weekly_full);
         tvTrialFull = findViewById(R.id.txt_trial_full);
@@ -138,13 +139,13 @@ public class BillingOfferActivity extends AppCompatActivity {
 
         RemoteConfig.fetchSubs(this, (isSuccessful) -> {
 
-            String weeklySubId = RemoteConfig.getSubByKey(RemoteConfig.SUB_OFFER_WEEKLY);
-            String trialSubId = RemoteConfig.getSubByKey(RemoteConfig.SUB_OFFER_TRIAL);
-            String lifetimeSubId = RemoteConfig.getSubByKey(RemoteConfig.SUB_OFFER_LIFETIME);
+            String weeklySubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_OFFER_WEEKLY);
+            String trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_OFFER_TRIAL);
+            String lifetimeSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_OFFER_LIFETIME);
 
-            weeklySubId = weeklySubId.isEmpty() ? RemoteConfig.DEFAULT_WEEKLY : weeklySubId;
-            trialSubId = trialSubId.isEmpty() ? RemoteConfig.DEFAULT_TRIAL : trialSubId;
-            lifetimeSubId = lifetimeSubId.isEmpty() ? RemoteConfig.DEFAULT_LIFETIME : lifetimeSubId;
+            weeklySubId = weeklySubId.isEmpty() ? RemoteConfig.DEFAULT_OFFER_WEEKLY : weeklySubId;
+            trialSubId = trialSubId.isEmpty() ? RemoteConfig.DEFAULT_OFFER_TRIAL : trialSubId;
+            lifetimeSubId = lifetimeSubId.isEmpty() ? RemoteConfig.DEFAULT_OFFER_LIFETIME : lifetimeSubId;
 
             List<String> subIds = new ArrayList<>();
             subIds.add(weeklySubId);

@@ -2,15 +2,10 @@ package com.sdk.billinglibrary;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.DefaultLifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.android.billingclient.api.AcknowledgePurchaseParams;
 import com.android.billingclient.api.BillingClient;
@@ -38,7 +33,6 @@ class BillingManager implements BillingClientStateListener,
     private static BillingManager mManager;
 
     static void initialize(@NonNull Application application, IOnInitializationComplete listener) {
-        LocalConfig.init(application.getApplicationContext());
         if (mManager == null) {
             mManager = new BillingManager(application, listener);
             mManager.restart();
@@ -94,7 +88,7 @@ class BillingManager implements BillingClientStateListener,
                 queryPurchases();
             } else {
                 Log.d(LOG_TAG, "Subscription are not supported!");
-                LocalConfig.subscribeLocally("NOT_SUPPORTED");
+                LocalConfig.subscribeLocally(Billing.UNSUPPORTED);
                 executeListeners();
             }
 

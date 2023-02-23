@@ -2,29 +2,30 @@ package com.sdk.billinglibrary;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
 
 import com.sdk.billinglibrary.interfaces.IOnInitializationComplete;
 
 import java.util.concurrent.TimeUnit;
 
 public class Billing {
+
+    public enum Status {
+        SUBSCRIBED,
+        NOT_SUBSCRIBED,
+        UNSUPPORTED
+    }
+
+    public static final String TEST_MODE = "TEST_MODE";
+    public static final String UNSUPPORTED = "NOT_SUPPORTED";
 
     public interface ICallback {
         void onDismiss();
@@ -36,28 +37,64 @@ public class Billing {
     public static void initialize(Application application, boolean testMode,
                                   @Nullable IOnInitializationComplete listener) {
         mTestMode = testMode;
-        BillingManager.initialize(application, () -> {
-            if (listener != null)
-                listener.onComplete();
-        });
+
+        Context context = application.getApplicationContext();
+
+        // Init shared preferences
+        LocalConfig.init(context);
+
+        // Request Firebase Remote Config
+        RemoteConfig.fetchSubs(context, (isSuccessful -> {
+
+            // Get fetched sub IDs
+            String trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL);
+            String premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_PREMIUM);
+
+            // If one of fetched sub IDs is "NOT_SUPPORTED" we consider user "subscribed"
+            if (trialSubId.equals(UNSUPPORTED) || premiumSubId.equals(UNSUPPORTED)) {
+
+                // Denote billing as unsupported only if there is no currently active subscription
+                // (to avoid currently subscribed users receive ads, etc)
+                if (LocalConfig.getCurrentSubscription() == null)
+                    LocalConfig.subscribeLocally(UNSUPPORTED);
+
+                // Launch callback, if any
+                if (listener != null)
+                    listener.onComplete();
+
+                // Do not init billing in this case - unnecessary.
+                return;
+            }
+
+            // Otherwise initialize billing
+            BillingManager.initialize(application, () -> {
+
+                // Launch callback, if any
+                if (listener != null)
+                    listener.onComplete();
+            });
+
+        }));
     }
 
-    public static boolean isSubscribed() {
+    public static Status getStatus() {
         if (mTestMode)
-            return true;
-        return LocalConfig.isSubscribedLocally();
-    }
+            return Status.SUBSCRIBED;
 
-    public static String getCurrentSubscription() {
-        if (mTestMode)
-            return "TEST_MODE";
-        return LocalConfig.getCurrentSubscription();
+        String sub = LocalConfig.getCurrentSubscription();
+
+        if (sub == null || sub.isEmpty())
+            return Status.NOT_SUBSCRIBED;
+        else if (sub.equals(UNSUPPORTED))
+            return Status.UNSUPPORTED;
+        else
+            return Status.SUBSCRIBED;
     }
 
     public static void manageSubs(Activity activity) {
         String url = "https://play.google.com/store/account/subscriptions";
-        String sub = Billing.getCurrentSubscription();
-        if (sub != null && !sub.equals("TEST_MODE") && !sub.equals("NOT_SUPPORTED")) {
+        String sub = LocalConfig.getCurrentSubscription();
+        if (sub != null && !mTestMode && !sub.equals(UNSUPPORTED)) {
             url += "?sku=" + sub + "&package=" + activity.getPackageName();
         }
         Uri page = Uri.parse(url);
@@ -67,7 +104,13 @@ public class Billing {
         }
     }
 
-    public static void startOfferActivityIfNeeded(Activity activity, long delay) {
+    public static void startOfferActivityIfNeeded(@Nullable Activity activity, long delay) {
+
+        if (activity == null)
+            return;
+
+        if (getStatus() != Status.NOT_SUBSCRIBED)
+            return;
 
         Intent intent = activity.getIntent();
         Bundle extras = intent.getExtras();
@@ -79,18 +122,17 @@ public class Billing {
             WorkManager.getInstance(activity).enqueue(uploadWorkRequest);
         } else if (extras != null) {
             if (extras.containsKey("billing_push_offer")
-                    && !isSubscribed()
                     && LocalConfig.daysPassedSinceFirstOffer(1)) {
                 activity.startActivity(new Intent(activity, BillingOfferActivity.class));
             }
         }
     }
 
-    public static void startBillingActivity(Activity activity) {
+    public static void startBillingActivity(@Nullable Activity activity) {
         startBillingActivity(activity, null);
     }
 
-    public static void startBillingActivity(Activity activity, ICallback callback) {
+    public static void startBillingActivity(@Nullable Activity activity, ICallback callback) {
 
         mCallback = callback;
 

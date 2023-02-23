@@ -3,11 +3,12 @@ package com.sdk.billinglibrary;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.annotation.Nullable;
+
 class LocalConfig {
 
     private static final String PREFERENCES = "billing";
     private static final String KEY_SUBSCRIBED = "subscribed";
-    private static final String KEY_LAST_PROPOSED = "last_proposed";
     private static final String KEY_IS_FIRST_TIME_BILLING = "first_time";
     private static final String KEY_IS_FIRST_TIME_OFFER = "first_time_offer";
 
@@ -25,12 +26,8 @@ class LocalConfig {
             preferences.edit().remove(KEY_SUBSCRIBED).apply();
     }
 
-    static String getCurrentSubscription() {
+    static @Nullable String getCurrentSubscription() {
         return preferences.getString(KEY_SUBSCRIBED, null);
-    }
-
-    static boolean isSubscribedLocally() {
-        return preferences.contains(KEY_SUBSCRIBED);
     }
 
     static boolean isFirstTimeBilling() {
