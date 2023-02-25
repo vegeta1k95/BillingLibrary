@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-class RemoteConfig {
+public class RemoteConfig {
 
     static final String KEY_TRIAL = "sub_trial";
     static final String KEY_PREMIUM = "sub_premium";
