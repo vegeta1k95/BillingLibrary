@@ -34,7 +34,7 @@ public class RemoteConfig {
         return FirebaseRemoteConfig.getInstance().getString(key);
     }
 
-    static void fetchSubs(Context context, @Nullable IOnFetchSubsListener listener) {
+    public static void fetchSubs(Context context, @Nullable IOnFetchSubsListener listener) {
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         Map<String, Object> defaults = new HashMap<>();
 
