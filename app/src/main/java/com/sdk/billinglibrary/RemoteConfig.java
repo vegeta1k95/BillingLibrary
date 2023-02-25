@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class RemoteConfig {
+class RemoteConfig {
 
     static final String KEY_TRIAL = "sub_trial";
     static final String KEY_PREMIUM = "sub_premium";
@@ -34,7 +34,7 @@ public class RemoteConfig {
         return FirebaseRemoteConfig.getInstance().getString(key);
     }
 
-    public static void fetchSubs(Context context, @Nullable IOnFetchSubsListener listener) {
+    static void fetchSubs(Context context, @Nullable IOnFetchSubsListener listener) {
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         Map<String, Object> defaults = new HashMap<>();
 

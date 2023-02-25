@@ -36,13 +36,12 @@ public class Billing {
     static boolean mTestMode;
     static ICallback mCallback;
 
-    public static void initialize(Application application, boolean testMode,
+    public static void initialize(Application application, int themeId, boolean testMode,
                                   @Nullable IOnInitializationComplete listener) {
         mTestMode = testMode;
 
         Context context = application.getApplicationContext();
-
-        FirebaseApp.initializeApp(context);
+        context.getTheme().applyStyle(themeId, false);
 
         // Init shared preferences
         LocalConfig.init(context);
