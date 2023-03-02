@@ -94,6 +94,16 @@ public class Billing {
             return Status.SUBSCRIBED;
     }
 
+    public static boolean canShowAds() {
+        Status status = getStatus();
+        return status == Status.NOT_SUBSCRIBED || status == Status.UNSUPPORTED;
+    }
+
+    public static boolean canShowBilling() {
+        Status status = getStatus();
+        return status == Status.NOT_SUBSCRIBED;
+    }
+
     public static void manageSubs(Activity activity) {
         String url = "https://play.google.com/store/account/subscriptions";
         String sub = LocalConfig.getCurrentSubscription();
