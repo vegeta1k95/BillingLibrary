@@ -207,19 +207,19 @@ public class BillingActivity extends AppCompatActivity {
         View.OnClickListener listener = v -> showExitDialog();
         View btnTry = findViewById(R.id.btn_try);
 
-        if (LocalConfig.isFirstTimeBilling()) {
-            btnClose.setEnabled(false);
-            btnClose.setVisibility(View.GONE);
-            btnTry.setEnabled(true);
-            btnTry.setVisibility(View.VISIBLE);
-            btnTry.setOnClickListener(listener);
-        } else {
+        //if (LocalConfig.isFirstTimeBilling()) {
+        //    btnClose.setEnabled(false);
+        //    btnClose.setVisibility(View.GONE);
+        //    btnTry.setEnabled(true);
+        //    btnTry.setVisibility(View.VISIBLE);
+        //    btnTry.setOnClickListener(listener);
+        //} else {
             btnClose.setEnabled(true);
             btnClose.setVisibility(View.VISIBLE);
             btnClose.setOnClickListener(listener);
             btnTry.setEnabled(false);
             btnTry.setVisibility(View.GONE);
-        }
+        //}
 
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = getTheme();
