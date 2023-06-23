@@ -35,8 +35,8 @@ class BillingManager implements BillingClientStateListener,
     static void initialize(@NonNull Application application, IOnInitializationComplete listener) {
         if (mManager == null) {
             mManager = new BillingManager(application, listener);
-            mManager.restart();
         }
+        mManager.restart();
     }
 
     static BillingManager getInstance() {
