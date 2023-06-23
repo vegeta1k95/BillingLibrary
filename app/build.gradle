@@ -20,6 +20,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+
+    android {
+        namespace 'com.sdk.billinglibrary'
+    }
+
 }
 
 dependencies {
@@ -36,7 +42,7 @@ dependencies {
     implementation "androidx.work:work-runtime:2.8.1"
 
     // Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:31.2.2')
+    implementation platform('com.google.firebase:firebase-bom:32.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-config-ktx'
     implementation 'com.google.firebase:firebase-messaging-ktx'
