@@ -141,11 +141,11 @@ public class Billing {
         }
     }
 
-    public static void startBillingActivity(@Nullable Activity activity) {
+    public static void startBillingActivity(@Nullable Context activity) {
         startBillingActivity(activity, null);
     }
 
-    public static void startBillingActivity(@Nullable Activity activity, ICallback callback) {
+    public static void startBillingActivity(@Nullable Context activity, ICallback callback) {
 
         mCallback = callback;
 
