@@ -58,25 +58,5 @@
     <string name="btn_limited">OF PROBEER DE BEPERKTE VERSIE</string>
 
     <string name="btn_continue">DOORGAAN</string>
-    <string name="offer_per_week">per week</string>
-    <string name="offer_per_year">per jaar</string>
-    <string name="offer_weakly">Wekelijks\nToegang</string>
-    <string name="offer_trial">3-dagen\nTrial</string>
-    <string name="offer_lifetime">Jaarlijks\nToegang</string>
-    <string name="offer_discount">70% KORTING</string>
-    <string name="offer_available">Slechts 8 aanbiedingen beschikbaar!</string>
-    <string name="offer_timer">Aanbieding eindigt over %1$s:%2$s</string>
-    <string name="offer_title">Beperkte aanbieding!</string>
-
-    <string name="offer_disclaimer_weekly">Hierdoor werd een abonnement van 1 week ingeschakeld met een korting van %1$s, dat vervolgens wordt uitgebreid tot een automatisch verlengbaar basisabonnement van %2$s/week.</string>
-    <string name="offer_disclaimer_trial">Hiermee werd een proefperiode van drie dagen mogelijk gemaakt, daarna verlengd tot een abonnement van 1 week met 70%% korting voor %1$s, en vervolgens verlengd tot een automatisch verlengbaar basisabonnement van %2$s/week. </string>
-    <string name="offer_disclaimer_lifetime">Hiermee werd een 1-jarig abonnement mogelijk met 80%% korting voor %1$s, daarna uitgebreid tot %2$s/jaar automatisch verlengbaar basisabonnement</string>
-
-    <string name="offer_weekly_full">%1$s/week</string>
-    <string name="offer_weekly_sale">alleen %1$s</string>
-    <string name="offer_trial_sale">vervolgens %1$s</string>
-    <string name="offer_lifetime_full">%1$s/jaar</string>
-    <string name="offer_notification_title">Hallo! Jij hebt geluk 💥</string>
-    <string name="offer_notificatoin_body">Aanbieding eindigt over 15 minuten 🎁</string>
 
 </resources>

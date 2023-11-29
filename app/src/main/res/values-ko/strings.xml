@@ -53,25 +53,5 @@
     <string name="btn_limited">또는 제한된 버전을 사용해보십시오</string>
 
     <string name="btn_continue">계속</string>
-    <string name="offer_per_week">주당</string>
-    <string name="offer_per_year">연간</string>
-    <string name="offer_weakly">주간\n액세스</string>
-    <string name="offer_trial">3일\n평가판 액세스</string>
-    <string name="offer_lifetime">연간\n액세스</string>
-    <string name="offer_discount">70%% 할인</string>
-    <string name="offer_available">8개만 제공됩니다!</string>
-    <string name="offer_timer">혜택이 %1$s:%2$s에 종료됨</string>
-    <string name="offer_title">제한된 제안!</string>
-
-    <string name="offer_disclaimer_weekly">이렇게 하면 %1$s에 대한 할인이 포함된 1주 계획이 활성화되고 %2$s/주 자동 갱신 기본 계획으로 확장됩니다.</string>
-    <string name="offer_disclaimer_trial">이렇게 하면 3일 평가판이 활성화된 다음 %1$s에 대해 70%% 할인이 있는 1주 계획으로 확장된 다음 %2$s/주 자동 갱신 기본 계획으로 확장됩니다. </string>
-    <string name="offer_disclaimer_lifetime">이렇게 하면 %1$s에 대해 80%% 할인된 1년 계획이 활성화되고 %2$s/년 자동 갱신 기본 계획으로 확장됩니다.</string>
-
-    <string name="offer_weekly_full">%1$s/주</string>
-    <string name="offer_weekly_sale">%1$s만</string>
-    <string name="offer_trial_sale">다음 %1$s</string>
-    <string name="offer_lifetime_full">%1$s/년</string>
-    <string name="offer_notification_title">안녕하세요! 당신은 운이 좋다 💥</string>
-    <string name="offer_notificatoin_body">제안은 15분 후에 종료됩니다. 🎁</string>
 
 </resources>

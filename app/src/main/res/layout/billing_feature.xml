@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:fontFamily="@font/gilroy_regular"
+                android:fontFamily="@font/ubuntu"
                 android:gravity="start"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:textColor="?attr/billing_text_color"

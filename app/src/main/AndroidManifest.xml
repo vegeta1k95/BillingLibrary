@@ -15,9 +15,6 @@
 
     <application>
         <activity
-            android:name=".BillingOfferActivity"
-            android:exported="false" />
-        <activity
             android:name=".BillingActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"

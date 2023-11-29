@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:fontFamily="@font/gilroy_bold"
+            android:fontFamily="@font/ubuntu_medium"
             android:gravity="center_horizontal"
             android:text="@string/dialog_exit_title"
             android:textColor="?attr/billing_text_color"
@@ -65,18 +65,20 @@
             android:textSize="13.9sp"
             android:textStyle="normal" />
 
-        <RelativeLayout
-            android:id="@+id/dialog_icons"
+        <LinearLayout
+            android:id="@+id/dialog_features"
+            android:orientation="vertical"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/dialog_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100"/>
 
         <TextView
             android:id="@+id/dialog_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dialog_icons"
+            android:layout_below="@id/dialog_features"
             android:layout_centerHorizontal="true"
             android:layout_marginVertical="@dimen/_15sdp"
             android:fontFamily="sans-serif"

@@ -58,25 +58,5 @@
     <string name="btn_limited">VEYA SINIRLI VERSİYONU DENEYİN</string>
 
     <string name="btn_continue">DEVAM ET</string>
-    <string name="offer_per_week">haftalık</string>
-    <string name="offer_per_year">yıllık</string>
-    <string name="offer_weakly">Haftalık\nErişim</string>
-    <string name="offer_trial">3 günlük\nDeneme Erişimi</string>
-    <string name="offer_lifetime">Yıllık\nErişim</string>
-    <string name="offer_discount">%70 İNDİRİM</string>
-    <string name="offer_available">Yalnızca 8 Teklif Mevcut!</string>
-    <string name="offer_timer">Teklif %1$s:%2$s ile bitiyor</string>
-    <string name="offer_title">Sınırlı Teklif!</string>
-
-    <string name="offer_disclaimer_weekly">Bu, %1$s indirimli 1 haftalık planı etkinleştirdi, ardından %2$s/hafta otomatik yenilenebilir temel plana kadar genişletildi.</string>
-    <string name="offer_disclaimer_trial">Bu, 3 günlük bir denemeyi etkinleştirdi, ardından %1$s için %%70 indirimle 1 haftalık plana, ardından %2$s/hafta otomatik yenilenebilir temel plana kadar genişletildi. </string>
-    <string name="offer_disclaimer_lifetime">Bu, %1$s için %%80 indirimli 1 yıllık planı etkinleştirdi, ardından %2$s/yıl otomatik yenilenebilir temel plana kadar genişletildi</string>
-
-    <string name="offer_weekly_full">%1$s/hafta</string>
-    <string name="offer_weekly_sale">yalnızca %1$s</string>
-    <string name="offer_trial_sale">sonra %1$s</string>
-    <string name="offer_lifetime_full">%1$s/yıl</string>
-    <string name="offer_notification_title">Merhaba! Şanslısın 💥</string>
-    <string name="offer_notificatoin_body">Teklif 15 dakika içinde sona eriyor 🎁</string>
 
 </resources>

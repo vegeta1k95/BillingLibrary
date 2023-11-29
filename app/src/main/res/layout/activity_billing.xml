@@ -69,7 +69,7 @@
                         android:id="@+id/txt_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gilroy_bold"
+                        android:fontFamily="@font/ubuntu_medium"
                         android:textColor="?attr/billing_text_color"
                         android:textSize="21sp"
                         android:textStyle="bold"
@@ -79,7 +79,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gilroy_regular"
+                        android:fontFamily="@font/ubuntu"
                         android:text="@string/unlock_all_features"
                         android:textColor="?attr/billing_text_color"
                         android:textSize="12sp" />
@@ -213,7 +213,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginHorizontal="@dimen/_3sdp"
-                                android:fontFamily="@font/gilroy_semibold"
+                                android:fontFamily="@font/ubuntu_medium"
                                 android:text="@string/trial_version"
                                 android:textColor="#ffffff"
                                 android:textSize="11sp" />
@@ -225,7 +225,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/_3sdp"
-                            android:fontFamily="@font/gilroy_semibold"
+                            android:fontFamily="@font/ubuntu_medium"
                             android:text="@string/txt_trial_title"
                             android:textColor="?attr/billing_text_color"
                             android:textSize="15sp" />
@@ -235,7 +235,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/txt_trial_descr"
-                            android:fontFamily="@font/gilroy_regular"
+                            android:fontFamily="@font/ubuntu"
                             android:textColor="?attr/billing_text_color"
                             android:textSize="11sp" />
 
@@ -260,7 +260,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginHorizontal="@dimen/_3sdp"
-                                android:fontFamily="@font/gilroy_semibold"
+                                android:fontFamily="@font/ubuntu_medium"
                                 android:text="@string/best_choice"
                                 android:textColor="#ffffff"
                                 android:textSize="11sp" />
@@ -272,7 +272,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_3sdp"
-                            android:fontFamily="@font/gilroy_semibold"
+                            android:fontFamily="@font/ubuntu_medium"
                             android:text="@string/limited_offer"
                             android:textColor="?attr/billing_text_color"
                             android:textSize="15sp" />
@@ -326,7 +326,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginHorizontal="@dimen/_3sdp"
-                                android:fontFamily="@font/gilroy_semibold"
+                                android:fontFamily="@font/ubuntu_medium"
                                 android:text="@string/great_price"
                                 android:textColor="#ffffff"
                                 android:textSize="11sp" />
@@ -338,7 +338,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/_3sdp"
-                            android:fontFamily="@font/gilroy_semibold"
+                            android:fontFamily="@font/ubuntu_medium"
                             android:text="@string/txt_premium_title"
                             android:textColor="?attr/billing_text_color"
                             android:textSize="15sp" />
@@ -348,7 +348,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/txt_premium_descr"
-                            android:fontFamily="@font/gilroy_regular"
+                            android:fontFamily="@font/ubuntu"
                             android:textColor="?attr/billing_text_color"
                             android:textSize="11sp" />
 
@@ -366,7 +366,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:fontFamily="@font/gilroy_semibold"
+                            android:fontFamily="@font/ubuntu_medium"
                             android:text="45.83 UAH"
                             android:textColor="?attr/billing_text_color"
                             android:textSize="15sp" />
@@ -377,7 +377,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_3sdp"
-                            android:fontFamily="@font/gilroy_regular"
+                            android:fontFamily="@font/ubuntu"
                             android:text="@string/txt_premium_price_period"
                             android:textColor="?attr/billing_text_color"
                             android:textSize="12sp" />
@@ -407,7 +407,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:fontFamily="@font/gilroy_bold"
+                    android:fontFamily="@font/ubuntu_medium"
                     android:gravity="center_horizontal"
                     android:text="@string/btn_accept"
                     android:textColor="#ffffff"
@@ -445,7 +445,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
-                android:fontFamily="@font/gilroy_regular"
+                android:fontFamily="@font/ubuntu"
                 android:gravity="center_horizontal"
                 android:text="@string/txt_premium_disclaimer"
                 android:textColor="?attr/billing_text_color"
@@ -460,7 +460,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
-                android:fontFamily="@font/gilroy_regular"
+                android:fontFamily="@font/ubuntu"
                 android:gravity="center_horizontal"
                 android:text="@string/txt_trial_disclaimer"
                 android:textColor="?attr/billing_text_color"

@@ -63,25 +63,5 @@
     <string name="btn_limited">ИЛИ ПОПРОБУЙТЕ ОГРАНИЧЕННУЮ ВЕРСИЮ</string>
 
     <string name="btn_continue">ПРОДОЛЖИТЬ</string>
-    <string name="offer_per_week">в неделю</string>
-    <string name="offer_per_year">в год</string>
-    <string name="offer_weakly">Недельный\nдоступ</string>
-    <string name="offer_trial">3-дневный\nтриал</string>
-    <string name="offer_lifetime">Ежегодный\nдоступ</string>
-    <string name="offer_discount">СКИДКА 70%</string>
-    <string name="offer_available">Доступно только 8 предложений!</string>
-    <string name="offer_timer">Заканчивается через %1$s:%2$s</string>
-    <string name="offer_title">Ограниченное предложение!</string>
-
-    <string name="offer_disclaimer_weekly">Это включает недельный план со скидкой за %1$s, затем продлевается до автоматического недельного базового плана за %2$s/неделю.</string>
-    <string name="offer_disclaimer_trial">Это включает 3-дневную пробную версию, затем продлевается до недельного плана со скидкой 70%% за %1$s, затем продлевается до автоматического недельного базового плана за %2$s/неделю.</string>
-    <string name="offer_disclaimer_lifetime">Это включает годовой план со скидкой 80%% за %1$s, затем продлевается его до %2$s/год с автоматическим продлением.</string>
-
-    <string name="offer_weekly_full">%1$s/неделю</string>
-    <string name="offer_weekly_sale">только %1$s</string>
-    <string name="offer_trial_sale">затем %1$s</string>
-    <string name="offer_lifetime_full">%1$s/год</string>
-    <string name="offer_notification_title">Привет! Тебе повезло 💥</string>
-    <string name="offer_notificatoin_body">Предложение заканчивается через 15 минут 🎁</string>
 
 </resources>

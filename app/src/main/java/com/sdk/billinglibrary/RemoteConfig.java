@@ -18,14 +18,6 @@ class RemoteConfig {
     static final String KEY_TRIAL = "sub_trial";
     static final String KEY_PREMIUM = "sub_premium";
 
-    static final String KEY_OFFER_WEEKLY = "sub_offer_weekly";
-    static final String KEY_OFFER_TRIAL = "sub_offer_trial";
-    static final String KEY_OFFER_LIFETIME = "sub_offer_lifetime";
-
-    static final String DEFAULT_OFFER_WEEKLY = "weeklyacessspecialoffer";
-    static final String DEFAULT_OFFER_TRIAL = "weeklytrialspecialoffer";
-    static final String DEFAULT_OFFER_LIFETIME = "lifetimespecialoffer";
-
     public interface IOnFetchSubsListener {
         void onComplete(boolean isSuccessful);
     }
@@ -46,9 +38,6 @@ class RemoteConfig {
 
         defaults.put(KEY_TRIAL, trial.coerceToString());
         defaults.put(KEY_PREMIUM, premium.coerceToString());
-        defaults.put(KEY_OFFER_WEEKLY, DEFAULT_OFFER_WEEKLY);
-        defaults.put(KEY_OFFER_TRIAL, DEFAULT_OFFER_TRIAL);
-        defaults.put(KEY_OFFER_LIFETIME, DEFAULT_OFFER_LIFETIME);
 
         config.setDefaultsAsync(mergeDefaults(config, defaults)).addOnCompleteListener(t ->
                 config.fetchAndActivate().addOnCompleteListener(task -> {
@@ -65,15 +54,9 @@ class RemoteConfig {
 
             String subTrial = config.getString(KEY_TRIAL);
             String subPremium = config.getString(KEY_PREMIUM);
-            String offerWeekly = config.getString(KEY_OFFER_WEEKLY);
-            String offerTrial = config.getString(KEY_OFFER_TRIAL);
-            String offerLifetime = config.getString(KEY_OFFER_LIFETIME);
 
             Log.d(BillingManager.LOG_TAG, "Trial: " + subTrial);
             Log.d(BillingManager.LOG_TAG, "Premium: " + subPremium);
-            Log.d(BillingManager.LOG_TAG, "Offer Weekly: " + offerWeekly);
-            Log.d(BillingManager.LOG_TAG, "Offer Trial: " + offerTrial);
-            Log.d(BillingManager.LOG_TAG, "Offer Lifetime: " + offerLifetime);
 
             if (listener != null)
                 listener.onComplete(task.isSuccessful());

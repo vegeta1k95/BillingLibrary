@@ -55,27 +55,6 @@
 
     <string name="dialog_disclaimer">Η προσφορά περιλαμβάνει συνδρομή με δυνατότητα αυτόματης ανανέωσης. Οι πρώτες %1$s είναι δωρεάν και, στη συνέχεια, θα χρεωθεί %2$s ανά %3$s</string>
     <string name="btn_limited">Ή ΔΟΚΙΜΑΣΤΕ ΠΕΡΙΟΡΙΣΜΕΝΗ ΕΚΔΟΣΗ</string>
-
     <string name="btn_continue">ΣΥΝΕΧΕΙΑ</string>
-    <string name="offer_per_week">ανά εβδομάδα</string>
-    <string name="offer_per_year">ανά έτος</string>
-    <string name="offer_weakly">Εβδομαδιαία\nΠρόσβαση</string>
-    <string name="offer_trial">3 ημέρες\ntrial</string>
-    <string name="offer_lifetime">Ετήσια\nΠρόσβαση</string>
-    <string name="offer_discount">ΕΚΠΤΩΣΗ 70%</string>
-    <string name="offer_available">Μόνο 8 προσφορές είναι διαθέσιμες!</string>
-    <string name="offer_timer">Η προσφορά λήγει σε %1$s:%2$s</string>
-    <string name="offer_title">Περιορισμένη προσφορά!</string>
-
-    <string name="offer_disclaimer_weekly">Ενεργοποίησε ένα πρόγραμμα 1 εβδομάδας με έκπτωση για %1$s και, στη συνέχεια, επεκτείνεται στο βασικό πρόγραμμα %2$s/εβδομάδα με αυτόματη ανανέωση.</string>
-    <string name="offer_disclaimer_trial">Ενεργοποίησε μια δοκιμή 3 ημερών, στη συνέχεια επεκτείνεται σε πρόγραμμα 1 εβδομάδας με έκπτωση 70%% για %1$s και, στη συνέχεια, επεκτείνεται σε %2$s/εβδομάδα με αυτόματη ανανέωση βασικού προγράμματος. </string>
-    <string name="offer_disclaimer_lifetime">Ενεργοποίησε ένα πρόγραμμα 1 έτους με έκπτωση 80%% για %1$s και, στη συνέχεια, επεκτείνεται σε %2$s/έτος αυτόματο ανανεώσιμο βασικό πρόγραμμα</string>
-
-    <string name="offer_weekly_full">%1$s/εβδομάδα</string>
-    <string name="offer_weekly_sale">μόνο %1$s</string>
-    <string name="offer_trial_sale">και μετά %1$s</string>
-    <string name="offer_lifetime_full">%1$s/έτος</string>
-    <string name="offer_notification_title">Γειά σου! Είστε τυχεροί 💥</string>
-    <string name="offer_notificatoin_body">Η προσφορά λήγει σε 15 λεπτά 🎁</string>
 
 </resources>

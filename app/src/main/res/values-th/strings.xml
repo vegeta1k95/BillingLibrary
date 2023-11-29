@@ -53,25 +53,5 @@
     <string name="btn_limited">หรือลองรุ่นจำกัด</string>
 
     <string name="btn_continue">ดำเนินการต่อ</string>
-    <string name="offer_per_week">ต่อสัปดาห์</string>
-    <string name="offer_per_year">ต่อปี</string>
-    <string name="offer_weakly">รายสัปดาห์\nการเข้าถึง</string>
-    <string name="offer_trial">3 วัน\nทดลองใช้งาน</string>
-    <string name="offer_lifetime">รายปี\nการเข้าถึง</string>
-    <string name="offer_discount">ส่วนลด 70%</string>
-    <string name="offer_available">มีเพียง 8 ข้อเสนอเท่านั้น!</string>
-    <string name="offer_timer">ข้อเสนอสิ้นสุดใน %1$s:%2$s</string>
-    <string name="offer_title">ข้อเสนอจำนวนจำกัด!</string>
-
-    <string name="offer_disclaimer_weekly">เปิดใช้งานแผน 1 สัปดาห์พร้อมส่วนลด %1$s จากนั้นขยายเป็นแผนฐานที่ต่ออายุอัตโนมัติได้ %2$s/สัปดาห์</string>
-    <string name="offer_disclaimer_trial">เปิดใช้งานการทดลองใช้ 3 วัน จากนั้นขยายเป็นแผน 1 สัปดาห์พร้อมส่วนลด 70%% สำหรับ %1$s จากนั้นขยายเป็นแผนฐานที่ต่ออายุอัตโนมัติได้ %2$s/สัปดาห์ </string>
-    <string name="offer_disclaimer_lifetime">เปิดใช้งานแผน 1 ปีพร้อมส่วนลด 80%% สำหรับ %1$s จากนั้นขยายเป็น %2$s/ปี แผนฐานที่ต่ออายุอัตโนมัติได้</string>
-
-    <string name="offer_weekly_full">%1$s/week</string>
-    <string name="offer_weekly_sale">เฉพาะ %1$s</string>
-    <string name="offer_trial_sale">จากนั้น %1$s</string>
-    <string name="offer_lifetime_full">%1$s/ปี</string>
-    <string name="offer_notification_title">สวัสดี! คุณโชคดี 💥</string>
-    <string name="offer_notificatoin_body">ข้อเสนอจะสิ้นสุดใน 15 นาที 🎁</string>
 
 </resources>

@@ -117,30 +117,6 @@ public class Billing {
         }
     }
 
-    public static void startOfferActivityIfNeeded(@Nullable Activity activity, long delay) {
-
-        if (activity == null)
-            return;
-
-        if (getStatus() != Status.NOT_SUBSCRIBED)
-            return;
-
-        Intent intent = activity.getIntent();
-        Bundle extras = intent.getExtras();
-
-        if (LocalConfig.isFirstTimeOffer()) {
-            WorkRequest uploadWorkRequest = new OneTimeWorkRequest.Builder(OfferWorker.class)
-                    .setInitialDelay(delay, TimeUnit.MINUTES)
-                    .build();
-            WorkManager.getInstance(activity).enqueue(uploadWorkRequest);
-        } else if (extras != null) {
-            if (extras.containsKey("billing_push_offer")
-                    && LocalConfig.daysPassedSinceFirstOffer(1)) {
-                activity.startActivity(new Intent(activity, BillingOfferActivity.class));
-            }
-        }
-    }
-
     public static void startBillingActivity(@Nullable Context activity) {
         startBillingActivity(activity, null);
     }

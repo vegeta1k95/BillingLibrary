@@ -55,27 +55,6 @@
 
     <string name="dialog_disclaimer">L\'offerta include un abbonamento con rinnovo automatico. I primi %1$s giorni sono gratuiti, quindi verranno addebitati %2$s ogni %3$s</string>
     <string name="btn_limited">O PROVA LA VERSIONE LIMITATA</string>
-
     <string name="btn_continue">CONTINUA</string>
-    <string name="offer_per_week">a settimana</string>
-    <string name="offer_per_year">all\'anno</string>
-    <string name="offer_weakly">Accesso\nsettimanale</string>
-    <string name="offer_trial">3 giorni\ntrial</string>
-    <string name="offer_lifetime">Accesso\nannuale</string>
-    <string name="offer_discount">70% DI SCONTO</string>
-    <string name="offer_available">Solo 8 offerte disponibili!</string>
-    <string name="offer_timer">L\'offerta termina tra %1$s:%2$s</string>
-    <string name="offer_title">Offerta limitata!</string>
-
-    <string name="offer_disclaimer_weekly">Ciò ha consentito un piano di 1 settimana con uno sconto di %1$s, quindi si estende al piano base auto-rinnovabile di %2$s/settimana.</string>
-    <string name="offer_disclaimer_trial">Ciò ha consentito una prova di 3 giorni, quindi si estende al piano di 1 settimana con uno sconto del 70%% per %1$s, quindi si estende al piano base auto-rinnovabile di %2$s/settimana. </string>
-    <string name="offer_disclaimer_lifetime">Ciò ha consentito un piano di 1 anno con uno sconto dell\'80%% per %1$s, quindi si estende al piano base auto-rinnovabile di %2$s/anno</string>
-
-    <string name="offer_weekly_full">%1$s/settimana</string>
-    <string name="offer_weekly_sale">solo %1$s</string>
-    <string name="offer_trial_sale">poi %1$s</string>
-    <string name="offer_lifetime_full">%1$s/anno</string>
-    <string name="offer_notification_title">Ciao! Sei fortunato 💥</string>
-    <string name="offer_notificatoin_body">L\'offerta scade tra 15 minuti 🎁</string>
 
 </resources>

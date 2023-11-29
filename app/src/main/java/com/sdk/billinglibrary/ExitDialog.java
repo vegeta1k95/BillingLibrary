@@ -2,24 +2,33 @@ package com.sdk.billinglibrary;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 
 import java.util.concurrent.TimeUnit;
 
 class ExitDialog extends Dialog {
+
+    private static final int INDEX_STRING = 0;
+    private static final int INDEX_ICON = 1;
+    private static final int INDEX_BASIC = 2;
 
     private final Resources mResources;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
@@ -35,17 +44,6 @@ class ExitDialog extends Dialog {
         setCancelable(false);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        int layoutId = mResources.getIdentifier(
-                "dialog_billing_icons",
-                "layout",
-                activity.getPackageName()
-        );
-
-        if (layoutId != 0) {
-            View icons = getLayoutInflater().inflate(layoutId, null);
-            ((ViewGroup) findViewById(R.id.dialog_icons)).addView(icons);
-        }
-
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = activity.getTheme();
         if (theme.resolveAttribute(R.attr.billing_button_text_color, typedValue, true)) {
@@ -60,6 +58,8 @@ class ExitDialog extends Dialog {
                 Billing.mCallback.onDismiss();
             activity.finish();
         });
+
+        setFeatures();
     }
 
     @Override
@@ -86,5 +86,44 @@ class ExitDialog extends Dialog {
     public void onStop() {
         mHandler.removeCallbacksAndMessages(null);
         super.onStop();
+    }
+
+    private void setFeatures() {
+
+        int[] attrs = new int[] { R.attr.billing_features };
+        TypedArray a = getContext().obtainStyledAttributes(attrs);
+        int id = a.getResourceId(0 , 0);
+
+        a.recycle();
+
+        if (id == 0)
+            return;
+
+        TypedArray features = getContext().getResources().obtainTypedArray(id);
+        ViewGroup container = findViewById(R.id.dialog_features);
+
+        for (int i = 0; i < features.length(); i++) {
+
+            int featureId = features.getResourceId(i, 0);
+
+            TypedArray feature = getContext().getResources().obtainTypedArray(featureId);
+
+            int featureNameId = feature.getResourceId(INDEX_STRING, 0);
+            String featureName = getContext().getString(featureNameId);
+            Drawable featureIcon = feature.getDrawable(INDEX_ICON);
+            boolean featureBasic = feature.getBoolean(INDEX_BASIC, false);
+
+            View item = getLayoutInflater().inflate(R.layout.billing_feature, container, false);
+            ((TextView) item.findViewById(R.id.txt_feature_name)).setText(featureName);
+            ((ImageView) item.findViewById(R.id.img_icon)).setImageDrawable(featureIcon);
+            ((ImageView) item.findViewById(R.id.img_basic)).setImageDrawable(
+                    featureBasic ? AppCompatResources.getDrawable(getContext(), R.drawable.billing_check)
+                            : AppCompatResources.getDrawable(getContext(), R.drawable.billing_cancel)
+            );
+            container.addView(item);
+            feature.recycle();
+        }
+
+        features.recycle();
     }
 }

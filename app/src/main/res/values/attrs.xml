@@ -14,8 +14,6 @@
         <attr name="billing_show_dialog" format="boolean"/>
         <attr name="billing_icon" format="reference"/>
         <attr name="billing_features" format="reference"/>
-        <attr name="billing_offer_features" format="reference"/>
-        <attr name="billing_offer_card_color" format="reference|color"/>
 
         <attr name="billing_default_trial" format="reference|string"/>
         <attr name="billing_default_premium" format="reference|string"/>

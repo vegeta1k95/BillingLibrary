@@ -60,28 +60,7 @@
     <string name="dialog_disclaimer"> يشمل العرض اشتراكًا قابل للتجديد التلقائي. T الأولt ((%1$s) أيام مجانية ، ثم سيتم تحصيلها ((%2$s))) لكل (%3$s)</string>
     <string name="unlock_all_features"> فتح جميع الميزات </string>
     <string name="btn_limited">أو جرِّب إصدارًا محدودًا</string>
-
     <string name = "btn_continue"> متابعة </string>
-    <string name = "offer_per_week"> في الأسبوع </string>
-    <string name = "offer_per_year"> سنويًا </string>
-    <string name = "offer_weakly"> وصول \n أسبوعي </string>
-    <string name = "offer_trial"> 3 أيام \n الوصول التجريبي </string>
-    <string name = "offer_lifetime"> وصول \n سنوي </string>
-    <string name = "offer_discount"> خصم 70%% </string>
-    <string name = "offer_available"> يتوفر فقط 8 عروض! </string>
-    <string name = "offer_timer"> ينتهي العرض في%1$s:%2$s </string>
-    <string name = "offer_title"> عرض محدود! </string>
-
-    <string name = "offer_disclaimer_weekly"> أدى هذا إلى تمكين خطة لمدة أسبوع مع خصم بنسبة%1$s ، ثم تمتد إلى%2$s/ أسبوعًا من الخطة الأساسية القابلة للتجديد التلقائي. </string>
-    <string name = "offer_disclaimer_trial"> أدى هذا إلى تمكين إصدار تجريبي لمدة 3 أيام ، ثم يمتد إلى خطة لمدة أسبوع واحد بخصم 70%% لـ%1$s ، ثم يمتد إلى%2$ s/week خطة أساسية قابلة للتجديد التلقائي. </string>
-    <string name = "offer_disclaimer_lifetime"> أدى هذا إلى تمكين خطة لمدة عام بخصم 80%% لـ%1$s ، ثم تمتد إلى%2$ s/year خطة أساسية قابلة للتجديد التلقائي </string>
-
-    <string name = "offer_weekly_full">%1$s/أسبوع </string>
-    <string name = "offer_weekly_sale">%1$s فقط </string>
-    <string name = "offer_trial_sale"> ثم%1$s </string>
-    <string name = "offer_lifetime_full">%1$s/year </string>
-    <string name="offer_notification_title">مرحبًا! انت محظوظ💥</string>
-    <string name="offer_notificatoin_body">العرض ينتهي في 15 دقيقة 🎁</string>
 
 
 </resources>

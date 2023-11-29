@@ -10,7 +10,6 @@ class LocalConfig {
     private static final String PREFERENCES = "billing";
     private static final String KEY_SUBSCRIBED = "subscribed";
     private static final String KEY_IS_FIRST_TIME_BILLING = "first_time";
-    private static final String KEY_IS_FIRST_TIME_OFFER = "first_time_offer";
 
     private static SharedPreferences preferences;
 
@@ -36,21 +35,5 @@ class LocalConfig {
 
     static void didFirstBilling() {
         preferences.edit().putBoolean(KEY_IS_FIRST_TIME_BILLING, true).apply();
-    }
-
-    static boolean isFirstTimeOffer() {
-        long firstLaunch = preferences.getLong(KEY_IS_FIRST_TIME_OFFER, 0L);
-        if (firstLaunch == 0) {
-            preferences.edit().putLong(KEY_IS_FIRST_TIME_OFFER, System.currentTimeMillis()).apply();
-            return true;
-        } else
-            return false;
-    }
-
-    static boolean daysPassedSinceFirstOffer(int days) {
-        long firstLaunch = preferences.getLong(KEY_IS_FIRST_TIME_OFFER, 0L);
-        if (firstLaunch == 0)
-            return false;
-        return System.currentTimeMillis() - firstLaunch >= days * 8600000L;
     }
 }
