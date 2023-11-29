@@ -102,7 +102,7 @@ class ExitDialog extends Dialog {
         TypedArray features = getContext().getResources().obtainTypedArray(id);
         ViewGroup container = findViewById(R.id.dialog_features);
 
-        for (int i = 0; i < features.length(); i++) {
+        for (int i = 0; i < features.length()-1; i++) {
 
             int featureId = features.getResourceId(i, 0);
 
@@ -113,13 +113,12 @@ class ExitDialog extends Dialog {
             Drawable featureIcon = feature.getDrawable(INDEX_ICON);
             boolean featureBasic = feature.getBoolean(INDEX_BASIC, false);
 
-            View item = getLayoutInflater().inflate(R.layout.billing_feature, container, false);
+            if (featureBasic)
+                continue;
+
+            View item = getLayoutInflater().inflate(R.layout.dialog_feature, container, false);
             ((TextView) item.findViewById(R.id.txt_feature_name)).setText(featureName);
             ((ImageView) item.findViewById(R.id.img_icon)).setImageDrawable(featureIcon);
-            ((ImageView) item.findViewById(R.id.img_basic)).setImageDrawable(
-                    featureBasic ? AppCompatResources.getDrawable(getContext(), R.drawable.billing_check)
-                            : AppCompatResources.getDrawable(getContext(), R.drawable.billing_cancel)
-            );
             container.addView(item);
             feature.recycle();
         }
