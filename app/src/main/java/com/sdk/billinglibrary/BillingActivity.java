@@ -358,10 +358,15 @@ public class BillingActivity extends AppCompatActivity {
             View item = getLayoutInflater().inflate(R.layout.billing_feature, featuresContainer, false);
             ((TextView) item.findViewById(R.id.txt_feature_name)).setText(featureName);
             ((ImageView) item.findViewById(R.id.img_icon)).setImageDrawable(featureIcon);
-            ((ImageView) item.findViewById(R.id.img_basic)).setImageDrawable(
-                    featureBasic ? AppCompatResources.getDrawable(this, R.drawable.billing_check)
-                            : AppCompatResources.getDrawable(this, R.drawable.billing_cancel)
-            );
+
+            if (i < features.length() - 1)
+            {
+                ((ImageView) item.findViewById(R.id.img_basic)).setImageDrawable(
+                        featureBasic ? AppCompatResources.getDrawable(this, R.drawable.billing_check)
+                                : AppCompatResources.getDrawable(this, R.drawable.billing_cancel)
+                );
+            }
+
             featuresContainer.addView(item);
             feature.recycle();
         }
