@@ -5,18 +5,10 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-import androidx.work.WorkRequest;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.ktx.Firebase;
 import com.sdk.billinglibrary.interfaces.IOnInitializationComplete;
-
-import java.util.concurrent.TimeUnit;
 
 public class Billing {
 
