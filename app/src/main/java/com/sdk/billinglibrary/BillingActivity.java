@@ -1,5 +1,6 @@
 package com.sdk.billinglibrary;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -76,8 +77,8 @@ public class BillingActivity extends AppCompatActivity {
 
     private BillingManager manager;
 
-    private ProductDetails trialSku;
-    private ProductDetails fullSku;
+    private static ProductDetails trialSku;
+    private static ProductDetails fullSku;
 
     private boolean isTrial = true;
 
@@ -122,7 +123,15 @@ public class BillingActivity extends AppCompatActivity {
 
         setFeatures();
         setButtons();
-        retrieveSubs();
+
+        if (trialSku == null || fullSku == null)
+        {
+            retrieveSubs();
+        }
+        else
+        {
+            setupSubs();
+        }
 
         LocalConfig.didFirstBilling();
     }
@@ -154,37 +163,7 @@ public class BillingActivity extends AppCompatActivity {
                                 else if (product.getProductId().equals(premiumSubId))
                                     fullSku = product;
                             }
-
-                            animation.cancel();
-                            imgLoading.clearAnimation();
-                            imgLoading.setVisibility(View.INVISIBLE);
-                            findViewById(R.id.container).setVisibility(View.VISIBLE);
-
-                            Resources res = getResources();
-
-                            Price priceTrial = new Price(res, trialSku.getSubscriptionOfferDetails().get(0));
-                            Price pricePremium = new Price(res, fullSku.getSubscriptionOfferDetails().get(0));
-
-                            tvTrialTitle.setText(getString(R.string.txt_trial_title, priceTrial.getTrialPeriod()));
-                            tvTrialDescr.setText(getString(R.string.txt_trial_descr, priceTrial.getPriceAndCurrency(), priceTrial.getSubscriptionPeriod()));
-                            tvTrialDisclaimer.setText(getString(R.string.txt_trial_disclaimer,
-                                    priceTrial.getTrialPeriod(),
-                                    priceTrial.getSubscriptionPeriod(),
-                                    priceTrial.getPriceAndCurrency(),
-                                    priceTrial.getTotalPriceAndCurrency(),
-                                    priceTrial.getTotalPeriod()));
-
-                            tvPremiumTitle.setText(getString(R.string.txt_premium_title, pricePremium.getSubscriptionPeriod()));
-                            tvPremiumDescr.setText(getString(R.string.txt_premium_descr, pricePremium.getTotalPriceAndCurrency(), pricePremium.getTotalPeriod()));
-
-                            tvPremiumPrice.setText(pricePremium.getPriceAndCurrency());
-                            tvPremiumPricePeriod.setText(getString(R.string.txt_premium_price_period, pricePremium.getSubscriptionPeriod()));
-
-                            tvPremiumDisclaimer.setText(getString(R.string.txt_premium_disclaimer,
-                                    pricePremium.getSubscriptionPeriod(),
-                                    pricePremium.getPriceAndCurrency(),
-                                    pricePremium.getTotalPriceAndCurrency(),
-                                    pricePremium.getTotalPeriod()));
+                            setupSubs();
                         } else {
                             Toast.makeText(getApplicationContext(), "Something went wrong...", Toast.LENGTH_LONG).show();
                             finish();
@@ -194,6 +173,44 @@ public class BillingActivity extends AppCompatActivity {
         });
     }
 
+    private void setupSubs() {
+
+        if (trialSku == null || fullSku == null)
+            return;
+
+        animation.cancel();
+        imgLoading.clearAnimation();
+        imgLoading.setVisibility(View.INVISIBLE);
+        findViewById(R.id.container).setVisibility(View.VISIBLE);
+
+        Resources res = getResources();
+
+        Price priceTrial = new Price(res, trialSku.getSubscriptionOfferDetails().get(0));
+        Price pricePremium = new Price(res, fullSku.getSubscriptionOfferDetails().get(0));
+
+        tvTrialTitle.setText(getString(R.string.txt_trial_title, priceTrial.getTrialPeriod()));
+        tvTrialDescr.setText(getString(R.string.txt_trial_descr, priceTrial.getPriceAndCurrency(), priceTrial.getSubscriptionPeriod()));
+        tvTrialDisclaimer.setText(getString(R.string.txt_trial_disclaimer,
+                priceTrial.getTrialPeriod(),
+                priceTrial.getSubscriptionPeriod(),
+                priceTrial.getPriceAndCurrency(),
+                priceTrial.getTotalPriceAndCurrency(),
+                priceTrial.getTotalPeriod()));
+
+        tvPremiumTitle.setText(getString(R.string.txt_premium_title, pricePremium.getSubscriptionPeriod()));
+        tvPremiumDescr.setText(getString(R.string.txt_premium_descr, pricePremium.getTotalPriceAndCurrency(), pricePremium.getTotalPeriod()));
+
+        tvPremiumPrice.setText(pricePremium.getPriceAndCurrency());
+        tvPremiumPricePeriod.setText(getString(R.string.txt_premium_price_period, pricePremium.getSubscriptionPeriod()));
+
+        tvPremiumDisclaimer.setText(getString(R.string.txt_premium_disclaimer,
+                pricePremium.getSubscriptionPeriod(),
+                pricePremium.getPriceAndCurrency(),
+                pricePremium.getTotalPriceAndCurrency(),
+                pricePremium.getTotalPeriod()));
+    }
+
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
         if (trialSku == null) {
