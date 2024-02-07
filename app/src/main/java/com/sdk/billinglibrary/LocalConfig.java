@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.Nullable;
 
-class LocalConfig {
+public class LocalConfig {
 
     private static final String PREFERENCES = "billing";
     private static final String KEY_SUBSCRIBED = "subscribed";
@@ -13,7 +13,7 @@ class LocalConfig {
 
     private static SharedPreferences preferences;
 
-    static void init(Context context) {
+    public static void init(Context context) {
         if (preferences == null)
             preferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
     }
