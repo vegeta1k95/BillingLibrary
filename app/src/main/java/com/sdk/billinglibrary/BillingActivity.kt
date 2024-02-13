@@ -112,6 +112,7 @@ class BillingActivity : AppCompatActivity() {
                 runOnUiThread {
                     if (trialSku == null || fullSku == null) {
                         Log.d(Billing.LOG, "Activity: Error. Product are null")
+                        Toast.makeText(applicationContext, R.string.purchase_fail, Toast.LENGTH_LONG).show()
                         finish()
                     } else {
                         setupSubs()
@@ -122,6 +123,7 @@ class BillingActivity : AppCompatActivity() {
             } catch (ex: TimeoutCancellationException) {
                 // Billing initialization timed out - finish
                 Log.d(Billing.LOG, "Activity: Billing initialization timed out!")
+                Toast.makeText(applicationContext, R.string.purchase_fail, Toast.LENGTH_LONG).show()
                 finish()
             }
         }
