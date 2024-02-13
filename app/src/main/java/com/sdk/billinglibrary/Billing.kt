@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 
 enum class BillingStatus {
     SUBSCRIBED,
@@ -27,6 +28,8 @@ object Billing {
         application: Application,
         themeId: Int,
         testMode: Boolean) {
+
+        Log.d("MYTAG", "Initialization of billing...")
 
         app = application
         test = testMode

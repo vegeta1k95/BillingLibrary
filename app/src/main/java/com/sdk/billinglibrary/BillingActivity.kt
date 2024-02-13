@@ -100,17 +100,18 @@ class BillingActivity : AppCompatActivity() {
                 withTimeout(5000) {
                     Billing.manager.initialized.await()
                 }
-                Log.d(Billing.LOG, "Activity: Initialized!")
+                Log.d(Billing.LOG, "Activity: Initialized! ${Billing.manager.subs.size} products found!")
 
                 // Fill all the info
                 val trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL)
                 val premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_PREMIUM)
 
-                trialSku = Billing.manager.subs.firstOrNull { it.productId ==  trialSubId }
+                trialSku = Billing.manager.subs.firstOrNull { it.productId == trialSubId }
                 fullSku = Billing.manager.subs.firstOrNull { it.productId == premiumSubId }
 
                 runOnUiThread {
                     if (trialSku == null || fullSku == null) {
+                        Log.d(Billing.LOG, "Activity: Error. Product are null")
                         finish()
                     } else {
                         setupSubs()
