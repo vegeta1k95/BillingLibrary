@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 
-enum class Status {
+enum class BillingStatus {
     SUBSCRIBED,
     NOT_SUBSCRIBED,
     UNSUPPORTED
@@ -19,9 +19,9 @@ object Billing {
 
     var onDismiss: (() -> Unit)? = null
     private var test = false
-    lateinit var app: Application
 
-    val manager: BillingManager = BillingManager()
+    lateinit var app: Application
+    lateinit var manager: BillingManager
 
     fun initialize(
         application: Application,
@@ -30,6 +30,8 @@ object Billing {
 
         app = application
         test = testMode
+
+        manager = BillingManager()
 
         // Apply style to fetch attributes from XML
         val context = application.applicationContext
@@ -63,26 +65,26 @@ object Billing {
         }
     }
 
-    fun getStatus(): Status {
+    fun getStatus(): BillingStatus {
 
         val sub = LocalConfig.getCurrentSubscription()
 
         return when {
-            test -> Status.SUBSCRIBED
-            sub.isNullOrEmpty() -> Status.NOT_SUBSCRIBED
-            sub == UNSUPPORTED -> Status.UNSUPPORTED
-            else -> Status.SUBSCRIBED
+            test -> BillingStatus.SUBSCRIBED
+            sub.isNullOrEmpty() -> BillingStatus.NOT_SUBSCRIBED
+            sub == UNSUPPORTED -> BillingStatus.UNSUPPORTED
+            else -> BillingStatus.SUBSCRIBED
         }
     }
 
     fun canShowAds(): Boolean {
         val status = getStatus()
-        return status == Status.NOT_SUBSCRIBED || status == Status.UNSUPPORTED
+        return status == BillingStatus.NOT_SUBSCRIBED || status == BillingStatus.UNSUPPORTED
     }
 
     fun canShowBilling(): Boolean {
         val status = getStatus()
-        return status == Status.NOT_SUBSCRIBED
+        return status == BillingStatus.NOT_SUBSCRIBED
     }
 
     fun manageSubs(activity: Activity) {

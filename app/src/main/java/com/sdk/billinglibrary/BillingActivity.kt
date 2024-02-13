@@ -71,7 +71,7 @@ class BillingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // If we are subscribed - finish immediately
-        if (Billing.getStatus() !== Status.NOT_SUBSCRIBED) {
+        if (Billing.getStatus() !== BillingStatus.NOT_SUBSCRIBED) {
             finish()
             return
         }
