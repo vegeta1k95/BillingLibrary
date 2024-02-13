@@ -3,6 +3,7 @@ package com.sdk.billinglibrary
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -95,9 +96,11 @@ class BillingActivity : AppCompatActivity() {
             try {
 
                 // Wait for billing initialization (5 seconds)
+                Log.d(Billing.LOG, "Activity: Waiting for billing initialization")
                 withTimeout(5000) {
                     Billing.manager.initialized.await()
                 }
+                Log.d(Billing.LOG, "Activity: Initialized!")
 
                 // Fill all the info
                 val trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL)
@@ -117,6 +120,7 @@ class BillingActivity : AppCompatActivity() {
 
             } catch (ex: TimeoutCancellationException) {
                 // Billing initialization timed out - finish
+                Log.d(Billing.LOG, "Activity: Billing initialization timed out!")
                 finish()
             }
         }

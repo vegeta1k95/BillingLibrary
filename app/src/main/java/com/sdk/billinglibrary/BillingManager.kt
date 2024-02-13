@@ -44,7 +44,7 @@ class BillingManager {
         client.startConnection(object : BillingClientStateListener {
 
             override fun onBillingServiceDisconnected() {
-                client.startConnection(this)
+                // client.startConnection(this)
             }
 
             override fun onBillingSetupFinished(result: BillingResult) {
