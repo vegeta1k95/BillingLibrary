@@ -49,8 +49,10 @@ class BillingManager {
             }
 
             override fun onBillingSetupFinished(result: BillingResult) {
-                Log.d(Billing.LOG, "Billing setup finished! ${result.responseCode}")
-                /*
+
+                if (initialized.isCompleted)
+                    return
+
                 if (result.responseCode == BillingClient.BillingResponseCode.OK)
                 {
                     Log.d(Billing.LOG, "Billing setup finished!")
@@ -72,7 +74,6 @@ class BillingManager {
                     Log.d(Billing.LOG, "Billing setup failed: ${result.responseCode} | ${result.debugMessage}")
                     initialized.complete(Unit)
                 }
-                */
             }
         })
     }
@@ -118,8 +119,8 @@ class BillingManager {
             if (result.responseCode == BillingClient.BillingResponseCode.OK)
             {
                 Log.d(Billing.LOG, "Fetched ${list.size} SUBS")
-                list.filterNotNull().forEach { subs.add(it) }
                 subs.clear()
+                list.filterNotNull().forEach { subs.add(it) }
             }
             else
             {
