@@ -1,376 +1,318 @@
-package com.sdk.billinglibrary;
+package com.sdk.billinglibrary
 
-import android.annotation.SuppressLint;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.Window;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.os.Bundle
+import android.util.TypedValue
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.lifecycleScope
+import com.android.billingclient.api.ProductDetails
+import com.sdk.billinglibrary.LocalConfig.didFirstBilling
+import com.sdk.billinglibrary.LocalConfig.isFirstTimeBilling
+import com.sdk.billinglibrary.databinding.ActivityBillingBinding
+import com.sdk.billinglibrary.databinding.BillingFeatureBinding
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 
-import androidx.annotation.ColorInt;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
+interface IOnPurchaseListener {
+    fun onPurchaseDone()
+    fun onPurchaseFail()
+    fun onPurchaseCancelled()
+    fun onError()
+}
 
-import com.android.billingclient.api.ProductDetails;
-import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
+class BillingActivity : AppCompatActivity() {
 
-import java.util.ArrayList;
-import java.util.List;
+    companion object {
+        private const val INDEX_STRING = 0
+        private const val INDEX_ICON = 1
+        private const val INDEX_BASIC = 2
+    }
 
-public class BillingActivity extends AppCompatActivity {
-
-    private final IOnPurchaseListener onPurchaseListener = new IOnPurchaseListener() {
-        @Override
-        public void onPurchaseDone() {
-            Toast.makeText(getApplicationContext(), R.string.purchase_done, Toast.LENGTH_LONG).show();
-            finish();
+    private val onPurchaseListener: IOnPurchaseListener = object : IOnPurchaseListener {
+        override fun onPurchaseDone() {
+            Toast.makeText(applicationContext, R.string.purchase_done, Toast.LENGTH_LONG).show()
+            Billing.onDismiss?.invoke()
+            finish()
         }
 
-        @Override
-        public void onPurchaseFail() {
-            Toast.makeText(getApplicationContext(), R.string.purchase_fail, Toast.LENGTH_LONG).show();
-            finish();
+        override fun onPurchaseFail() {
+            Toast.makeText(applicationContext, R.string.purchase_fail, Toast.LENGTH_LONG).show()
+            Billing.onDismiss?.invoke()
+            finish()
         }
 
-        @Override
-        public void onPurchaseCancelled() {}
-
-        @Override
-        public void onError() {
-            Toast.makeText(getApplicationContext(), R.string.purchase_fail, Toast.LENGTH_LONG).show();
-            finish();
+        override fun onPurchaseCancelled() {}
+        override fun onError() {
+            Toast.makeText(applicationContext, R.string.purchase_fail, Toast.LENGTH_LONG).show()
+            Billing.onDismiss?.invoke()
+            finish()
         }
-    };
+    }
 
-    private LinearLayout featuresContainer;
+    private lateinit var binding: ActivityBillingBinding
 
-    private LinearLayout cardFull;
-    private LinearLayout cardTrial;
+    private var animation: Animation? = null
 
-    private ImageView imgLoading;
-    private Animation animation;
+    private var isTrial = true
+    private var trialSku: ProductDetails? = null
+    private var fullSku: ProductDetails? = null
 
-    private TextView tvTrialTitle;
-    private TextView tvTrialDescr;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    private TextView tvPremiumTitle;
-    private TextView tvPremiumDescr;
-    private TextView tvPremiumPrice;
-    private TextView tvPremiumPricePeriod;
-
-    private TextView tvPremiumDisclaimer;
-    private TextView tvTrialDisclaimer;
-
-    private RelativeLayout btnContinue;
-    private ImageView btnClose;
-
-    private BillingManager manager;
-
-    private static ProductDetails trialSku;
-    private static ProductDetails fullSku;
-
-    private boolean isTrial = true;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        manager = BillingManager.getInstance();
-
-        if (manager == null || Billing.getStatus() != Billing.Status.NOT_SUBSCRIBED) {
-            finish();
-            return;
+        // If we are subscribed - finish immediately
+        if (Billing.getStatus() !== Status.NOT_SUBSCRIBED) {
+            finish()
+            return
         }
 
-        setContentView(R.layout.activity_billing);
+        // Set content + start loading animation
+        binding = ActivityBillingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        Window window = getWindow();
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        window.setStatusBarColor(Color.TRANSPARENT);
+        val window = window
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        window.statusBarColor = Color.TRANSPARENT
 
-        featuresContainer = findViewById(R.id.features_container);
+        animation = rotate(binding.imgLoading)
 
-        imgLoading = findViewById(R.id.img_loading);
-        animation = rotate(imgLoading);
+        setFeatures()
+        setButtons()
 
-        btnClose = findViewById(R.id.btn_close);
-        btnContinue = findViewById(R.id.btn_continue);
+        lifecycleScope.launch {
 
-        cardFull = findViewById(R.id.card_full);
-        cardTrial = findViewById(R.id.card_trial);
+            try {
 
-        tvTrialTitle = findViewById(R.id.txt_trial_title);
-        tvTrialDescr = findViewById(R.id.txt_trial_descr);
+                // Wait for billing initialization (5 seconds)
+                withTimeout(5000) {
+                    Billing.manager.initialized.await()
+                }
 
-        tvPremiumTitle = findViewById(R.id.txt_premium_title);
-        tvPremiumDescr = findViewById(R.id.txt_premium_descr);
-        tvPremiumPrice = findViewById(R.id.txt_premium_price);
-        tvPremiumPricePeriod = findViewById(R.id.txt_premium_price_period);
+                // Fill all the info
+                val trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL)
+                val premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_PREMIUM)
 
-        tvPremiumDisclaimer = findViewById(R.id.txt_premium_disclaimer);
-        tvTrialDisclaimer = findViewById(R.id.txt_trial_disclaimer);
+                trialSku = Billing.manager.subs.firstOrNull { it.productId ==  trialSubId }
+                fullSku = Billing.manager.subs.firstOrNull { it.productId == premiumSubId }
 
-        setFeatures();
-        setButtons();
+                runOnUiThread {
+                    if (trialSku == null || fullSku == null) {
+                        finish()
+                    } else {
+                        setupSubs()
+                        didFirstBilling()
+                    }
+                }
+
+            } catch (ex: TimeoutCancellationException) {
+                // Billing initialization timed out - finish
+                finish()
+            }
+        }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.from_right, R.anim.to_left)
+    }
+
+    private fun setupSubs() {
 
         if (trialSku == null || fullSku == null)
-        {
-            retrieveSubs();
-        }
-        else
-        {
-            setupSubs();
-        }
+            return
 
-        LocalConfig.didFirstBilling();
-    }
+        animation?.cancel()
+        binding.imgLoading.clearAnimation()
 
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.from_right, R.anim.to_left);
-    }
+        binding.imgLoading.visibility = View.INVISIBLE
+        binding.container.visibility = View.VISIBLE
 
-    private void retrieveSubs() {
+        val priceTrial = Price(trialSku!!.subscriptionOfferDetails!![0])
+        val pricePremium = Price(fullSku!!.subscriptionOfferDetails!![0])
 
-        RemoteConfig.fetchSubs(this, (isSuccessful) -> {
+        binding.txtTrialTitle.text = getString(R.string.txt_trial_title, priceTrial.getTrialPeriod())
+        binding.txtTrialDescr.text = getString(
+            R.string.txt_trial_descr,
+            priceTrial.getPriceAndCurrency(),
+            priceTrial.getSubscriptionPeriod()
+        )
+        binding.txtTrialDisclaimer.text = getString(
+            R.string.txt_trial_disclaimer,
+            priceTrial.getTrialPeriod(),
+            priceTrial.getSubscriptionPeriod(),
+            priceTrial.getPriceAndCurrency(),
+            priceTrial.getTotalPriceAndCurrency(),
+            priceTrial.getTotalPeriod()
+        )
+        binding.txtPremiumTitle.text =
+            getString(R.string.txt_premium_title, pricePremium.getSubscriptionPeriod())
+        binding.txtPremiumDescr.text = getString(
+            R.string.txt_premium_descr,
+            pricePremium.getTotalPriceAndCurrency(),
+            pricePremium.getTotalPeriod()
+        )
+        binding.txtPremiumPrice.text = pricePremium.getPriceAndCurrency()
+        binding.txtPremiumPricePeriod.text =
+            getString(R.string.txt_premium_price_period, pricePremium.getSubscriptionPeriod())
+        binding.txtPremiumDisclaimer.text = getString(
+            R.string.txt_premium_disclaimer,
+            pricePremium.getSubscriptionPeriod(),
+            pricePremium.getPriceAndCurrency(),
+            pricePremium.getTotalPriceAndCurrency(),
+            pricePremium.getTotalPeriod()
+        )
 
-            String trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL);
-            String premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_PREMIUM);
-
-            List<String> subIds = new ArrayList<>();
-            subIds.add(trialSubId);
-            subIds.add(premiumSubId);
-
-            manager.retrieveSubs(subIds, (isSuccessful1, products) ->
-                    runOnUiThread(() -> {
-                        if (isSuccessful1 && products != null) {
-
-                            for (ProductDetails product : products) {
-                                if (product.getProductId().equals(trialSubId))
-                                    trialSku = product;
-                                else if (product.getProductId().equals(premiumSubId))
-                                    fullSku = product;
-                            }
-                            setupSubs();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Something went wrong...", Toast.LENGTH_LONG).show();
-                            finish();
-                        }
-                    })
-            );
-        });
-    }
-
-    private void setupSubs() {
-
-        if (trialSku == null || fullSku == null)
-            return;
-
-        animation.cancel();
-        imgLoading.clearAnimation();
-        imgLoading.setVisibility(View.INVISIBLE);
-        findViewById(R.id.container).setVisibility(View.VISIBLE);
-
-        Resources res = getResources();
-
-        Price priceTrial = new Price(res, trialSku.getSubscriptionOfferDetails().get(0));
-        Price pricePremium = new Price(res, fullSku.getSubscriptionOfferDetails().get(0));
-
-        tvTrialTitle.setText(getString(R.string.txt_trial_title, priceTrial.getTrialPeriod()));
-        tvTrialDescr.setText(getString(R.string.txt_trial_descr, priceTrial.getPriceAndCurrency(), priceTrial.getSubscriptionPeriod()));
-        tvTrialDisclaimer.setText(getString(R.string.txt_trial_disclaimer,
-                priceTrial.getTrialPeriod(),
-                priceTrial.getSubscriptionPeriod(),
-                priceTrial.getPriceAndCurrency(),
-                priceTrial.getTotalPriceAndCurrency(),
-                priceTrial.getTotalPeriod()));
-
-        tvPremiumTitle.setText(getString(R.string.txt_premium_title, pricePremium.getSubscriptionPeriod()));
-        tvPremiumDescr.setText(getString(R.string.txt_premium_descr, pricePremium.getTotalPriceAndCurrency(), pricePremium.getTotalPeriod()));
-
-        tvPremiumPrice.setText(pricePremium.getPriceAndCurrency());
-        tvPremiumPricePeriod.setText(getString(R.string.txt_premium_price_period, pricePremium.getSubscriptionPeriod()));
-
-        tvPremiumDisclaimer.setText(getString(R.string.txt_premium_disclaimer,
-                pricePremium.getSubscriptionPeriod(),
-                pricePremium.getPriceAndCurrency(),
-                pricePremium.getTotalPriceAndCurrency(),
-                pricePremium.getTotalPeriod()));
     }
 
     @SuppressLint("MissingSuperCall")
-    @Override
-    public void onBackPressed() {
+    override fun onBackPressed() {
         if (trialSku == null) {
-            finish();
-            return;
+            Billing.onDismiss?.invoke()
+            finish()
+            return
         }
-        showExitDialog();
+        showExitDialog()
     }
 
-    private void setButtons() {
-        View.OnClickListener listener = v -> showExitDialog();
-        View btnTry = findViewById(R.id.btn_try);
-
-        if (LocalConfig.isFirstTimeBilling()) {
-            btnClose.setEnabled(false);
-            btnClose.setVisibility(View.GONE);
-            btnTry.setEnabled(true);
-            btnTry.setVisibility(View.VISIBLE);
-            btnTry.setOnClickListener(listener);
+    private fun setButtons() {
+        if (isFirstTimeBilling()) {
+            binding.btnClose.isEnabled = false
+            binding.btnClose.visibility = View.GONE
+            binding.btnTry.isEnabled = true
+            binding.btnTry.visibility = View.VISIBLE
+            binding.btnTry.setOnClickListener { showExitDialog() }
         } else {
-            btnClose.setEnabled(true);
-            btnClose.setVisibility(View.VISIBLE);
-            btnClose.setOnClickListener(listener);
-            btnTry.setEnabled(false);
-            btnTry.setVisibility(View.GONE);
+            binding.btnClose.isEnabled = true
+            binding.btnClose.visibility = View.VISIBLE
+            binding.btnClose.setOnClickListener { showExitDialog() }
+            binding.btnTry.isEnabled = false
+            binding.btnTry.visibility = View.GONE
         }
-
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = getTheme();
+        val typedValue = TypedValue()
+        val theme = theme
         if (theme.resolveAttribute(R.attr.billing_button_text_color, typedValue, true)) {
-            @ColorInt int color = typedValue.data;
-            ((TextView) findViewById(R.id.btn_continue_text)).setTextColor(color);
-            ((TextView) findViewById(R.id.txt_trial_version)).setTextColor(color);
-            ((TextView) findViewById(R.id.txt_great_price)).setTextColor(color);
-            ((ImageView) findViewById(R.id.btn_continue_arrow)).setColorFilter(color);
+            @ColorInt val color = typedValue.data
+            binding.btnContinueText.setTextColor(color)
+            binding.txtTrialVersion.setTextColor(color)
+            binding.txtGreatPrice.setTextColor(color)
+            binding.btnContinueArrow.setColorFilter(color)
         }
 
-        btnContinue.setOnClickListener(v -> {
+        binding.btnContinue.setOnClickListener {
             if (trialSku == null || fullSku == null) {
-                retrieveSubs();
-                return;
+                finish()
+                return@setOnClickListener
             }
             if (isTrial)
-                manager.launchPurchaseFlow(BillingActivity.this, trialSku,
-                        trialSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
-            else
-                manager.launchPurchaseFlow(BillingActivity.this, fullSku,
-                        fullSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
-        });
+                Billing.manager.launchPurchaseFlow(this@BillingActivity, trialSku,
+                trialSku!!.subscriptionOfferDetails!![0].offerToken, onPurchaseListener)
+            else Billing.manager.launchPurchaseFlow(this@BillingActivity, fullSku,
+                fullSku!!.subscriptionOfferDetails!![0].offerToken, onPurchaseListener)
+        }
 
-        cardFull.setOnClickListener(v -> {
-            cardFull.setSelected(true);
-            cardTrial.setSelected(false);
-            isTrial = false;
-            tvTrialDisclaimer.setVisibility(View.INVISIBLE);
-            tvPremiumDisclaimer.setVisibility(View.VISIBLE);
-
-        });
-
-        cardTrial.setOnClickListener(v -> {
-            cardTrial.setSelected(true);
-            cardFull.setSelected(false);
-            isTrial = true;
-            tvTrialDisclaimer.setVisibility(View.VISIBLE);
-            tvPremiumDisclaimer.setVisibility(View.INVISIBLE);
-        });
-
-        cardTrial.setSelected(true);
-        cardFull.setSelected(false);
+        binding.cardFull.setOnClickListener {
+            binding.cardFull.isSelected = true
+            binding.cardTrial.isSelected = false
+            isTrial = false
+            binding.txtTrialDisclaimer.visibility = View.INVISIBLE
+            binding.txtPremiumDisclaimer.visibility = View.VISIBLE
+        }
+        binding.cardTrial.setOnClickListener {
+            binding.cardTrial.isSelected = true
+            binding.cardFull.isSelected = false
+            isTrial = true
+            binding.txtTrialDisclaimer.visibility = View.VISIBLE
+            binding.txtPremiumDisclaimer.visibility = View.INVISIBLE
+        }
+        binding.cardTrial.isSelected = true
+        binding.cardFull.isSelected = false
     }
 
-    private void showExitDialog() {
-
-        TypedValue typedValue = new TypedValue();
-        if (getTheme().resolveAttribute(R.attr.billing_show_dialog, typedValue, true))
+    private fun showExitDialog() {
+        val typedValue = TypedValue()
+        if (theme.resolveAttribute(R.attr.billing_show_dialog, typedValue, true)) {
             if (typedValue.data == 0) {
-                finish();
-                return;
+                Billing.onDismiss?.invoke()
+                finish()
+                return
             }
+        }
 
-        final ExitDialog dialog = new ExitDialog(this);
-
-        dialog.findViewById(R.id.dialog_button_ok).setOnClickListener(v12 -> {
-            dialog.dismiss();
-            manager.launchPurchaseFlow(BillingActivity.this, trialSku,
-                    trialSku.getSubscriptionOfferDetails().get(0).getOfferToken(), onPurchaseListener);
-        });
+        val dialog = ExitDialog(this)
+        dialog.findViewById<View>(R.id.dialog_button_ok).setOnClickListener {
+            dialog.dismiss()
+            Billing.manager.launchPurchaseFlow(this@BillingActivity, trialSku,
+                trialSku!!.subscriptionOfferDetails!![0].offerToken, onPurchaseListener)
+        }
 
         try {
-            Price price = new Price(getResources(), trialSku.getSubscriptionOfferDetails().get(0));
-            TextView tvDisclaimer = dialog.findViewById(R.id.txt_dialog_disclaimer);
-            tvDisclaimer.setText(getString(R.string.dialog_disclaimer,
-                    price.getTrialPeriod(),
-                    price.getPriceAndCurrency(),
-                    price.getSubscriptionPeriod()));
-            dialog.show();
-        } catch (NullPointerException ignore) {
-            finish();
+            val price = Price(trialSku!!.subscriptionOfferDetails!![0])
+            val tvDisclaimer = dialog.findViewById<TextView>(R.id.txt_dialog_disclaimer)
+            tvDisclaimer.text = getString(
+                R.string.dialog_disclaimer,
+                price.getTrialPeriod(),
+                price.getPriceAndCurrency(),
+                price.getSubscriptionPeriod()
+            )
+            dialog.show()
+        } catch (ignore: NullPointerException) {
+            finish()
         }
     }
 
-    private Animation rotate(View view) {
-        RotateAnimation rotate = new RotateAnimation(0, 1800,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(4000);
-        rotate.setInterpolator(new AccelerateDecelerateInterpolator());
-        rotate.setRepeatCount(Animation.INFINITE);
-        rotate.setFillAfter(true);
-        rotate.setFillBefore(true);
-        view.startAnimation(rotate);
-        return rotate;
+    private fun rotate(view: View?): Animation {
+        val rotate = RotateAnimation(
+            0f, 1800f,
+            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
+        )
+        rotate.duration = 4000
+        rotate.interpolator = AccelerateDecelerateInterpolator()
+        rotate.repeatCount = Animation.INFINITE
+        rotate.fillAfter = true
+        rotate.fillBefore = true
+        view!!.startAnimation(rotate)
+        return rotate
     }
 
-    private static final int INDEX_STRING = 0;
-    private static final int INDEX_ICON = 1;
-    private static final int INDEX_BASIC = 2;
-
-    private void setFeatures() {
-
-        int[] attrs = new int[] { R.attr.billing_features };
-        TypedArray a = obtainStyledAttributes(attrs);
-        int id = a.getResourceId(0 , 0);
-
-        a.recycle();
-
-        if (id == 0)
-            return;
-
-        TypedArray features = getResources().obtainTypedArray(id);
-
-        if (features == null)
-            return;
-
-        for (int i = 0; i < features.length(); i++) {
-
-            int featureId = features.getResourceId(i, 0);
-
-            TypedArray feature = getResources().obtainTypedArray(featureId);
-
-            int featureNameId = feature.getResourceId(INDEX_STRING, 0);
-            String featureName = getString(featureNameId);
-            Drawable featureIcon = feature.getDrawable(INDEX_ICON);
-            boolean featureBasic = feature.getBoolean(INDEX_BASIC, false);
-
-            View item = getLayoutInflater().inflate(R.layout.billing_feature, featuresContainer, false);
-            ((TextView) item.findViewById(R.id.txt_feature_name)).setText(featureName);
-            ((ImageView) item.findViewById(R.id.img_icon)).setImageDrawable(featureIcon);
-
-            if (i < features.length() - 1)
-            {
-                ((ImageView) item.findViewById(R.id.img_basic)).setImageDrawable(
-                        featureBasic ? AppCompatResources.getDrawable(this, R.drawable.billing_check)
-                                : AppCompatResources.getDrawable(this, R.drawable.billing_cancel)
-                );
+    private fun setFeatures() {
+        val attrs = intArrayOf(R.attr.billing_features)
+        val a = obtainStyledAttributes(attrs)
+        val id = a.getResourceId(0, 0)
+        a.recycle()
+        if (id == 0) return
+        val features = getResources().obtainTypedArray(id)
+        for (i in 0 until features.length()) {
+            val featureId = features.getResourceId(i, 0)
+            val feature = getResources().obtainTypedArray(featureId)
+            val featureNameId = feature.getResourceId(INDEX_STRING, 0)
+            val featureName = getString(featureNameId)
+            val featureIcon = feature.getDrawable(INDEX_ICON)
+            val featureBasic = feature.getBoolean(INDEX_BASIC, false)
+            val item = BillingFeatureBinding.inflate(layoutInflater, binding.featuresContainer, false)
+            item.txtFeatureName.text = featureName
+            item.imgIcon.setImageDrawable(featureIcon)
+            if (i < features.length() - 1) {
+                item.imgBasic.setImageDrawable(
+                    if (featureBasic)
+                        AppCompatResources.getDrawable(this, R.drawable.billing_check)
+                    else
+                        AppCompatResources.getDrawable(this, R.drawable.billing_cancel)
+                )
             }
-
-            featuresContainer.addView(item);
-            feature.recycle();
+            binding.featuresContainer.addView(item.root)
+            feature.recycle()
         }
-
-        features.recycle();
+        features.recycle()
     }
 }

@@ -1,39 +1,36 @@
-package com.sdk.billinglibrary;
+package com.sdk.billinglibrary
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Context
+import android.content.SharedPreferences
 
-import androidx.annotation.Nullable;
+object LocalConfig {
 
-public class LocalConfig {
+    private const val PREFERENCES = "billing"
+    private const val KEY_SUBSCRIBED = "subscribed"
+    private const val KEY_IS_FIRST_TIME_BILLING = "first_time"
 
-    private static final String PREFERENCES = "billing";
-    private static final String KEY_SUBSCRIBED = "subscribed";
-    private static final String KEY_IS_FIRST_TIME_BILLING = "first_time";
+    private lateinit var preferences: SharedPreferences
 
-    private static SharedPreferences preferences;
-
-    public static void init(Context context) {
-        if (preferences == null)
-            preferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+    fun init(context: Context) {
+        preferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
     }
 
-    static void subscribeLocally(String subId) {
+    fun subscribeLocally(subId: String?) {
         if (subId != null)
-            preferences.edit().putString(KEY_SUBSCRIBED, subId).apply();
+            preferences.edit()?.putString(KEY_SUBSCRIBED, subId)?.apply()
         else
-            preferences.edit().remove(KEY_SUBSCRIBED).apply();
+            preferences.edit()?.remove(KEY_SUBSCRIBED)?.apply()
     }
 
-    static @Nullable String getCurrentSubscription() {
-        return preferences.getString(KEY_SUBSCRIBED, null);
+    fun getCurrentSubscription(): String? {
+        return preferences.getString(KEY_SUBSCRIBED, null)
     }
 
-    static boolean isFirstTimeBilling() {
-        return !preferences.contains(KEY_IS_FIRST_TIME_BILLING);
+    fun isFirstTimeBilling(): Boolean {
+        return !preferences.contains(KEY_IS_FIRST_TIME_BILLING)
     }
 
-    static void didFirstBilling() {
-        preferences.edit().putBoolean(KEY_IS_FIRST_TIME_BILLING, true).apply();
+    fun didFirstBilling() {
+        preferences.edit().putBoolean(KEY_IS_FIRST_TIME_BILLING, true).apply()
     }
 }

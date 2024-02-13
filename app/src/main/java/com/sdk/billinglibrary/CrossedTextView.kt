@@ -1,39 +1,40 @@
-package com.sdk.billinglibrary;
+package com.sdk.billinglibrary
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.util.AttributeSet;
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatTextView
 
-public class CrossedTextView extends androidx.appcompat.widget.AppCompatTextView {
+class CrossedTextView : AppCompatTextView {
 
-    private Paint paint;
+    private var paint: Paint? = null
 
-    public CrossedTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-    public CrossedTextView(Context context) {
-        super(context);
-        init();
+    constructor(context: Context) : super(context) {
+        init()
     }
 
-    public CrossedTextView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init();
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        init()
     }
 
-    private void init() {
-        paint = new Paint();
-        paint.setColor(Color.RED);
-        paint.setStrokeWidth(getResources().getDisplayMetrics().density * 1);
+    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
+        init()
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawLine(0, getHeight()/2, getWidth(), getHeight()/2, paint);
+    private fun init() {
+        paint = Paint()
+        paint!!.color = Color.RED
+        paint!!.strokeWidth = resources.displayMetrics.density * 1
     }
 
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        canvas.drawLine(0f,
+            (height / 2).toFloat(),
+            width.toFloat(),
+            (height / 2).toFloat(),
+            paint!!)
+    }
 }

@@ -1,243 +1,201 @@
-package com.sdk.billinglibrary;
+package com.sdk.billinglibrary
 
-import android.app.Activity;
-import android.app.Application;
-import android.util.Log;
+import android.app.Activity
+import android.util.Log
+import com.android.billingclient.api.AcknowledgePurchaseParams
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.BillingFlowParams
+import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
+import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.ProductDetails
+import com.android.billingclient.api.Purchase
+import com.android.billingclient.api.QueryProductDetailsParams
+import com.android.billingclient.api.QueryPurchasesParams
+import com.sdk.billinglibrary.LocalConfig.subscribeLocally
+import kotlinx.coroutines.CompletableDeferred
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+class BillingManager {
 
-import com.android.billingclient.api.AcknowledgePurchaseParams;
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingClientStateListener;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.BillingResult;
-import com.android.billingclient.api.ProductDetails;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.PurchasesResponseListener;
-import com.android.billingclient.api.PurchasesUpdatedListener;
-import com.android.billingclient.api.QueryProductDetailsParams;
-import com.android.billingclient.api.QueryPurchasesParams;
-import com.sdk.billinglibrary.interfaces.IOnInitializationComplete;
-import com.sdk.billinglibrary.interfaces.IOnPurchaseListener;
-import com.sdk.billinglibrary.interfaces.ISubsListener;
+    private var onPurchase: IOnPurchaseListener? = null
 
-import java.util.ArrayList;
-import java.util.List;
-
-class BillingManager implements BillingClientStateListener,
-        PurchasesUpdatedListener, PurchasesResponseListener {
-
-    static final String LOG_TAG = "MYTAG (Billing)";
-
-    private static BillingManager mManager;
-
-    static void initialize(@NonNull Application application, IOnInitializationComplete listener) {
-        if (mManager == null) {
-            mManager = new BillingManager(application, listener);
-        }
-        mManager.restart();
-    }
-
-    static BillingManager getInstance() {
-        return mManager;
-    }
-
-    private final Application mApplication;
-
-    private BillingClient mBillingClient;
-    private IOnPurchaseListener mOnPurchaseListener;
-    private final IOnInitializationComplete mOnInitializationListener;
-    private Runnable mRunnableConsumable;
-
-    private BillingManager(@NonNull Application application, IOnInitializationComplete listener) {
-        mApplication = application;
-        mOnInitializationListener = listener;
-    }
-
-    void restart() {
-        if (mBillingClient != null) {
-            mBillingClient.endConnection();
-            mBillingClient = null;
-        }
-        mBillingClient = BillingClient
-                .newBuilder(mApplication)
-                .setListener(this)
-                .enablePendingPurchases()
-                .build();
-        mBillingClient.startConnection(this);
-    }
-
-    private void executeListeners() {
-        mOnInitializationListener.onComplete();
-        if (mRunnableConsumable != null) {
-            mRunnableConsumable.run();
-            mRunnableConsumable = null;
-        }
-    }
-
-    @Override
-    public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
-        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-            Log.d(LOG_TAG, "Billing setup finished!");
-
-            boolean isSubSupported = isSubscriptionSupported();
-
-            if (isSubSupported) {
-                Log.d(LOG_TAG,"Subscriptions are supported!");
-                queryPurchases();
+    private val client: BillingClient = BillingClient
+        .newBuilder(Billing.app)
+        .setListener { result, list ->
+            if (result.responseCode == BillingClient.BillingResponseCode.OK && list != null) {
+                val purchased = acknowledgePurchases(list)
+                if (purchased)
+                    onPurchase?.onPurchaseDone()
+                else
+                    onPurchase?.onPurchaseCancelled()
+            } else if (result.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+                onPurchase?.onPurchaseCancelled()
             } else {
-                Log.d(LOG_TAG, "Subscription are not supported!");
-                LocalConfig.subscribeLocally(Billing.UNSUPPORTED);
-                executeListeners();
+                onPurchase?.onPurchaseFail()
+            }
+        }
+        .enablePendingPurchases()
+        .build()
+
+    val subs: ArrayList<ProductDetails> = ArrayList()
+    val initialized = CompletableDeferred<Unit>()
+
+    fun initialize() {
+        client.startConnection(object : BillingClientStateListener {
+
+            override fun onBillingServiceDisconnected() {
+                client.startConnection(this)
             }
 
-        } else {
-            Log.d(LOG_TAG, "Billing setup failed: "
-                    + billingResult.getResponseCode() + " | "
-                    + billingResult.getDebugMessage());
-            executeListeners();
-        }
-    }
-
-    @Override
-    public void onBillingServiceDisconnected() {
-        restart();
-    }
-
-    @Override
-    public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
-        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-            acknowledgePurchases(list);
-            Log.d(LOG_TAG, "Purchases are acknowledged!");
-        } else {
-            Log.d(LOG_TAG, "Failed to query purchases: "
-                    + billingResult.getResponseCode() + " | "
-                    + billingResult.getDebugMessage());
-        }
-        executeListeners();
-    }
-
-    @Override
-    public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
-
-        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK
-                && list != null) {
-
-            boolean purchased = acknowledgePurchases(list);
-
-            if (mOnPurchaseListener == null)
-                return;
-
-            if (purchased)
-                mOnPurchaseListener.onPurchaseDone();
-            else
-                mOnPurchaseListener.onPurchaseCancelled();
-
-        } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
-            if (mOnPurchaseListener != null)
-                mOnPurchaseListener.onPurchaseCancelled();
-        } else {
-            if (mOnPurchaseListener != null)
-                mOnPurchaseListener.onPurchaseFail();
-        }
-    }
-
-    private boolean acknowledgePurchases(List<Purchase> list) {
-
-        String purchasedSub = null;
-
-        for (Purchase purchase : list) {
-            if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
-                if (!purchase.isAcknowledged()) {
-                    AcknowledgePurchaseParams params = AcknowledgePurchaseParams.newBuilder()
-                            .setPurchaseToken(purchase.getPurchaseToken())
-                            .build();
-                    mBillingClient.acknowledgePurchase(params, result -> {});
+            override fun onBillingSetupFinished(result: BillingResult) {
+                if (result.responseCode == BillingClient.BillingResponseCode.OK)
+                {
+                    Log.d(Billing.LOG, "Billing setup finished!")
+                    if (isSubscriptionSupported())
+                    {
+                        Log.d(Billing.LOG, "Subscriptions are supported!")
+                        querySubsPurchases()
+                        querySubsProducts()
+                    }
+                    else
+                    {
+                        Log.d(Billing.LOG, "Subscription are not supported!")
+                        subscribeLocally(Billing.UNSUPPORTED)
+                        initialized.complete(Unit)
+                    }
                 }
-                purchasedSub = purchase.getProducts().get(0);
+                else
+                {
+                    Log.d(Billing.LOG, "Billing setup failed: ${result.responseCode} | ${result.debugMessage}")
+                    initialized.complete(Unit)
+                }
+            }
+        })
+    }
+
+    private fun isSubscriptionSupported(): Boolean {
+        val code = client.isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS).responseCode
+        return code == BillingClient.BillingResponseCode.OK
+    }
+
+    private fun querySubsProducts() {
+
+        // Get list of Sub IDs
+        val trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL)
+        val premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_PREMIUM)
+        val subIds: MutableList<String?> = ArrayList()
+        subIds.add(trialSubId)
+        subIds.add(premiumSubId)
+
+        // Create a list of Products
+        val products: MutableList<QueryProductDetailsParams.Product> = ArrayList()
+        val builder = QueryProductDetailsParams.Product.newBuilder()
+
+        for (subId in subIds)
+        {
+            products.add(
+                builder
+                    .setProductId(subId!!)
+                    .setProductType(BillingClient.ProductType.SUBS)
+                    .build()
+            )
+        }
+
+        // Create query
+        val params = QueryProductDetailsParams.newBuilder()
+            .setProductList(products)
+            .build()
+
+        // Async request
+        client.queryProductDetailsAsync(params) {
+                result: BillingResult,
+                list: List<ProductDetails?> ->
+
+            if (result.responseCode == BillingClient.BillingResponseCode.OK)
+            {
+                Log.d(Billing.LOG, "Fetched ${list.size} SUBS")
+                list.filterNotNull().forEach { subs.add(it) }
+                subs.clear()
+            }
+            else
+            {
+                Log.d(Billing.LOG, "Failed to fetch ${list.size} SUBS!")
+            }
+
+            initialized.complete(Unit)
+        }
+    }
+
+    private fun querySubsPurchases() {
+
+        // Create query
+        val params = QueryPurchasesParams.newBuilder()
+            .setProductType(BillingClient.ProductType.SUBS)
+            .build()
+
+        // Async request
+        client.queryPurchasesAsync(params) { result, list ->
+            if (result.responseCode == BillingClient.BillingResponseCode.OK)
+            {
+                acknowledgePurchases(list)
+                Log.d(Billing.LOG, "Purchases are acknowledged!")
+            }
+            else
+            {
+                Log.d(Billing.LOG, "Failed to query purchases: ${result.responseCode} | ${result.debugMessage}")
             }
         }
-        LocalConfig.subscribeLocally(purchasedSub);
-        return purchasedSub != null;
     }
 
-    private boolean isSubscriptionSupported() {
-        return mBillingClient.isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS)
-                .getResponseCode() == BillingClient.BillingResponseCode.OK;
-    }
-
-    void queryPurchases() {
-        mBillingClient.queryPurchasesAsync(
-                QueryPurchasesParams.newBuilder()
-                        .setProductType(BillingClient.ProductType.SUBS)
-                        .build(),
-                this);
-    }
-
-    void retrieveSubs(@NonNull List<String> subIds, ISubsListener listener) {
-
-        if (subIds.isEmpty()) {
-            listener.onResult(false, null);
-            return;
-        }
-
-        Runnable runnable = () -> {
-            List<QueryProductDetailsParams.Product> products = new ArrayList<>();
-            QueryProductDetailsParams.Product.Builder builder = QueryProductDetailsParams.Product.newBuilder();
-
-            for (String subId : subIds) {
-                products.add(builder.setProductId(subId).setProductType(BillingClient.ProductType.SUBS).build());
+    private fun acknowledgePurchases(list: List<Purchase>): Boolean {
+        var purchasedSub: String? = null
+        list.forEach { purchase ->
+            if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED)
+            {
+                if (!purchase.isAcknowledged)
+                {
+                    val params = AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(purchase.purchaseToken)
+                        .build()
+                    client.acknowledgePurchase(params) { }
+                }
+                purchasedSub = purchase.products[0]
             }
-
-            QueryProductDetailsParams queryProductDetailsParams =
-                    QueryProductDetailsParams.newBuilder()
-                            .setProductList(products)
-                            .build();
-
-            mBillingClient.queryProductDetailsAsync(queryProductDetailsParams,
-                    (billingResult, productDetailsList) -> {
-                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                            if (productDetailsList.size() != subIds.size()) {
-                                Log.d(LOG_TAG, "Fetched too few SUBS (" +
-                                        productDetailsList.size() + "), should be: " + subIds.size());
-                                listener.onResult(false, null);
-                            } else {
-                                listener.onResult(true,productDetailsList);
-                            }
-                        } else {
-                            listener.onResult(false, null);
-                        }
-            });
-        };
-
-        if (mBillingClient.isReady())
-            runnable.run();
-        else
-            mRunnableConsumable = runnable;
+        }
+        subscribeLocally(purchasedSub)
+        return purchasedSub != null
     }
 
-    void launchPurchaseFlow(Activity activity, ProductDetails product, String token, IOnPurchaseListener listener) {
-        mOnPurchaseListener = listener;
-        if (!mBillingClient.isReady() || product == null) {
-            if (mOnPurchaseListener != null) {
-                mOnPurchaseListener.onError();
-            }
-            return;
+    fun launchPurchaseFlow(
+        activity: Activity?,
+        product: ProductDetails?,
+        token: String?,
+        listener: IOnPurchaseListener?
+    ) {
+        onPurchase = listener
+
+        if (!client.isReady || product == null)
+        {
+            onPurchase?.onError()
+            return
         }
 
-        try {
-            List<BillingFlowParams.ProductDetailsParams> params = new ArrayList<>();
-            params.add(BillingFlowParams.ProductDetailsParams.newBuilder()
-                            .setProductDetails(product)
-                            .setOfferToken(token)
-                    .build());
-            BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                            .setProductDetailsParamsList(params).build();
-            mBillingClient.launchBillingFlow(activity, flowParams);
-        } catch (IllegalArgumentException e) {
-            mOnPurchaseListener.onError();
+        try
+        {
+            val params: MutableList<ProductDetailsParams> = ArrayList()
+            params.add(
+                ProductDetailsParams.newBuilder()
+                    .setProductDetails(product)
+                    .setOfferToken(token!!)
+                    .build()
+            )
+            val flowParams = BillingFlowParams.newBuilder()
+                .setProductDetailsParamsList(params).build()
+            client.launchBillingFlow(activity!!, flowParams)
         }
-
+        catch (e: IllegalArgumentException)
+        {
+            onPurchase?.onError()
+        }
     }
 }

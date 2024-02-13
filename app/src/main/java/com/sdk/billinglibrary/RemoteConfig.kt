@@ -1,76 +1,75 @@
-package com.sdk.billinglibrary;
+package com.sdk.billinglibrary
 
-import android.content.Context;
-import android.util.Log;
-import android.util.TypedValue;
+import android.content.Context
+import android.util.Log
+import android.util.TypedValue
+import com.google.android.gms.tasks.Task
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 
-import androidx.annotation.Nullable;
+object RemoteConfig {
 
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue;
+    const val KEY_TRIAL = "sub_trial"
+    const val KEY_PREMIUM = "sub_premium"
 
-import java.util.HashMap;
-import java.util.Map;
-
-
-class RemoteConfig {
-
-    static final String KEY_TRIAL = "sub_trial";
-    static final String KEY_PREMIUM = "sub_premium";
-
-    public interface IOnFetchSubsListener {
-        void onComplete(boolean isSuccessful);
+    fun getSubByKey(key: String?): String {
+        return FirebaseRemoteConfig.getInstance().getString(key!!)
     }
 
-    static String getSubByKey(String key) {
-        return FirebaseRemoteConfig.getInstance().getString(key);
+    fun fetchSubs(context: Context, listener: (Boolean) -> Unit) {
+
+        val config = Firebase.remoteConfig
+        val defaults = constructDefaults(context)
+        
+        config.setDefaultsAsync(defaults)
+            .addOnCompleteListener { t: Task<Void?> ->
+                config.fetchAndActivate().addOnCompleteListener { task: Task<Boolean?> ->
+
+                    if (t.isSuccessful)
+                        Log.d(Billing.LOG, "Defaults are set!")
+                    else
+                        Log.d(Billing.LOG, "Defaults are not set!: ${task.exception.toString()}")
+
+                    if (task.isSuccessful)
+                        Log.d(Billing.LOG, "Fetched new config!")
+                    else
+                        Log.d(Billing.LOG, "Fetch failed!")
+
+                    val subTrial = config.getString(KEY_TRIAL)
+                    val subPremium = config.getString(KEY_PREMIUM)
+
+                    Log.d(Billing.LOG, "Trial: $subTrial")
+                    Log.d(Billing.LOG, "Premium: $subPremium")
+
+                    listener.invoke(task.isSuccessful)
+                }
+            }
     }
 
-    static void fetchSubs(Context context, @Nullable IOnFetchSubsListener listener) {
-        FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
-        Map<String, Object> defaults = new HashMap<>();
+    private fun constructDefaults(context: Context): MutableMap<String, Any> {
 
-        TypedValue trial = new TypedValue();
-        TypedValue premium = new TypedValue();
+        val defaults: MutableMap<String, Any> = HashMap()
 
-        context.getTheme().resolveAttribute(R.attr.billing_default_premium, premium, true);
-        context.getTheme().resolveAttribute(R.attr.billing_default_trial, trial, true);
-
-        defaults.put(KEY_TRIAL, trial.coerceToString());
-        defaults.put(KEY_PREMIUM, premium.coerceToString());
-
-        config.setDefaultsAsync(mergeDefaults(config, defaults)).addOnCompleteListener(t ->
-                config.fetchAndActivate().addOnCompleteListener(task -> {
-
-            if (t.isSuccessful())
-                Log.d(BillingManager.LOG_TAG, "Defaults are set!");
-            else
-                Log.d(BillingManager.LOG_TAG, "Defaults are not set!: " + task.getException().toString());
-
-            if (task.isSuccessful())
-                Log.d(BillingManager.LOG_TAG, "Fetched new config!");
-            else
-                Log.d(BillingManager.LOG_TAG, "Fetch failed!");
-
-            String subTrial = config.getString(KEY_TRIAL);
-            String subPremium = config.getString(KEY_PREMIUM);
-
-            Log.d(BillingManager.LOG_TAG, "Trial: " + subTrial);
-            Log.d(BillingManager.LOG_TAG, "Premium: " + subPremium);
-
-            if (listener != null)
-                listener.onComplete(task.isSuccessful());
-        }));
-    }
-
-    private static Map<String, Object> mergeDefaults(FirebaseRemoteConfig config, Map<String, Object> newDefaults) {
-        Map<String, FirebaseRemoteConfigValue> oldValues = config.getAll();
-        Map<String, Object> oldDefaults = new HashMap<>();
-        for (Map.Entry<String, FirebaseRemoteConfigValue> entry : oldValues.entrySet()) {
-            if (entry.getValue().getSource() == FirebaseRemoteConfig.VALUE_SOURCE_DEFAULT)
-                oldDefaults.put(entry.getKey(), entry.getValue().asString());
+        // Fill defaults with already existing defaults (if they were initialized before)
+        val oldValues = Firebase.remoteConfig.all
+        for ((key, value) in oldValues)
+        {
+            if (value.source == FirebaseRemoteConfig.VALUE_SOURCE_DEFAULT)
+                defaults[key] = value.asString()
         }
-        oldDefaults.putAll(newDefaults);
-        return oldDefaults;
+
+        // Add billing defaults
+        val trial = TypedValue()
+        val premium = TypedValue()
+
+        context.theme.resolveAttribute(R.attr.billing_default_premium, premium, true)
+        context.theme.resolveAttribute(R.attr.billing_default_trial, trial, true)
+
+        defaults[KEY_TRIAL] = trial.coerceToString()
+        defaults[KEY_PREMIUM] = premium.coerceToString()
+        
+        return defaults
     }
+    
 }

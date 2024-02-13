@@ -1,130 +1,114 @@
-package com.sdk.billinglibrary;
+package com.sdk.billinglibrary
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
+import android.app.Activity
+import android.app.Application
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 
-import androidx.annotation.Nullable;
+enum class Status {
+    SUBSCRIBED,
+    NOT_SUBSCRIBED,
+    UNSUPPORTED
+}
 
-import com.sdk.billinglibrary.interfaces.IOnInitializationComplete;
+object Billing {
 
-public class Billing {
+    const val LOG = "MYTAG (Billing)"
+    const val UNSUPPORTED = "NOT_SUPPORTED"
 
-    public enum Status {
-        SUBSCRIBED,
-        NOT_SUBSCRIBED,
-        UNSUPPORTED
-    }
+    var onDismiss: (() -> Unit)? = null
+    private var test = false
+    lateinit var app: Application
 
-    public static final String TEST_MODE = "TEST_MODE";
-    public static final String UNSUPPORTED = "NOT_SUPPORTED";
+    val manager: BillingManager = BillingManager()
 
-    public interface ICallback {
-        void onDismiss();
-    }
+    fun initialize(
+        application: Application,
+        themeId: Int,
+        testMode: Boolean) {
 
-    static boolean mTestMode;
-    static ICallback mCallback;
+        app = application
+        test = testMode
 
-    public static void initialize(Application application, int themeId, boolean testMode,
-                                  @Nullable IOnInitializationComplete listener) {
-        mTestMode = testMode;
-
-        Context context = application.getApplicationContext();
-        context.getTheme().applyStyle(themeId, false);
+        // Apply style to fetch attributes from XML
+        val context = application.applicationContext
+        context.theme.applyStyle(themeId, false)
 
         // Init shared preferences
-        LocalConfig.init(context);
+        LocalConfig.init(context)
 
         // Request Firebase Remote Config
-        RemoteConfig.fetchSubs(context, (isSuccessful -> {
+        RemoteConfig.fetchSubs(context) { isSuccessful: Boolean ->
 
             // Get fetched sub IDs
-            String trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL);
-            String premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_PREMIUM);
+            val trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL)
+            val premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_PREMIUM)
 
             // If one of fetched sub IDs is "NOT_SUPPORTED" we consider user "subscribed"
-            if (trialSubId.equals(UNSUPPORTED) || premiumSubId.equals(UNSUPPORTED)) {
+            if (trialSubId == UNSUPPORTED || premiumSubId == UNSUPPORTED) {
 
                 // Denote billing as unsupported only if there is no currently active subscription
                 // (to avoid currently subscribed users receive ads, etc)
-                if (LocalConfig.getCurrentSubscription() == null)
-                    LocalConfig.subscribeLocally(UNSUPPORTED);
-
-                // Launch callback, if any
-                if (listener != null)
-                    listener.onComplete();
+                if (LocalConfig.getCurrentSubscription() == null) LocalConfig.subscribeLocally(
+                    UNSUPPORTED
+                )
 
                 // Do not init billing in this case - unnecessary.
-                return;
+                return@fetchSubs
             }
 
             // Otherwise initialize billing
-            BillingManager.initialize(application, () -> {
-
-                // Launch callback, if any
-                if (listener != null)
-                    listener.onComplete();
-            });
-
-        }));
-    }
-
-    public static Status getStatus() {
-        if (mTestMode)
-            return Status.SUBSCRIBED;
-
-        String sub = LocalConfig.getCurrentSubscription();
-
-        if (sub == null || sub.isEmpty())
-            return Status.NOT_SUBSCRIBED;
-        else if (sub.equals(UNSUPPORTED))
-            return Status.UNSUPPORTED;
-        else
-            return Status.SUBSCRIBED;
-    }
-
-    public static boolean canShowAds() {
-        Status status = getStatus();
-        return status == Status.NOT_SUBSCRIBED || status == Status.UNSUPPORTED;
-    }
-
-    public static boolean canShowBilling() {
-        Status status = getStatus();
-        return status == Status.NOT_SUBSCRIBED;
-    }
-
-    public static void manageSubs(Activity activity) {
-        String url = "https://play.google.com/store/account/subscriptions";
-        String sub = LocalConfig.getCurrentSubscription();
-        if (sub != null && !mTestMode && !sub.equals(UNSUPPORTED)) {
-            url += "?sku=" + sub + "&package=" + activity.getPackageName();
-        }
-        Uri page = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, page);
-        if (intent.resolveActivity(activity.getPackageManager()) != null) {
-            activity.startActivity(intent);
+            manager.initialize()
         }
     }
 
-    public static void startBillingActivity(@Nullable Context activity) {
-        startBillingActivity(activity, null);
-    }
+    fun getStatus(): Status {
 
-    public static void startBillingActivity(@Nullable Context activity, ICallback callback) {
+        val sub = LocalConfig.getCurrentSubscription()
 
-        mCallback = callback;
-
-        if (activity == null) {
-            if (callback != null)
-                callback.onDismiss();
-            return;
+        return when {
+            test -> Status.SUBSCRIBED
+            sub.isNullOrEmpty() -> Status.NOT_SUBSCRIBED
+            sub == UNSUPPORTED -> Status.UNSUPPORTED
+            else -> Status.SUBSCRIBED
         }
-
-        Intent intent = new Intent(activity, BillingActivity.class);
-        activity.startActivity(intent);
     }
 
+    fun canShowAds(): Boolean {
+        val status = getStatus()
+        return status == Status.NOT_SUBSCRIBED || status == Status.UNSUPPORTED
+    }
+
+    fun canShowBilling(): Boolean {
+        val status = getStatus()
+        return status == Status.NOT_SUBSCRIBED
+    }
+
+    fun manageSubs(activity: Activity) {
+        var url = "https://play.google.com/store/account/subscriptions"
+        val sub = LocalConfig.getCurrentSubscription()
+        if (sub != null && !test && sub != UNSUPPORTED) {
+            url += "?sku=" + sub + "&package=" + activity.packageName
+        }
+        val page = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, page)
+        if (intent.resolveActivity(activity.packageManager) != null) {
+            activity.startActivity(intent)
+        }
+    }
+
+    fun startBillingActivity(context: Context?) {
+        startBillingActivity(context, null)
+    }
+
+    fun startBillingActivity(context: Context?, onDismiss: (() -> Unit)? = null) {
+        if (context == null)
+        {
+            onDismiss?.invoke()
+            return
+        }
+        this.onDismiss = onDismiss
+        context.startActivity(Intent(context, BillingActivity::class.java))
+    }
 }
