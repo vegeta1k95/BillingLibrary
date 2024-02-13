@@ -29,7 +29,7 @@ object Billing {
         themeId: Int,
         testMode: Boolean) {
 
-        Log.d("MYTAG", "Initialization of billing...")
+        Log.d(LOG, "Initialization of billing...")
 
         app = application
         test = testMode
@@ -55,9 +55,8 @@ object Billing {
 
                 // Denote billing as unsupported only if there is no currently active subscription
                 // (to avoid currently subscribed users receive ads, etc)
-                if (LocalConfig.getCurrentSubscription() == null) LocalConfig.subscribeLocally(
-                    UNSUPPORTED
-                )
+                if (LocalConfig.getCurrentSubscription() == null)
+                    LocalConfig.subscribeLocally(UNSUPPORTED)
 
                 // Do not init billing in this case - unnecessary.
                 return@fetchSubs

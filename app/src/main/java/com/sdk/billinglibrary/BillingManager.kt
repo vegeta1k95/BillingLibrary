@@ -41,6 +41,7 @@ class BillingManager {
     val initialized = CompletableDeferred<Unit>()
 
     fun initialize() {
+        Log.d(Billing.LOG, "Initialization of billing manager...")
         client.startConnection(object : BillingClientStateListener {
 
             override fun onBillingServiceDisconnected() {
@@ -48,6 +49,8 @@ class BillingManager {
             }
 
             override fun onBillingSetupFinished(result: BillingResult) {
+                Log.d(Billing.LOG, "Billing setup finished! ${result.responseCode}")
+                /*
                 if (result.responseCode == BillingClient.BillingResponseCode.OK)
                 {
                     Log.d(Billing.LOG, "Billing setup finished!")
@@ -69,6 +72,7 @@ class BillingManager {
                     Log.d(Billing.LOG, "Billing setup failed: ${result.responseCode} | ${result.debugMessage}")
                     initialized.complete(Unit)
                 }
+                */
             }
         })
     }
