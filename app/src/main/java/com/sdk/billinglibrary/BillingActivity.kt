@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
 import com.android.billingclient.api.ProductDetails
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.sdk.billinglibrary.LocalConfig.didFirstBilling
 import com.sdk.billinglibrary.LocalConfig.isFirstTimeBilling
 import com.sdk.billinglibrary.databinding.ActivityBillingBinding
@@ -215,6 +216,18 @@ class BillingActivity : AppCompatActivity() {
             binding.txtGreatPrice.setTextColor(color)
             binding.btnContinueArrow.setColorFilter(color)
         }
+
+        val typedValue2 = TypedValue()
+
+        var animation = true
+        if (theme.resolveAttribute(R.attr.billing_button_animation, typedValue2, false)) {
+            if (typedValue2.data == 0)
+                animation = false
+        }
+
+        val view = findViewById<ShimmerFrameLayout>(R.id.txt_progress_container)
+        if (animation)
+            view.startShimmer()
 
         binding.btnContinue.setOnClickListener {
             if (trialSku == null || fullSku == null) {
