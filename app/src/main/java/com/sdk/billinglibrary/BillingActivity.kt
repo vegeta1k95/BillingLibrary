@@ -194,21 +194,33 @@ class BillingActivity : AppCompatActivity() {
     }
 
     private fun setButtons() {
-        if (isFirstTimeBilling()) {
-            binding.btnClose.isEnabled = false
-            binding.btnClose.visibility = View.GONE
-            binding.btnTry.isEnabled = true
-            binding.btnTry.visibility = View.VISIBLE
-            binding.btnTry.setOnClickListener { showExitDialog() }
-        } else {
+
+        val theme = theme
+        val typedValueCross = TypedValue()
+
+        var showCross = !isFirstTimeBilling()
+
+        if (theme.resolveAttribute(R.attr.billing_show_cross, typedValueCross, false)) {
+            if (typedValueCross.data != 0)
+                showCross = true
+        }
+
+        if (showCross) {
             binding.btnClose.isEnabled = true
             binding.btnClose.visibility = View.VISIBLE
             binding.btnClose.setOnClickListener { showExitDialog() }
             binding.btnTry.isEnabled = false
             binding.btnTry.visibility = View.GONE
+        } else {
+            binding.btnClose.isEnabled = false
+            binding.btnClose.visibility = View.GONE
+            binding.btnTry.isEnabled = true
+            binding.btnTry.visibility = View.VISIBLE
+            binding.btnTry.setOnClickListener { showExitDialog() }
         }
+
         val typedValue = TypedValue()
-        val theme = theme
+
         if (theme.resolveAttribute(R.attr.billing_button_text_color, typedValue, true)) {
             @ColorInt val color = typedValue.data
             binding.btnContinueText.setTextColor(color)
