@@ -24,6 +24,7 @@ object Billing {
     lateinit var app: Application
     lateinit var manager: BillingManager
 
+    @JvmStatic
     fun initialize(
         application: Application,
         themeId: Int,
@@ -67,6 +68,7 @@ object Billing {
         }
     }
 
+    @JvmStatic
     fun getStatus(): BillingStatus {
 
         val sub = LocalConfig.getCurrentSubscription()
@@ -79,16 +81,19 @@ object Billing {
         }
     }
 
+    @JvmStatic
     fun canShowAds(): Boolean {
         val status = getStatus()
         return status == BillingStatus.NOT_SUBSCRIBED || status == BillingStatus.UNSUPPORTED
     }
 
+    @JvmStatic
     fun canShowBilling(): Boolean {
         val status = getStatus()
         return status == BillingStatus.NOT_SUBSCRIBED
     }
 
+    @JvmStatic
     fun manageSubs(activity: Activity) {
         var url = "https://play.google.com/store/account/subscriptions"
         val sub = LocalConfig.getCurrentSubscription()
@@ -102,10 +107,12 @@ object Billing {
         }
     }
 
+    @JvmStatic
     fun startBillingActivity(context: Context?) {
         startBillingActivity(context, null)
     }
 
+    @JvmStatic
     fun startBillingActivity(context: Context?, onDismiss: (() -> Unit)? = null) {
         if (context == null)
         {
