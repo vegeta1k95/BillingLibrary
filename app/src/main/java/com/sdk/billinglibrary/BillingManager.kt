@@ -15,6 +15,8 @@ import com.android.billingclient.api.QueryPurchasesParams
 import com.sdk.billinglibrary.LocalConfig.subscribeLocally
 import kotlinx.coroutines.CompletableDeferred
 
+private val BANNED_CURRENCIES = listOf("INR", "UAH")
+
 class BillingManager {
 
     private var onPurchase: IOnPurchaseListener? = null
@@ -120,7 +122,20 @@ class BillingManager {
             {
                 Log.d(Billing.LOG, "Fetched ${list.size} SUBS")
                 subs.clear()
-                list.filterNotNull().forEach { subs.add(it) }
+                list.filterNotNull().forEach { sub ->
+                    subs.add(sub)
+
+                    // If shitty country/currency - mark as billing unsupported.
+                    if (sub.subscriptionOfferDetails?.any { subOffer ->
+                            subOffer.pricingPhases.pricingPhaseList.any {
+                               BANNED_CURRENCIES.contains(it.priceCurrencyCode.uppercase())
+                           }
+                        } == true)
+                    {
+                        subscribeLocally(Billing.UNSUPPORTED)
+                        //Log.d(Billing.LOG, "Found unsupported currency. Disable billing.")
+                    }
+                }
             }
             else
             {
