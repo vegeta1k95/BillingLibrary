@@ -257,7 +257,7 @@ class BillingActivity : AppCompatActivity() {
             binding.cardFull.isSelected = true
             binding.cardTrial.isSelected = false
             isTrial = false
-            binding.txtTrialDisclaimer.visibility = View.INVISIBLE
+            binding.txtTrialDisclaimer.visibility = View.GONE
             binding.txtPremiumDisclaimer.visibility = View.VISIBLE
         }
         binding.cardTrial.setOnClickListener {
@@ -265,7 +265,7 @@ class BillingActivity : AppCompatActivity() {
             binding.cardFull.isSelected = false
             isTrial = true
             binding.txtTrialDisclaimer.visibility = View.VISIBLE
-            binding.txtPremiumDisclaimer.visibility = View.INVISIBLE
+            binding.txtPremiumDisclaimer.visibility = View.GONE
         }
         binding.cardTrial.isSelected = true
         binding.cardFull.isSelected = false
