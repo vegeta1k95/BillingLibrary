@@ -15,7 +15,7 @@ import com.android.billingclient.api.QueryPurchasesParams
 import com.sdk.billinglibrary.LocalConfig.subscribeLocally
 import kotlinx.coroutines.CompletableDeferred
 
-private val BANNED_CURRENCIES = listOf("INR")
+private val BANNED_CURRENCIES = listOf("INR", "MYR")
 
 class BillingManager {
 
