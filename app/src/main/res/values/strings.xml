@@ -41,7 +41,7 @@
 
     <string name="txt_trial_title">%1$s trial version</string>
     <string name="txt_trial_descr">Then %1$s per %2$s</string>
-    <string name="txt_trial_disclaimer">This offer includes a %1$s trial period, after which money will automatically start to be debited as %2$s subscription for %3$s (%4$s per %5$s).\n\nThe subscription can be canceled at any time in the application or in the list of subscriptions in the Google account to which the subscription will be linked. If canceled during trial period no funds will be charged.</string>
+    <string name="txt_trial_disclaimer">This offer includes a %1$s trial period, after which money will automatically start to be debited as %2$s subscription for %3$s (%4$s per %5$s).\n\nYou can cancel subscription in the application or in the list of subscriptions in the Google account to which the subscription will be linked. If canceled during trial period no funds will be charged.</string>
 
     <string name="txt_premium_title">%1$s premium</string>
     <string name="txt_premium_descr">Total %1$s per %2$s</string>
