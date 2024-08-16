@@ -3,6 +3,8 @@ package com.sdk.billinglibrary
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -197,20 +199,31 @@ class BillingActivity : AppCompatActivity() {
 
         val theme = theme
         val typedValueCross = TypedValue()
+        val typedValueCrossDelay = TypedValue()
 
         var showCross = !isFirstTimeBilling()
+        var showCrossDelay = 0
 
         if (theme.resolveAttribute(R.attr.billing_show_cross, typedValueCross, false)) {
             if (typedValueCross.data != 0)
                 showCross = true
         }
 
+        if (theme.resolveAttribute(R.attr.billing_show_cross_delay, typedValueCrossDelay, false)) {
+            showCrossDelay = typedValueCrossDelay.data
+        }
+
         if (showCross) {
-            binding.btnClose.isEnabled = true
-            binding.btnClose.visibility = View.VISIBLE
-            binding.btnClose.setOnClickListener { showExitDialog() }
+
             binding.btnTry.isEnabled = false
             binding.btnTry.visibility = View.GONE
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.btnClose.isEnabled = true
+                binding.btnClose.visibility = View.VISIBLE
+                binding.btnClose.setOnClickListener { showExitDialog() }
+            }, showCrossDelay * 1000L)
+
         } else {
             binding.btnClose.isEnabled = false
             binding.btnClose.visibility = View.GONE
