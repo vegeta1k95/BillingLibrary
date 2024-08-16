@@ -42,6 +42,7 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:src="@drawable/billing_close"
+                    android:visibility="gone"
                     app:tint="#787878" />
 
                 <LinearLayout
