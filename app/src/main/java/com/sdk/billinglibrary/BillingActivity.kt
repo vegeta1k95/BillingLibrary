@@ -1,13 +1,17 @@
 package com.sdk.billinglibrary
 
+import android.R
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Insets
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.view.WindowInsets
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
@@ -26,6 +30,7 @@ import com.sdk.billinglibrary.databinding.BillingFeatureBinding
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
+
 
 interface IOnPurchaseListener {
     fun onPurchaseDone()
@@ -85,9 +90,20 @@ class BillingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val window = window
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        window.statusBarColor = Color.TRANSPARENT
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            window.decorView.setOnApplyWindowInsetsListener { view, insets ->
+                val statusBarInsets = insets.getInsets(WindowInsets.Type.statusBars())
+                view.setBackgroundColor(Color.TRANSPARENT)
+                view.setPadding(0, statusBarInsets.top, 0, 0)
+                insets
+            }
+        } else {
+            // Older SDKs: use direct window call
+            window.statusBarColor = Color.TRANSPARENT
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
 
         animation = rotate(binding.imgLoading)
 
