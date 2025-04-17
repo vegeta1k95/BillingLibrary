@@ -90,18 +90,19 @@ class BillingActivity : AppCompatActivity() {
 
         val window = window
 
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
             window.decorView.setOnApplyWindowInsetsListener { view, insets ->
                 val statusBarInsets = insets.getInsets(WindowInsets.Type.statusBars())
                 view.setBackgroundColor(Color.TRANSPARENT)
-                view.setPadding(0, statusBarInsets.top, 0, 0)
+                view.setPadding(0, statusBarInsets.top, 0, statusBarInsets.bottom)
                 insets
             }
         } else {
             // Older SDKs: use direct window call
             window.statusBarColor = Color.TRANSPARENT
-            window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         }
 
         animation = rotate(binding.imgLoading)
