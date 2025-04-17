@@ -95,9 +95,7 @@ class BillingActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
             window.decorView.setOnApplyWindowInsetsListener { view, insets ->
-                val statusBarInsets = insets.getInsets(WindowInsets.Type.statusBars())
                 view.setBackgroundColor(Color.TRANSPARENT)
-                view.setPadding(0, statusBarInsets.top, 0, statusBarInsets.bottom)
                 insets
             }
         } else {
