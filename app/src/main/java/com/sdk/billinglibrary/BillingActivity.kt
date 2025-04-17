@@ -1,6 +1,5 @@
 package com.sdk.billinglibrary
 
-import android.R
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Insets
