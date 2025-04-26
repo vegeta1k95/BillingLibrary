@@ -215,6 +215,7 @@ class BillingActivity : AppCompatActivity() {
         val typedValueCross = TypedValue()
         val typedValueCrossDelay = TypedValue()
 
+        /*
         var showCross = !isFirstTimeBilling()
         var showCrossDelay = 0
 
@@ -245,6 +246,11 @@ class BillingActivity : AppCompatActivity() {
             binding.btnTry.visibility = View.VISIBLE
             binding.btnTry.setOnClickListener { showExitDialog() }
         }
+        */
+
+        binding.btnClose.isEnabled = true
+        binding.btnClose.visibility = View.VISIBLE
+        binding.btnClose.setOnClickListener { showExitDialog() }
 
         val typedValue = TypedValue()
 

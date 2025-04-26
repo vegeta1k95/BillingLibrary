@@ -42,7 +42,7 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:src="@drawable/billing_close"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:tint="#787878" />
 
                 <LinearLayout
@@ -428,6 +428,7 @@
 
                 <TextView
                     android:id="@+id/btn_try"
+                    android:visibility="gone"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
