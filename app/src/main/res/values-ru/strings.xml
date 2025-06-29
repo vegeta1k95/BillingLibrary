@@ -17,15 +17,15 @@
     </plurals>
 
     <plurals name="weeks">
-        <item quantity="one">%d-Неделя</item>
-        <item quantity="two">%d-Недели</item>
-        <item quantity="other">%d-Недели</item>
+        <item quantity="one">%d-Нед.</item>
+        <item quantity="two">%d-Нед.</item>
+        <item quantity="other">%d-Нед.</item>
     </plurals>
 
     <plurals name="months">
-        <item quantity="one">%d-Месяц</item>
-        <item quantity="two">%d-Месяца</item>
-        <item quantity="other">%d-Месяца</item>
+        <item quantity="one">%d-Мес.</item>
+        <item quantity="two">%d-Мес.</item>
+        <item quantity="other">%d-Мес.</item>
     </plurals>
 
     <plurals name="years">
@@ -36,8 +36,8 @@
 
     <string name="billing_subscriptions">Подписки</string>
     <string name="day">День</string>
-    <string name="week">Неделя</string>
-    <string name="month">Месяц</string>
+    <string name="week">Нед.</string>
+    <string name="month">Мес.</string>
     <string name="year">Год</string>
 
     <string name="txt_premium_title">%1$s премиум</string>
