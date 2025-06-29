@@ -2,15 +2,11 @@ package com.sdk.billinglibrary
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import android.view.WindowInsets
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
@@ -20,10 +16,8 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
-import com.android.billingclient.api.ProductDetails
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.sdk.billinglibrary.LocalConfig.didFirstBilling
-import com.sdk.billinglibrary.LocalConfig.isFirstTimeBilling
 import com.sdk.billinglibrary.databinding.ActivityBillingBinding
 import com.sdk.billinglibrary.databinding.BillingFeatureBinding
 import kotlinx.coroutines.TimeoutCancellationException
@@ -53,8 +47,6 @@ class BillingActivity : AppCompatActivity() {
     private var animation: Animation? = null
 
     private var isTrial = true
-    private var trialSku: ProductDetails? = null
-    private var fullSku: ProductDetails? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,12 +78,11 @@ class BillingActivity : AppCompatActivity() {
 
         binding.btnClose.setOnClickListener { finish() }
 
-        //animation = rotate(binding.imgLoading)
+        animation = rotate(binding.imgLoading)
 
-        //setFeatures()
-        //setButtons()
+        setFeatures()
+        setButtons()
 
-        /*
         lifecycleScope.launch {
 
             try {
@@ -101,17 +92,11 @@ class BillingActivity : AppCompatActivity() {
                 withTimeout(5000) {
                     Billing.manager.initialized.await()
                 }
-                Log.d(Billing.LOG, "Activity: Initialized! ${Billing.manager.subs.size} products found!")
+                Log.d(Billing.LOG, "Activity: Initialized!")
 
                 // Fill all the info
-                val trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL)
-                val premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_PREMIUM)
-
-                trialSku = Billing.manager.subs.firstOrNull { it.productId == trialSubId }
-                fullSku = Billing.manager.subs.firstOrNull { it.productId == premiumSubId }
-
                 runOnUiThread {
-                    if (trialSku == null || fullSku == null) {
+                    if (Billing.manager.subTrial == null || Billing.manager.subFull == null) {
                         Log.d(Billing.LOG, "Activity: Error. Product are null")
                         Toast.makeText(applicationContext, R.string.purchase_fail, Toast.LENGTH_LONG).show()
                         finish()
@@ -128,7 +113,7 @@ class BillingActivity : AppCompatActivity() {
                 finish()
             }
         }
-        */
+
     }
 
     override fun finish() {
@@ -136,10 +121,10 @@ class BillingActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.from_right, R.anim.to_left)
     }
 
-    /*
+
     private fun setupSubs() {
 
-        if (trialSku == null || fullSku == null)
+        if (Billing.manager.subTrial == null || Billing.manager.subFull == null)
             return
 
         animation?.cancel()
@@ -148,8 +133,8 @@ class BillingActivity : AppCompatActivity() {
         binding.imgLoading.visibility = View.INVISIBLE
         binding.container.visibility = View.VISIBLE
 
-        val priceTrial = Price(trialSku!!.subscriptionOfferDetails!![0])
-        val pricePremium = Price(fullSku!!.subscriptionOfferDetails!![0])
+        val priceTrial = Billing.manager.subTrial!!
+        val pricePremium = Billing.manager.subFull!!
 
         binding.txtTrialTitle.text = getString(R.string.txt_trial_title, priceTrial.getTrialPeriod())
         binding.txtTrialDescr.text = getString(
@@ -187,7 +172,7 @@ class BillingActivity : AppCompatActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        if (trialSku == null) {
+        if (Billing.manager.subTrial == null) {
             Billing.onDismiss?.invoke()
             finish()
             return
@@ -227,15 +212,14 @@ class BillingActivity : AppCompatActivity() {
             view.startShimmer()
 
         binding.btnContinue.setOnClickListener {
-            if (trialSku == null || fullSku == null) {
+            if (Billing.manager.subTrial == null || Billing.manager.subFull == null) {
                 finish()
                 return@setOnClickListener
             }
             if (isTrial)
-                Billing.manager.launchPurchaseFlow(this@BillingActivity, trialSku,
-                trialSku!!.subscriptionOfferDetails!![0].offerToken, onPurchaseListener)
-            else Billing.manager.launchPurchaseFlow(this@BillingActivity, fullSku,
-                fullSku!!.subscriptionOfferDetails!![0].offerToken, onPurchaseListener)
+                Billing.manager.launchPurchaseFlow(this@BillingActivity, Billing.manager.subTrial)
+            else
+                Billing.manager.launchPurchaseFlow(this@BillingActivity, Billing.manager.subFull)
         }
 
         binding.cardFull.setOnClickListener {
@@ -269,12 +253,11 @@ class BillingActivity : AppCompatActivity() {
         val dialog = ExitDialog(this)
         dialog.findViewById<View>(R.id.dialog_button_ok).setOnClickListener {
             dialog.dismiss()
-            Billing.manager.launchPurchaseFlow(this@BillingActivity, trialSku,
-                trialSku!!.subscriptionOfferDetails!![0].offerToken, onPurchaseListener)
+            Billing.manager.launchPurchaseFlow(this@BillingActivity, Billing.manager.subTrial)
         }
 
         try {
-            val price = Price(trialSku!!.subscriptionOfferDetails!![0])
+            val price = Billing.manager.subTrial!!
             val tvDisclaimer = dialog.findViewById<TextView>(R.id.txt_dialog_disclaimer)
             tvDisclaimer.text = getString(
                 R.string.dialog_disclaimer,
@@ -332,6 +315,4 @@ class BillingActivity : AppCompatActivity() {
         }
         features.recycle()
     }
-
-     */
 }

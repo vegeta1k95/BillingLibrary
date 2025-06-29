@@ -218,9 +218,9 @@ class BillingManager {
         return purchasedSub != null
     }
 
-    fun launchPurchaseFlow(activity: Activity?) {
+    fun launchPurchaseFlow(activity: Activity?, specificProduct: Price? = null) {
 
-        val sub = Billing.subChosen.value
+        val sub = specificProduct ?: Billing.subChosen.value
 
         if (!client.isReady || sub == null) {
             onPurchase.onError()
