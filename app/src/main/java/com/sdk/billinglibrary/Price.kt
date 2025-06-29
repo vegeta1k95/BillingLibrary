@@ -48,27 +48,51 @@ class Price(
 
     fun getTrialPeriod(): String {
         val period = periodTrial ?: return res.getQuantityString(R.plurals.days, 0, 0)
-        if (period.years > 0) 
-            return res.getQuantityString(R.plurals.years, period.years, period.years) 
-        else if (period.months > 0) 
-            return res.getQuantityString(R.plurals.months, period.months, period.months) 
-        else if (period.weeks > 0) 
-            return res.getQuantityString(R.plurals.weeks, period.weeks, period.weeks) 
-        else if (period.days > 0) 
-            return res.getQuantityString(R.plurals.days, period.days, period.days)
+        if (period.years > 0)
+            return if (period.years == 1)
+                res.getString(R.string.year)
+            else
+                res.getQuantityString(R.plurals.years, period.years, period.years)
+        else if (period.months > 0)
+            return if (period.months == 1)
+                res.getString(R.string.month)
+            else
+                res.getQuantityString(R.plurals.months, period.months, period.months)
+        else if (period.weeks > 0)
+            return if (period.weeks == 1)
+                res.getString(R.string.week)
+            else
+                res.getQuantityString(R.plurals.weeks, period.weeks, period.weeks)
+        else if (period.days > 0)
+            return if (period.days == 1)
+                res.getString(R.string.day)
+            else
+                res.getQuantityString(R.plurals.days, period.days, period.days)
         return ""
     }
 
     fun getSubscriptionPeriod(): String {
         val period = periodPremium ?: return ""
-        if (period.years > 0) 
-            return res.getQuantityString(R.plurals.years, period.years, period.years) 
-        else if (period.months > 0) 
-            return res.getQuantityString(R.plurals.months, period.months, period.months) 
-        else if (period.weeks > 0) 
-            return res.getQuantityString(R.plurals.weeks, period.weeks, period.weeks) 
-        else if (period.days > 0) 
-            return res.getQuantityString(R.plurals.days, period.days, period.days)
+        if (period.years > 0)
+            return if (period.years == 1)
+                res.getString(R.string.year)
+            else
+                res.getQuantityString(R.plurals.years, period.years, period.years)
+        else if (period.months > 0)
+            return if (period.months == 1)
+                res.getString(R.string.month)
+            else
+                res.getQuantityString(R.plurals.months, period.months, period.months)
+        else if (period.weeks > 0)
+            return if (period.weeks == 1)
+                res.getString(R.string.week)
+            else
+                res.getQuantityString(R.plurals.weeks, period.weeks, period.weeks)
+        else if (period.days > 0)
+            return if (period.days == 1)
+                res.getString(R.string.day)
+            else
+                res.getQuantityString(R.plurals.days, period.days, period.days)
         return ""
     }
 
