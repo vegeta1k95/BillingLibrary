@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import com.android.billingclient.api.ProductDetails
 
 enum class BillingStatus {
     SUBSCRIBED,
@@ -23,6 +25,22 @@ object Billing {
 
     lateinit var app: Application
     lateinit var manager: BillingManager
+
+    val subChosen = MutableLiveData<Price>()
+
+    @JvmStatic
+    fun launchFlow(activity: Activity?) {
+        manager.launchPurchaseFlow(activity)
+    }
+
+    @JvmStatic
+    fun toggleSub() {
+        if (subChosen.value == manager.subTrial) {
+            subChosen.postValue(manager.subFull)
+        } else if (subChosen.value == manager.subFull) {
+            subChosen.postValue(manager.subTrial)
+        }
+    }
 
     @JvmStatic
     fun initialize(

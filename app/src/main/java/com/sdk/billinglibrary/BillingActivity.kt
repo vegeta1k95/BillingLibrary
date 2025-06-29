@@ -46,26 +46,7 @@ class BillingActivity : AppCompatActivity() {
         private const val INDEX_BASIC = 2
     }
 
-    private val onPurchaseListener: IOnPurchaseListener = object : IOnPurchaseListener {
-        override fun onPurchaseDone() {
-            Toast.makeText(applicationContext, R.string.purchase_done, Toast.LENGTH_LONG).show()
-            Billing.onDismiss?.invoke()
-            finish()
-        }
 
-        override fun onPurchaseFail() {
-            Toast.makeText(applicationContext, R.string.purchase_fail, Toast.LENGTH_LONG).show()
-            Billing.onDismiss?.invoke()
-            finish()
-        }
-
-        override fun onPurchaseCancelled() {}
-        override fun onError() {
-            Toast.makeText(applicationContext, R.string.purchase_fail, Toast.LENGTH_LONG).show()
-            Billing.onDismiss?.invoke()
-            finish()
-        }
-    }
 
     private lateinit var binding: ActivityBillingBinding
 

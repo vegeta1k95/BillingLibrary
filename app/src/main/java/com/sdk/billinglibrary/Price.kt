@@ -6,8 +6,10 @@ import java.util.Locale
 
 fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
-class Price(offer: ProductDetails.SubscriptionOfferDetails) {
-    
+class Price(
+    val product: ProductDetails) {
+
+    private val offer = product.subscriptionOfferDetails!![0]
     private val res: Resources = Billing.app.resources
 
     private var price: Double = 0.0
@@ -34,6 +36,10 @@ class Price(offer: ProductDetails.SubscriptionOfferDetails) {
             }
         }
 
+    }
+
+    fun isTrial() : Boolean {
+        return periodTrial != null
     }
 
     fun getPriceAndCurrency(): String {
