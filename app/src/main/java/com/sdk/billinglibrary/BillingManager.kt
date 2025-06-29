@@ -24,17 +24,20 @@ class BillingManager {
         override fun onPurchaseDone() {
             Toast.makeText(Billing.app, R.string.purchase_done, Toast.LENGTH_LONG).show()
             Billing.onDismiss?.invoke()
+            activity?.finish()
         }
 
         override fun onPurchaseFail() {
             Toast.makeText(Billing.app, R.string.purchase_fail, Toast.LENGTH_LONG).show()
             Billing.onDismiss?.invoke()
+            activity?.finish()
         }
 
         override fun onPurchaseCancelled() {}
         override fun onError() {
             Toast.makeText(Billing.app, R.string.purchase_fail, Toast.LENGTH_LONG).show()
             Billing.onDismiss?.invoke()
+            activity?.finish()
         }
     }
 
@@ -58,6 +61,8 @@ class BillingManager {
 
     var subTrial: Price? = null
     var subFull: Price? = null
+
+    var activity: Activity? = null
 
     val initialized = CompletableDeferred<Unit>()
 
@@ -222,10 +227,12 @@ class BillingManager {
 
         val sub = specificProduct ?: Billing.subChosen.value
 
-        if (!client.isReady || sub == null) {
+        if (!client.isReady || sub == null || activity == null) {
             onPurchase.onError()
             return
         }
+
+        this.activity = activity
 
         try
         {
@@ -239,7 +246,7 @@ class BillingManager {
             )
             val flowParams = BillingFlowParams.newBuilder()
                 .setProductDetailsParamsList(params).build()
-            client.launchBillingFlow(activity!!, flowParams)
+            client.launchBillingFlow(activity, flowParams)
         }
         catch (ignore: IllegalArgumentException)
         {
