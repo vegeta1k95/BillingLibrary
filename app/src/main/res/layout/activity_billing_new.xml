@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:id="@+id/top_bar"
-        android:paddingVertical="@dimen/_16sdp"
+        android:paddingVertical="@dimen/_20sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/billing_title"
-        android:layout_below="@id/top_bar"
+        android:layout_marginTop="@dimen/_40sdp"
         android:layout_width="@dimen/_250sdp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -45,7 +45,7 @@
 
     <ImageView
         android:id="@+id/img_billing"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_below="@id/billing_title"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
