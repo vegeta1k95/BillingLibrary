@@ -25,6 +25,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.sdk.billinglibrary.LocalConfig.didFirstBilling
 import com.sdk.billinglibrary.LocalConfig.isFirstTimeBilling
 import com.sdk.billinglibrary.databinding.ActivityBillingBinding
+import com.sdk.billinglibrary.databinding.ActivityBillingNewBinding
 import com.sdk.billinglibrary.databinding.BillingFeatureBinding
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.launch
@@ -67,7 +68,7 @@ class BillingActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var binding: ActivityBillingBinding
+    private lateinit var binding: ActivityBillingNewBinding
 
     private var animation: Animation? = null
 
@@ -85,7 +86,7 @@ class BillingActivity : AppCompatActivity() {
         }
 
         // Set content + start loading animation
-        binding = ActivityBillingBinding.inflate(layoutInflater)
+        binding = ActivityBillingNewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val window = window
@@ -103,11 +104,14 @@ class BillingActivity : AppCompatActivity() {
             window.statusBarColor = Color.TRANSPARENT
         }
 
-        animation = rotate(binding.imgLoading)
+        binding.btnClose.setOnClickListener { finish() }
 
-        setFeatures()
-        setButtons()
+        //animation = rotate(binding.imgLoading)
 
+        //setFeatures()
+        //setButtons()
+
+        /*
         lifecycleScope.launch {
 
             try {
@@ -144,6 +148,7 @@ class BillingActivity : AppCompatActivity() {
                 finish()
             }
         }
+        */
     }
 
     override fun finish() {
@@ -151,6 +156,7 @@ class BillingActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.from_right, R.anim.to_left)
     }
 
+    /*
     private fun setupSubs() {
 
         if (trialSku == null || fullSku == null)
@@ -212,41 +218,7 @@ class BillingActivity : AppCompatActivity() {
     private fun setButtons() {
 
         val theme = theme
-        val typedValueCross = TypedValue()
-        val typedValueCrossDelay = TypedValue()
 
-        /*
-        var showCross = !isFirstTimeBilling()
-        var showCrossDelay = 0
-
-        if (theme.resolveAttribute(R.attr.billing_show_cross, typedValueCross, false)) {
-            if (typedValueCross.data != 0)
-                showCross = true
-        }
-
-        if (theme.resolveAttribute(R.attr.billing_show_cross_delay, typedValueCrossDelay, false)) {
-            showCrossDelay = typedValueCrossDelay.data
-        }
-
-        if (showCross) {
-
-            binding.btnTry.isEnabled = false
-            binding.btnTry.visibility = View.GONE
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                binding.btnClose.isEnabled = true
-                binding.btnClose.visibility = View.VISIBLE
-                binding.btnClose.setOnClickListener { showExitDialog() }
-            }, showCrossDelay * 1000L)
-
-        } else {
-            binding.btnClose.isEnabled = false
-            binding.btnClose.visibility = View.GONE
-            binding.btnTry.isEnabled = true
-            binding.btnTry.visibility = View.VISIBLE
-            binding.btnTry.setOnClickListener { showExitDialog() }
-        }
-        */
 
         binding.btnClose.isEnabled = true
         binding.btnClose.visibility = View.VISIBLE
@@ -380,4 +352,6 @@ class BillingActivity : AppCompatActivity() {
         }
         features.recycle()
     }
+
+     */
 }

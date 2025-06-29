@@ -2,6 +2,7 @@ package com.sdk.billinglibrary
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 object LocalConfig {
 
@@ -17,9 +18,9 @@ object LocalConfig {
 
     fun subscribeLocally(subId: String?) {
         if (subId != null)
-            preferences.edit()?.putString(KEY_SUBSCRIBED, subId)?.apply()
+            preferences.edit { putString(KEY_SUBSCRIBED, subId) }
         else
-            preferences.edit()?.remove(KEY_SUBSCRIBED)?.apply()
+            preferences.edit { remove(KEY_SUBSCRIBED) }
     }
 
     fun getCurrentSubscription(): String? {
@@ -31,6 +32,6 @@ object LocalConfig {
     }
 
     fun didFirstBilling() {
-        preferences.edit().putBoolean(KEY_IS_FIRST_TIME_BILLING, true).apply()
+        preferences.edit { putBoolean(KEY_IS_FIRST_TIME_BILLING, true) }
     }
 }
