@@ -25,7 +25,6 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.sdk.billinglibrary.LocalConfig.didFirstBilling
 import com.sdk.billinglibrary.LocalConfig.isFirstTimeBilling
 import com.sdk.billinglibrary.databinding.ActivityBillingBinding
-import com.sdk.billinglibrary.databinding.ActivityBillingNewBinding
 import com.sdk.billinglibrary.databinding.BillingFeatureBinding
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.launch
@@ -68,7 +67,7 @@ class BillingActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var binding: ActivityBillingNewBinding
+    private lateinit var binding: ActivityBillingBinding
 
     private var animation: Animation? = null
 
@@ -86,7 +85,7 @@ class BillingActivity : AppCompatActivity() {
         }
 
         // Set content + start loading animation
-        binding = ActivityBillingNewBinding.inflate(layoutInflater)
+        binding = ActivityBillingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val window = window

@@ -69,4 +69,12 @@
     <string name="btn_limited">OR TRY LIMITED VERSION</string>
     <string name="btn_continue">CONTINUE</string>
 
+    <string name="billing_terms_of_use"><u>Terms of Use</u></string>
+    <string name="billing_privacy_policy"><u>Privacy Policy</u></string>
+    <string name="billing_title">Unlock All Features</string>
+    <string name="billing_not_sure">Not sure yet? <b>Enjoy 3-day Free Trial</b></string>
+    <string name="billing_btn_prem">Continue for just %1$s</string>
+    <string name="billing_btn_trial">Try 3-day free trial, then %1$s</string>
+    <string name="billing_autorenew">Auto renewable. Cancel anytime.</string>
+
 </resources>
