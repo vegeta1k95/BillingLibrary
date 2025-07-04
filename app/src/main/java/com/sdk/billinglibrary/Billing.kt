@@ -30,6 +30,11 @@ object Billing {
     val subChosen = MutableLiveData<Price>()
 
     @JvmStatic
+    fun setActivity(activity: Activity?) {
+        manager.activity = activity
+    }
+
+    @JvmStatic
     fun launchFlow(activity: Activity?) {
         manager.launchPurchaseFlow(activity)
     }
