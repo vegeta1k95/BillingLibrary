@@ -73,6 +73,7 @@
     <string name="billing_unlimited">Безлимит за %1$s/%2$s</string>
     <string name="billing_autorenew">Автопродление. Отменить в любое время.</string>
     <string name="billing_trial">3‑дня <b>бесплатная проба</b>, затем %1$s/%2$s</string>
+    <string name="billing_enable_trial">Включить 3-дн. пробный период\nОткройте все функции за %1$s/%1$s</string>
 
 
 </resources>

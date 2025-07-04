@@ -78,5 +78,6 @@
     <string name="billing_unlimited">Unlimited access for just %1$s/%2$s</string>
     <string name="billing_autorenew">Auto renewable. Cancel anytime.</string>
     <string name="billing_trial">3-day <b>Free Trial</b>, then %1$s/%2$s</string>
+    <string name="billing_enable_trial">Enable 3-day free trial\nUnlock all features for just %1$s/%1$s</string>
 
 </resources>
