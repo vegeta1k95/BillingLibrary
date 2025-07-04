@@ -24,6 +24,7 @@
 
         <attr name="billing_default_trial" format="reference|string"/>
         <attr name="billing_default_premium" format="reference|string"/>
+        <attr name="billing_version" format="reference|string"/>
 
     </declare-styleable>
 </resources>

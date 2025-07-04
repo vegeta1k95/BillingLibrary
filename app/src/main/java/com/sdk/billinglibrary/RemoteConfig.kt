@@ -12,6 +12,11 @@ object RemoteConfig {
 
     const val KEY_TRIAL = "sub_trial"
     const val KEY_PREMIUM = "sub_premium"
+    const val KEY_VER = "version"
+
+    fun getVersion(): String {
+        return FirebaseRemoteConfig.getInstance().getString(KEY_VER)
+    }
 
     fun getSubByKey(key: String?): String {
         return FirebaseRemoteConfig.getInstance().getString(key!!)
@@ -38,9 +43,11 @@ object RemoteConfig {
 
                     val subTrial = config.getString(KEY_TRIAL)
                     val subPremium = config.getString(KEY_PREMIUM)
+                    val version = config.getString(KEY_VER)
 
                     Log.d(Billing.LOG, "Trial: $subTrial")
                     Log.d(Billing.LOG, "Premium: $subPremium")
+                    Log.d(Billing.LOG, "Version: $version")
 
                     listener.invoke(task.isSuccessful)
                 }
@@ -62,12 +69,15 @@ object RemoteConfig {
         // Add billing defaults
         val trial = TypedValue()
         val premium = TypedValue()
+        val version = TypedValue()
 
         context.theme.resolveAttribute(R.attr.billing_default_premium, premium, true)
         context.theme.resolveAttribute(R.attr.billing_default_trial, trial, true)
+        context.theme.resolveAttribute(R.attr.billing_version, version, true)
 
         defaults[KEY_TRIAL] = trial.coerceToString()
         defaults[KEY_PREMIUM] = premium.coerceToString()
+        defaults[KEY_VER] = version.coerceToString()
         
         return defaults
     }

@@ -58,5 +58,14 @@
     <string name="btn_limited">O PRUEBE LA VERSIÓN LIMITADA</string>
     <string name="btn_continue">CONTINUAR</string>
 
+    <string name="billing_terms_of_use"><u>Términos de uso</u></string>
+    <string name="billing_privacy_policy"><u>Política de privacidad</u></string>
+    <string name="billing_title">Desbloquea todas las funciones</string>
+    <string name="billing_not_sure">¿Todavía no? <b>Prueba gratis 3 días</b></string>
+    <string name="billing_btn_prem">Continúa por solo %1$s/%2$s</string>
+    <string name="billing_btn_trial">Prueba 3 días, luego %1$s/%2$s</string>
+    <string name="billing_unlimited">Acceso ilimitado por %1$s/%2$s</string>
+    <string name="billing_autorenew">Renovación automática. Cancela en cualquier momento.</string>
+    <string name="billing_trial">3 días <b>de prueba gratis</b>, luego %1$s/%2$s</string>
 
 </resources>

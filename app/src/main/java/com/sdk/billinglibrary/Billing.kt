@@ -8,6 +8,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.ProductDetails
+import androidx.core.net.toUri
 
 enum class BillingStatus {
     SUBSCRIBED,
@@ -100,6 +101,11 @@ object Billing {
     }
 
     @JvmStatic
+    fun getVersion(): String {
+        return RemoteConfig.getVersion()
+    }
+
+    @JvmStatic
     fun canShowAds(): Boolean {
         val status = getStatus()
         return status == BillingStatus.NOT_SUBSCRIBED || status == BillingStatus.UNSUPPORTED
@@ -118,7 +124,7 @@ object Billing {
         if (sub != null && !test && sub != UNSUPPORTED) {
             url += "?sku=" + sub + "&package=" + activity.packageName
         }
-        val page = Uri.parse(url)
+        val page = url.toUri()
         val intent = Intent(Intent.ACTION_VIEW, page)
         if (intent.resolveActivity(activity.packageManager) != null) {
             activity.startActivity(intent)

@@ -59,4 +59,15 @@
 
     <string name="btn_continue">DEVAM ET</string>
 
+    <string name="billing_terms_of_use"><u>Kullanım Şartları</u></string>
+    <string name="billing_privacy_policy"><u>Gizlilik Politikası</u></string>
+    <string name="billing_title">Tüm Özelliklerin Kilidini Aç</string>
+    <string name="billing_not_sure">Emin değil misiniz? <b>3 Günlük Ücretsiz Deneyin</b></string>
+    <string name="billing_btn_prem">Sadece %1$s/%2$s için devam edin</string>
+    <string name="billing_btn_trial">3 gün deneyin, sonra %1$s/%2$s</string>
+    <string name="billing_unlimited">Sınırsız erişim sadece %1$s/%2$s</string>
+    <string name="billing_autorenew">Otomatik yenilenebilir. İstediğiniz zaman iptal edin.</string>
+    <string name="billing_trial">3 günlük <b>Ücretsiz Deneme</b>, sonra %1$s/%2$s</string>
+
+
 </resources>

@@ -59,4 +59,15 @@
 
     <string name="btn_continue">CONTINUAR</string>
 
+    <string name="billing_terms_of_use"><u>Termos de uso</u></string>
+    <string name="billing_privacy_policy"><u>Política de privacidade</u></string>
+    <string name="billing_title">Desbloquear todos os recursos</string>
+    <string name="billing_not_sure">Não tem certeza? <b>Teste grátis por 3 dias</b></string>
+    <string name="billing_btn_prem">Continue por apenas %1$s/%2$s</string>
+    <string name="billing_btn_trial">Teste 3 dias grátis, depois %1$s/%2$s</string>
+    <string name="billing_unlimited">Acesso ilimitado por %1$s/%2$s</string>
+    <string name="billing_autorenew">Renovação automática. Cancele a qualquer hora.</string>
+    <string name="billing_trial">3 dias de <b>teste grátis</b>, depois %1$s/%2$s</string>
+
+
 </resources>

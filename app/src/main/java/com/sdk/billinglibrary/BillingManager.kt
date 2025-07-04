@@ -163,14 +163,14 @@ class BillingManager {
                 val trialSku = list.firstOrNull { it?.productId == trialSubId }
                 val fullSku = list.firstOrNull { it?.productId == premiumSubId }
 
-                if (trialSku != null) {
-                    subTrial = Price(trialSku)
-                    Billing.subChosen.postValue(subTrial)
-                }
-
                 if (fullSku != null) {
                     subFull = Price(fullSku)
                     Billing.subChosen.postValue(subFull)
+                }
+
+                if (trialSku != null) {
+                    subTrial = Price(trialSku)
+                    Billing.subChosen.postValue(subTrial)
                 }
 
             }

@@ -64,4 +64,15 @@
 
     <string name="btn_continue">ПРОДОЛЖИТЬ</string>
 
+    <string name="billing_terms_of_use"><u>Условия использования</u></string>
+    <string name="billing_privacy_policy"><u>Политика конфиденциальности</u></string>
+    <string name="billing_title">Откройте все функции</string>
+    <string name="billing_not_sure">Не уверены? <b>3‑дневный бесплатный тест</b></string>
+    <string name="billing_btn_prem">Продолжить всего за %1$s/%2$s</string>
+    <string name="billing_btn_trial">Попробуйте 3 дня, затем %1$s/%2$s</string>
+    <string name="billing_unlimited">Безлимит за %1$s/%2$s</string>
+    <string name="billing_autorenew">Автопродление. Отменить в любое время.</string>
+    <string name="billing_trial">3‑дня <b>бесплатная проба</b>, затем %1$s/%2$s</string>
+
+
 </resources>
