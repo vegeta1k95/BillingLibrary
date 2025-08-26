@@ -4,10 +4,8 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.android.billingclient.api.ProductDetails
 import androidx.core.net.toUri
 
 enum class BillingStatus {
@@ -22,7 +20,8 @@ object Billing {
     const val UNSUPPORTED = "NOT_SUPPORTED"
 
     var onDismiss: (() -> Unit)? = null
-    private var test = false
+    private var unlocked = false
+    var test = false
 
     lateinit var app: Application
     lateinit var manager: BillingManager
@@ -52,11 +51,13 @@ object Billing {
     fun initialize(
         application: Application,
         themeId: Int,
+        unlockedMode: Boolean,
         testMode: Boolean) {
 
         Log.d(LOG, "Initialization of billing...")
 
         app = application
+        unlocked = unlockedMode
         test = testMode
 
         manager = BillingManager()
@@ -67,6 +68,15 @@ object Billing {
 
         // Init shared preferences
         LocalConfig.init(context)
+
+        // If test mode ON - do not initialize billing manager / remote config (all data will
+        // be fictional)
+        if (test) {
+            manager.subTrial = Price.createTestPrice(trial = true)
+            manager.subFull = Price.createTestPrice(trial = false)
+            manager.initialized.complete(Unit)
+            return
+        }
 
         // Request Firebase Remote Config
         RemoteConfig.fetchSubs(context) { isSuccessful: Boolean ->
@@ -98,7 +108,7 @@ object Billing {
         val sub = LocalConfig.getCurrentSubscription()
 
         return when {
-            test -> BillingStatus.SUBSCRIBED
+            unlocked -> BillingStatus.SUBSCRIBED
             sub.isNullOrEmpty() -> BillingStatus.NOT_SUBSCRIBED
             sub == UNSUPPORTED -> BillingStatus.UNSUPPORTED
             else -> BillingStatus.SUBSCRIBED
@@ -126,7 +136,7 @@ object Billing {
     fun manageSubs(activity: Activity) {
         var url = "https://play.google.com/store/account/subscriptions"
         val sub = LocalConfig.getCurrentSubscription()
-        if (sub != null && !test && sub != UNSUPPORTED) {
+        if (sub != null && !unlocked && sub != UNSUPPORTED) {
             url += "?sku=" + sub + "&package=" + activity.packageName
         }
         val page = url.toUri()

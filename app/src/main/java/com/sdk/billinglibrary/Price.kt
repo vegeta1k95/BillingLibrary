@@ -7,32 +7,56 @@ import java.util.Locale
 fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 class Price(
-    val product: ProductDetails) {
+    val product: ProductDetails?) {
 
-    private val offer = product.subscriptionOfferDetails!![0]
+    companion object {
+
+        fun createTestPrice(trial: Boolean) : Price {
+            val price = Price(null)
+
+            price.price = 12.34
+            price.currency = "UAH"
+
+            if (trial) {
+                price.periodTrial = Period.parse("P3D")
+                price.periodPremium = Period.parse("P1W")
+            } else {
+                price.periodPremium = Period.parse("P1Y")
+            }
+
+            return price
+        }
+    }
+
+    private val offer = product?.subscriptionOfferDetails?.get(0)
     private val res: Resources = Billing.app.resources
 
-    private var price: Double = 0.0
-    private var currency: String = "USD"
+    var price: Double = 0.0
+    var currency: String = "USD"
 
-    private var periodTrial: Period? = null
-    private var periodPremium: Period? = null
+    var periodTrial: Period? = null
+    var periodPremium: Period? = null
 
-    val token: String = offer.offerToken
+    val token: String? = offer?.offerToken
 
     init {
 
-        for (phase in offer.pricingPhases.pricingPhaseList)
-        {
-            if (phase.priceAmountMicros == 0L)
+        val phases = offer?.pricingPhases?.pricingPhaseList
+
+        if (phases != null) {
+
+            for (phase in phases)
             {
-                periodTrial = Period.parse(phase.billingPeriod)
-            }
-            else
-            {
-                price = phase.priceAmountMicros.toDouble() / 1000000
-                currency = phase.priceCurrencyCode
-                periodPremium = Period.parse(phase.billingPeriod)
+                if (phase.priceAmountMicros == 0L)
+                {
+                    periodTrial = Period.parse(phase.billingPeriod)
+                }
+                else
+                {
+                    price = phase.priceAmountMicros.toDouble() / 1000000
+                    currency = phase.priceCurrencyCode
+                    periodPremium = Period.parse(phase.billingPeriod)
+                }
             }
         }
 

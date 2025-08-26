@@ -225,6 +225,11 @@ class BillingManager {
 
     fun launchPurchaseFlow(activity: Activity?, specificProduct: Price? = null) {
 
+        if (Billing.test) {
+            Toast.makeText(activity, "(TEST) Purchase flow launched!", Toast.LENGTH_LONG).show()
+            return
+        }
+
         val sub = specificProduct ?: Billing.subChosen.value
 
         if (!client.isReady || sub == null || activity == null) {
@@ -236,12 +241,11 @@ class BillingManager {
 
         try
         {
-
             val params: MutableList<ProductDetailsParams> = ArrayList()
             params.add(
                 ProductDetailsParams.newBuilder()
-                    .setProductDetails(sub.product)
-                    .setOfferToken(sub.token)
+                    .setProductDetails(sub.product!!)
+                    .setOfferToken(sub.token!!)
                     .build()
             )
             val flowParams = BillingFlowParams.newBuilder()
