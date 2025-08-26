@@ -74,6 +74,7 @@ object Billing {
         if (test) {
             manager.subTrial = Price.createTestPrice(trial = true)
             manager.subFull = Price.createTestPrice(trial = false)
+            subChosen.postValue(manager.subTrial)
             manager.initialized.complete(Unit)
             return
         }
