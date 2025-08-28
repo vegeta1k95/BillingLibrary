@@ -26,6 +26,8 @@ object Billing {
     lateinit var app: Application
     lateinit var manager: BillingManager
 
+    val isInitialized = MutableLiveData<Boolean>(false)
+
     val subChosen = MutableLiveData<Price>()
 
     @JvmStatic
@@ -75,7 +77,7 @@ object Billing {
             manager.subTrial = Price.createTestPrice(trial = true)
             manager.subFull = Price.createTestPrice(trial = false)
             subChosen.postValue(manager.subTrial)
-            manager.initialized.complete(Unit)
+            isInitialized.postValue(true)
             return
         }
 
@@ -95,6 +97,7 @@ object Billing {
                     LocalConfig.subscribeLocally(UNSUPPORTED)
 
                 // Do not init billing in this case - unnecessary.
+                isInitialized.postValue(true)
                 return@fetchSubs
             }
 

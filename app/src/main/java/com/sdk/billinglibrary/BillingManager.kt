@@ -64,8 +64,6 @@ class BillingManager {
 
     var activity: Activity? = null
 
-    val initialized = CompletableDeferred<Unit>()
-
     fun initialize() {
         Log.d(Billing.LOG, "Initialization of billing manager...")
         client.startConnection(object : BillingClientStateListener {
@@ -76,7 +74,7 @@ class BillingManager {
 
             override fun onBillingSetupFinished(result: BillingResult) {
 
-                if (initialized.isCompleted)
+                if (Billing.isInitialized.value == true)
                     return
 
                 if (result.responseCode == BillingClient.BillingResponseCode.OK)
@@ -92,13 +90,13 @@ class BillingManager {
                     {
                         Log.d(Billing.LOG, "Subscription are not supported!")
                         subscribeLocally(Billing.UNSUPPORTED)
-                        initialized.complete(Unit)
+                        Billing.isInitialized.postValue(true)
                     }
                 }
                 else
                 {
                     Log.d(Billing.LOG, "Billing setup failed: ${result.responseCode} | ${result.debugMessage}")
-                    initialized.complete(Unit)
+                    Billing.isInitialized.postValue(true)
                 }
             }
         })
@@ -179,7 +177,7 @@ class BillingManager {
                 Log.d(Billing.LOG, "Failed to fetch ${list.size} SUBS!")
             }
 
-            initialized.complete(Unit)
+            Billing.isInitialized.postValue(true)
         }
     }
 

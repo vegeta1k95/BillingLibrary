@@ -15,14 +15,17 @@ import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.lifecycleScope
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.sdk.billinglibrary.LocalConfig.didFirstBilling
 import com.sdk.billinglibrary.databinding.ActivityBillingBinding
 import com.sdk.billinglibrary.databinding.BillingFeatureBinding
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withTimeoutOrNull
 
 
 interface IOnPurchaseListener {
@@ -86,11 +89,10 @@ class BillingActivity : AppCompatActivity() {
         lifecycleScope.launch {
 
             try {
-
                 // Wait for billing initialization (5 seconds)
                 Log.d(Billing.LOG, "Activity: Waiting for billing initialization")
                 withTimeout(5000) {
-                    Billing.manager.initialized.await()
+                    Billing.isInitialized.asFlow().first()
                 }
                 Log.d(Billing.LOG, "Activity: Initialized!")
 
