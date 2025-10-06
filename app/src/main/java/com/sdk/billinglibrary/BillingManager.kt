@@ -14,7 +14,6 @@ import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
 import com.sdk.billinglibrary.LocalConfig.subscribeLocally
-import kotlinx.coroutines.CompletableDeferred
 
 private val BANNED_CURRENCIES = listOf("INR", "MYR")
 
@@ -246,9 +245,16 @@ class BillingManager {
                     .setOfferToken(sub.token!!)
                     .build()
             )
-            val flowParams = BillingFlowParams.newBuilder()
-                .setProductDetailsParamsList(params).build()
-            client.launchBillingFlow(activity, flowParams)
+
+
+            var flowParamsBuilder = BillingFlowParams.newBuilder()
+                .setProductDetailsParamsList(params)
+
+            Billing.firebaseAnalyticsID?.let { it ->
+                flowParamsBuilder = flowParamsBuilder.setObfuscatedAccountId(it)
+            }
+
+            client.launchBillingFlow(activity, flowParamsBuilder.build())
         }
         catch (ignore: IllegalArgumentException)
         {

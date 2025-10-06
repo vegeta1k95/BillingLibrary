@@ -7,6 +7,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.core.net.toUri
+import com.google.firebase.analytics.FirebaseAnalytics
 
 enum class BillingStatus {
     SUBSCRIBED,
@@ -26,8 +27,9 @@ object Billing {
     lateinit var app: Application
     lateinit var manager: BillingManager
 
-    val isInitialized = MutableLiveData<Boolean>(false)
+    var firebaseAnalyticsID: String? = null
 
+    val isInitialized = MutableLiveData(false)
     val subChosen = MutableLiveData<Price>()
 
     @JvmStatic
@@ -57,6 +59,11 @@ object Billing {
         testMode: Boolean) {
 
         Log.d(LOG, "Initialization of billing...")
+
+        FirebaseAnalytics.getInstance(application).appInstanceId.addOnSuccessListener {
+            Log.d(LOG, "FirebaseAnalytics ID: $it")
+            firebaseAnalyticsID = it
+        }
 
         app = application
         unlocked = unlockedMode
