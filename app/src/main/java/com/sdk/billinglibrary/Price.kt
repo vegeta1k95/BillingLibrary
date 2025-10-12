@@ -9,7 +9,7 @@ fun Double.format(digits: Int) = "%.${digits}f".format(this)
 class Price(
     context: Context,
     val product: ProductDetails?) {
-
+    val productId: String? = product?.productId
     private val res = context.resources
     private val offer = product?.subscriptionOfferDetails?.get(0)
 
