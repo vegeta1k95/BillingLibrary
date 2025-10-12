@@ -1,6 +1,7 @@
 package com.sdk.billinglibrary
 
 import android.app.Activity
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.android.billingclient.api.AcknowledgePurchaseParams
@@ -9,6 +10,7 @@ import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.QueryProductDetailsParams
@@ -17,31 +19,32 @@ import com.sdk.billinglibrary.LocalConfig.subscribeLocally
 
 private val BANNED_CURRENCIES = listOf("INR", "MYR")
 
-class BillingManager {
+class BillingManager(
+    val context: Context) {
 
-    private var onPurchase: IOnPurchaseListener = object : IOnPurchaseListener {
+    private val onPurchase: BillingPurchaseListener = object : BillingPurchaseListener {
         override fun onPurchaseDone() {
-            Toast.makeText(Billing.app, R.string.purchase_done, Toast.LENGTH_LONG).show()
-            Billing.onDismiss?.invoke()
-            activity?.finish()
+            Toast.makeText(context, R.string.purchase_done, Toast.LENGTH_LONG).show()
+            Billing.listeners.forEach { it.onPurchaseDone() }
         }
 
         override fun onPurchaseFail() {
-            Toast.makeText(Billing.app, R.string.purchase_fail, Toast.LENGTH_LONG).show()
-            Billing.onDismiss?.invoke()
-            activity?.finish()
+            Toast.makeText(context, R.string.purchase_fail, Toast.LENGTH_LONG).show()
+            Billing.listeners.forEach { it.onPurchaseFail() }
         }
 
-        override fun onPurchaseCancelled() {}
+        override fun onPurchaseCancelled() {
+            Billing.listeners.forEach { it.onPurchaseCancelled() }
+        }
+
         override fun onError() {
-            Toast.makeText(Billing.app, R.string.purchase_fail, Toast.LENGTH_LONG).show()
-            Billing.onDismiss?.invoke()
-            activity?.finish()
+            Toast.makeText(context, R.string.purchase_fail, Toast.LENGTH_LONG).show()
+            Billing.listeners.forEach { it.onError() }
         }
     }
 
     private val client: BillingClient = BillingClient
-        .newBuilder(Billing.app)
+        .newBuilder(context)
         .setListener { result, list ->
             if (result.responseCode == BillingClient.BillingResponseCode.OK && list != null) {
                 val purchased = acknowledgePurchases(list)
@@ -55,15 +58,11 @@ class BillingManager {
                 onPurchase.onPurchaseFail()
             }
         }
-        .enablePendingPurchases()
+        .enablePendingPurchases(PendingPurchasesParams.newBuilder()
+            .enableOneTimeProducts().build())
         .build()
 
-    var subTrial: Price? = null
-    var subFull: Price? = null
-
-    var activity: Activity? = null
-
-    fun initialize() {
+    fun initialize(vararg productIds: String) {
         Log.d(Billing.LOG, "Initialization of billing manager...")
         client.startConnection(object : BillingClientStateListener {
 
@@ -83,7 +82,7 @@ class BillingManager {
                     {
                         Log.d(Billing.LOG, "Subscriptions are supported!")
                         querySubsPurchases()
-                        querySubsProducts()
+                        querySubsProducts(*productIds)
                     }
                     else
                     {
@@ -106,24 +105,16 @@ class BillingManager {
         return code == BillingClient.BillingResponseCode.OK
     }
 
-    private fun querySubsProducts() {
+    private fun querySubsProducts(vararg ids: String) {
 
-        // Get list of Sub IDs
-        val trialSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_TRIAL)
-        val premiumSubId = RemoteConfig.getSubByKey(RemoteConfig.KEY_PREMIUM)
-        val subIds: MutableList<String> = ArrayList()
-        subIds.add(trialSubId)
-        subIds.add(premiumSubId)
+        val builder = QueryProductDetailsParams.Product.newBuilder()
+        val products: MutableList<QueryProductDetailsParams.Product> = ArrayList()
 
         // Create a list of Products
-        val products: MutableList<QueryProductDetailsParams.Product> = ArrayList()
-        val builder = QueryProductDetailsParams.Product.newBuilder()
-
-        for (subId in subIds)
-        {
+        ids.forEach {
             products.add(
                 builder
-                    .setProductId(subId)
+                    .setProductId(it)
                     .setProductType(BillingClient.ProductType.SUBS)
                     .build()
             )
@@ -153,23 +144,10 @@ class BillingManager {
                         } == true)
                     {
                         subscribeLocally(Billing.UNSUPPORTED)
-                        //Log.d(Billing.LOG, "Found unsupported currency. Disable billing.")
                     }
+
+                    Billing.products[sub.productId] = Price(context,sub)
                 }
-
-                val trialSku = list.firstOrNull { it?.productId == trialSubId }
-                val fullSku = list.firstOrNull { it?.productId == premiumSubId }
-
-                if (fullSku != null) {
-                    subFull = Price(fullSku)
-                    Billing.subChosen.postValue(subFull)
-                }
-
-                if (trialSku != null) {
-                    subTrial = Price(trialSku)
-                    Billing.subChosen.postValue(subTrial)
-                }
-
             }
             else
             {
@@ -220,21 +198,12 @@ class BillingManager {
         return purchasedSub != null
     }
 
-    fun launchPurchaseFlow(activity: Activity?, specificProduct: Price? = null) {
+    fun launchPurchaseFlow(activity: Activity?, sub: Price) {
 
-        if (Billing.test) {
-            Toast.makeText(activity, "(TEST) Purchase flow launched!", Toast.LENGTH_LONG).show()
-            return
-        }
-
-        val sub = specificProduct ?: Billing.subChosen.value
-
-        if (!client.isReady || sub == null || activity == null) {
+        if (!client.isReady || activity == null) {
             onPurchase.onError()
             return
         }
-
-        this.activity = activity
 
         try
         {
@@ -256,7 +225,7 @@ class BillingManager {
 
             client.launchBillingFlow(activity, flowParamsBuilder.build())
         }
-        catch (ignore: IllegalArgumentException)
+        catch ( _ : IllegalArgumentException)
         {
             onPurchase.onError()
         }

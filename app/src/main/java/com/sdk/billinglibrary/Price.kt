@@ -1,18 +1,22 @@
 package com.sdk.billinglibrary
 
-import android.content.res.Resources
+import android.content.Context
 import com.android.billingclient.api.ProductDetails
 import java.util.Locale
 
 fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 class Price(
+    context: Context,
     val product: ProductDetails?) {
+
+    private val res = context.resources
+    private val offer = product?.subscriptionOfferDetails?.get(0)
 
     companion object {
 
-        fun createTestPrice(trial: Boolean) : Price {
-            val price = Price(null)
+        fun createTestPrice(context: Context, trial: Boolean) : Price {
+            val price = Price(context, null)
 
             price.price = 12.34
             price.currency = "UAH"
@@ -28,8 +32,7 @@ class Price(
         }
     }
 
-    private val offer = product?.subscriptionOfferDetails?.get(0)
-    private val res: Resources = Billing.app.resources
+
 
     var price: Double = 0.0
     var currency: String = "USD"

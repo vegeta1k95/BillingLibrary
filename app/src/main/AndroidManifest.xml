@@ -17,16 +17,9 @@
     </queries>
 
     <application>
-        <activity
-            android:name=".BillingActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_billing_push"/>
-
     </application>
 
 </manifest>

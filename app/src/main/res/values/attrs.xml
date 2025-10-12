@@ -1,30 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="BaseTheme">
-
-        <attr name="billing_title" format="reference|string" />
-        <attr name="billing_text_color" format="reference|color" />
-        <attr name="billing_accent_color" format="reference|color" />
-        <attr name="billing_offer_color" format="reference|color" />
-        <attr name="billing_button_color" format="reference|color" />
-        <attr name="billing_button_text_color" format="reference|color" />
-
-        <attr name="billing_button_animation" format="boolean" />
-        <attr name="billing_show_cross" format="boolean"/>
-        <attr name="billing_show_cross_delay" format="integer"/>
-
-        <attr name="billing_loading_accent" format="reference|color"/>
-        <attr name="billing_loading_back" format="reference|color"/>
-
-        <attr name="billing_background" format="reference|color" />
-        <attr name="billing_background_dialog" format="reference|color" />
-        <attr name="billing_show_dialog" format="boolean"/>
-        <attr name="billing_icon" format="reference"/>
-        <attr name="billing_features" format="reference"/>
-
-        <attr name="billing_default_trial" format="reference|string"/>
-        <attr name="billing_default_premium" format="reference|string"/>
-        <attr name="billing_version" format="reference|string"/>
-
-    </declare-styleable>
 </resources>
