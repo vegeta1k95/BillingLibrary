@@ -9,7 +9,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.core.net.toUri
-import com.google.firebase.analytics.FirebaseAnalytics
 
 interface BillingPurchaseListener {
     fun onPurchaseDone(productId: String) {}
@@ -36,7 +35,6 @@ object Billing {
 
     internal val listeners = mutableListOf<BillingPurchaseListener>()
     internal lateinit var manager: BillingManager
-    internal var firebaseAnalyticsID: String? = null
 
     val isInitialized = MutableLiveData(false)
     val products = HashMap<String, Price>()
@@ -48,11 +46,6 @@ object Billing {
         vararg subIds: String) {
 
         Log.d(LOG, "Initialization of billing...")
-
-        FirebaseAnalytics.getInstance(application).appInstanceId.addOnSuccessListener {
-            Log.d(LOG, "FirebaseAnalytics ID: $it")
-            firebaseAnalyticsID = it
-        }
 
         mode = billingMode
         manager = BillingManager(application.applicationContext)
@@ -77,6 +70,11 @@ object Billing {
         }
 
         manager.initialize(*subIds)
+    }
+
+    @JvmStatic
+    fun setObfuscatedAccountId(id: String?) {
+        manager.obfuscatedAccountId = id
     }
 
     @JvmStatic

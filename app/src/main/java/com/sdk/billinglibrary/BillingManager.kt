@@ -21,6 +21,7 @@ private val BANNED_CURRENCIES = listOf("INR", "MYR")
 
 class BillingManager(
     val context: Context) {
+    var obfuscatedAccountId: String? = null
 
     private val onPurchase: BillingPurchaseListener = object : BillingPurchaseListener {
         override fun onPurchaseDone(productId: String) {
@@ -220,11 +221,11 @@ class BillingManager(
             )
 
 
-            var flowParamsBuilder = BillingFlowParams.newBuilder()
-                .setProductDetailsParamsList(params)
-
-            Billing.firebaseAnalyticsID?.let { it ->
-                flowParamsBuilder = flowParamsBuilder.setObfuscatedAccountId(it)
+            val flowParamsBuilder = BillingFlowParams.newBuilder().apply {
+                setProductDetailsParamsList(params)
+                obfuscatedAccountId?.let {
+                    setObfuscatedAccountId(it)
+                }
             }
 
             client.launchBillingFlow(activity, flowParamsBuilder.build())
