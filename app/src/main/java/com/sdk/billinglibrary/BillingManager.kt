@@ -11,7 +11,6 @@ import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.PendingPurchasesParams
-import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryProductDetailsResult
@@ -24,9 +23,9 @@ class BillingManager(
     val context: Context) {
 
     private val onPurchase: BillingPurchaseListener = object : BillingPurchaseListener {
-        override fun onPurchaseDone() {
+        override fun onPurchaseDone(productId: String) {
             Toast.makeText(context, R.string.purchase_done, Toast.LENGTH_LONG).show()
-            Billing.listeners.forEach { it.onPurchaseDone() }
+            Billing.listeners.forEach { it.onPurchaseDone(productId) }
         }
 
         override fun onPurchaseFail() {
@@ -49,8 +48,8 @@ class BillingManager(
         .setListener { result, list ->
             if (result.responseCode == BillingClient.BillingResponseCode.OK && list != null) {
                 val purchased = acknowledgePurchases(list)
-                if (purchased)
-                    onPurchase.onPurchaseDone()
+                if (purchased.isNotEmpty())
+                    purchased.forEach { onPurchase.onPurchaseDone(it) }
                 else
                     onPurchase.onPurchaseCancelled()
             } else if (result.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
@@ -181,8 +180,10 @@ class BillingManager(
         }
     }
 
-    private fun acknowledgePurchases(list: List<Purchase>): Boolean {
-        var purchasedSub: String? = null
+    private fun acknowledgePurchases(list: List<Purchase>): List<String> {
+
+        val purchased = arrayListOf<String>()
+
         list.forEach { purchase ->
             if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED)
             {
@@ -193,11 +194,12 @@ class BillingManager(
                         .build()
                     client.acknowledgePurchase(params) { }
                 }
-                purchasedSub = purchase.products[0]
+                purchased.add(purchase.products[0])
+
             }
         }
-        subscribeLocally(purchasedSub)
-        return purchasedSub != null
+        subscribeLocally(purchased.firstOrNull())
+        return purchased
     }
 
     fun launchPurchaseFlow(activity: Activity?, sub: Price) {

@@ -12,7 +12,7 @@ import androidx.core.net.toUri
 import com.google.firebase.analytics.FirebaseAnalytics
 
 interface BillingPurchaseListener {
-    fun onPurchaseDone() {}
+    fun onPurchaseDone(productId: String) {}
     fun onPurchaseFail() {}
     fun onPurchaseCancelled() {}
     fun onError() {}
