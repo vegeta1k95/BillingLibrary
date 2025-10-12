@@ -130,13 +130,12 @@ class BillingManager(
                 result: QueryProductDetailsResult ->
 
             val list = result.productDetailsList
-            result.unfetchedProductList
+
+            Log.d(Billing.LOG, "Requested subs: ${ids.size}, Fetched: ${list.size}")
 
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK)
             {
-                Log.d(Billing.LOG, "Fetched ${list.size} SUBS")
-
-                list.filterNotNull().forEach { sub ->
+                list.forEach { sub ->
 
                     // If shitty country/currency - mark as billing unsupported.
                     if (sub.subscriptionOfferDetails?.any { subOffer ->
@@ -153,7 +152,8 @@ class BillingManager(
             }
             else
             {
-                Log.d(Billing.LOG, "Failed to fetch ${list.size} SUBS!")
+                Log.d(Billing.LOG, "Failed to fetch subs: " +
+                        "${billingResult.responseCode} - ${billingResult.debugMessage}")
             }
 
             Billing.isInitialized.postValue(true)
