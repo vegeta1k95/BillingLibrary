@@ -37,48 +37,9 @@
     <string name="month">Month</string>
     <string name="year">Year</string>
 
-    <string name="btn_accept">ACCEPT</string>
-
-    <string name="txt_trial_title">%1$s trial version</string>
-    <string name="txt_trial_descr">Then %1$s per %2$s</string>
-    <string name="txt_trial_disclaimer">This offer includes a %1$s trial period, after which money will automatically start to be debited as %2$s subscription for %3$s (%4$s per %5$s).\n\nYou can cancel subscription in the application or in the list of subscriptions in the Google account to which the subscription will be linked. If canceled during trial period no funds will be charged.</string>
-
-    <string name="txt_premium_title">%1$s premium</string>
-    <string name="txt_premium_descr">Total %1$s per %2$s</string>
-    <string name="txt_premium_price_period">per %1$s</string>
-    <string name="txt_premium_disclaimer">This enables an auto-renewable %1$s subscription for %2$s (only %3$s per %4$s). You can cancel anytime!</string>
-
-    <string name="dialog_exit_timer_start">Offer ends in 24:00:00</string>
-    <string name="dialog_exit_timer">Offer ends in %1$d:%2$d:%3$d</string>
-    <string name="dialog_exit_btn_ok">TRY FREE</string>
-    <string name="dialog_exit_title">Really want to quit\nFree Trial?</string>
-    <string name="dialog_exit_body">Premium features below are FREE to\nTRY now. You can CANCEL ANYTIME!</string>
-    <string name="dialog_disclaimer">The offer includes an auto-renewable subscription. The first %1$s are free, then it will be charged %2$s per %3$s</string>
 
     <string name="purchase_done">You have been subscribed!</string>
     <string name="purchase_fail">Something went wrong…</string>
 
-    <string name="unlock_all_features">Unlock All Features</string>
-    <string name="trial_version" translatable="false">TRIAL VERSION</string>
-    <string name="great_price" translatable="false">GREAT PRICE</string>
-    <string name="best_choice" translatable="false">BEST CHOICE</string>
-    <string name="limited_offer" translatable="false">Limited offer</string>
-    <string name="premium" translatable="false">PREMIUM</string>
-    <string name="basic" translatable="false">BASIC</string>
-
-    <string name="btn_limited">OR TRY LIMITED VERSION</string>
-    <string name="btn_continue">CONTINUE</string>
-
-    <string name="billing_terms_of_use"><u>Terms of Use</u></string>
-    <string name="billing_privacy_policy"><u>Privacy Policy</u></string>
-    <string name="billing_title">Unlock All Features</string>
-    <string name="billing_not_sure">Not sure yet? <b>Enjoy 3-day Free Trial</b></string>
-    <string name="billing_btn_prem">Continue for just %1$s/%2$s</string>
-    <string name="billing_btn_trial">Try 3-day free trial, then %1$s/%2$s</string>
-    <string name="billing_unlimited">Unlimited access for just %1$s/%2$s</string>
-    <string name="billing_autorenew">Auto renewable. Cancel anytime.</string>
-    <string name="billing_trial">3-day <b>Free Trial</b>, then %1$s/%2$s</string>
-    <string name="billing_enable_trial">Enable 3-day free trial</string>
-    <string name="billing_unlock_features">Unlock all features for just %1$s/%2$s</string>
 
 </resources>

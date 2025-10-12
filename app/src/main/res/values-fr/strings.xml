@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="unlock_all_features">Déverrouiller toutes les fonctionnalités</string>
-    <string name="btn_accept">ACCEPTER</string>
-
     <plurals name="days">
         <item quantity="one">%d-Jour</item>
         <item quantity="other">%d-Jours</item>
@@ -35,38 +32,7 @@
     <string name="month">Mois</string>
     <string name="year">An</string>
 
-    <string name="txt_premium_title">%1$s prime</string>
-
-    <string name="txt_premium_disclaimer">Cela permet un abonnement %1$s pour %2$s (seulement %3$s par %4$s). Vous pouvez annuler à tout moment !</string>
-    <string name="txt_trial_disclaimer">Cela permet un essai gratuit de %1$s. S\'étend ensuite à un abonnement %2$s pour %3$s (seulement %4$s pour %5$s). Pendant l\'essai gratuit, aucun argent ne sera facturé. Annulez à tout moment.</string>
-
-    <string name="dialog_exit_timer_start">L\'offre se termine dans 24:00:00</string>
-    <string name="dialog_exit_timer">L\'offre se termine dans %1$d:%2$d:%3$d</string>
-    <string name="dialog_exit_btn_ok">ESSAYER GRATUITEMENT</string>
-    <string name="dialog_exit_title">Voulez-vous vraiment quitter\nEssai gratuit?</string>
-    <string name="dialog_exit_body">Les fonctionnalités Premium ci-dessous sont GRATUITES pour\nESSAYER maintenant. Vous pouvez ANNULER À TOUT MOMENT !</string>
-
     <string name="purchase_done">Vous avez été abonné !</string>
     <string name="purchase_fail">Quelque chose s\'est mal passé…</string>
-
-    <string name="txt_trial_title">%1$s version gratuite</string>
-    <string name="txt_trial_descr">Puis %1$s par %2$s</string>
-    <string name="txt_premium_descr">Total %1$s par %2$s</string>
-    <string name="txt_premium_price_period">par %1$s</string>
-
-    <string name="dialog_disclaimer">L\'offre comprend un abonnement auto-renouvelable. Les %1$s premiers sont gratuits, puis ils seront facturés %2$s par %3$s</string>
-    <string name="btn_limited">OU ESSAYEZ LA VERSION LIMITÉE</string>
-    <string name="btn_continue">CONTINUER</string>
-
-    <string name="billing_terms_of_use"><u>Conditions d’utilisation</u></string>
-    <string name="billing_privacy_policy"><u>Politique de confidentialité</u></string>
-    <string name="billing_title">Débloquez toutes les fonctionnalités</string>
-    <string name="billing_not_sure">Pas sûr ? <b>Essayez 3 jours gratuits</b></string>
-    <string name="billing_btn_prem">Continuez pour seulement %1$s/%2$s</string>
-    <string name="billing_btn_trial">Essayez 3 jours gratuits, puis %1$s/%2$s</string>
-    <string name="billing_unlimited">Accès illimité pour %1$s/%2$s</string>
-    <string name="billing_autorenew">Renouvellement auto. Annulez à tout moment.</string>
-    <string name="billing_trial">3 jours <b>d’essai gratuit</b>, puis %1$s/%2$s</string>
-
 
 </resources>

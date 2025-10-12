@@ -31,40 +31,7 @@
     <string name="month">Monat</string>
     <string name="year">Jahr</string>
 
-    <string name="unlock_all_features">Alle Funktionen freischalten</string>
-    <string name="btn_accept">AKZEPTIERE</string>
-
-    <string name="txt_premium_title">%1$s Prämie</string>
-
-    <string name="txt_premium_disclaimer">Dadurch wird ein %1$s-Abonnement für %2$s aktiviert (nur %3$s pro %4$s). Sie können jederzeit kündigen!</string>
-    <string name="txt_trial_disclaimer">Dadurch wird eine kostenlose %1$s-Testversion aktiviert. Verlängert sich dann zu einem %2$s-Abonnement für %3$s (nur %4$s pro %5$s). Während der kostenlosen Testversion wird kein Geld berechnet. Jederzeit kündbar.</string>
-
-    <string name="dialog_exit_timer_start">Angebot endet um 24:00:00</string>
-    <string name="dialog_exit_timer">Angebot endet um %1$d:%2$d:%3$d</string>
-    <string name="dialog_exit_btn_ok">KOSTENLOS AUSPROBIEREN</string>
-    <string name="dialog_exit_title">Möchten Sie die\nKostenlose Testversion wirklich beenden?</string>
-    <string name="dialog_exit_body">Die unten aufgeführten Premiumfunktionen können\nJetzt KOSTENLOS TESTEN. Sie können JEDERZEIT STORNIEREN!</string>
-
     <string name="purchase_done">Sie wurden abonniert!</string>
     <string name="purchase_fail">Etwas ist schief gelaufen…</string>
-
-    <string name="txt_trial_title">%1$s kostenlose Version</string>
-    <string name="txt_trial_descr">Dann %1$s pro %2$s</string>
-    <string name="txt_premium_descr">Gesamt %1$s pro %2$s</string>
-    <string name="txt_premium_price_period">pro %1$s</string>
-
-    <string name="dialog_disclaimer">Das Angebot beinhaltet ein automatisch erneuerbares Abonnement. Die ersten %1$s sind kostenlos, danach werden %2$s pro %3$s berechnet</string>
-    <string name="btn_limited">ODER VERSUCHEN SIE DIE LIMITIERTE VERSION</string>
-    <string name="btn_continue">WEITER</string>
-
-    <string name="billing_terms_of_use"><u>Nutzungsbedingungen</u></string>
-    <string name="billing_privacy_policy"><u>Datenschutzrichtlinie</u></string>
-    <string name="billing_title">Alle Funktionen freischalten</string>
-    <string name="billing_not_sure">Noch unentschlossen? <b>3‑Tage Testversion</b></string>
-    <string name="billing_btn_prem">Jetzt für nur %1$s/%2$s fortfahren</string>
-    <string name="billing_btn_trial">3‑Tage testen, dann %1$s/%2$s</string>
-    <string name="billing_unlimited">Unbegrenzter Zugriff für %1$s/%2$s</string>
-    <string name="billing_autorenew">Automatisch verlängerbar. Jederzeit kündbar.</string>
-    <string name="billing_trial">3‑Tage <b>Gratis-Test</b>, dann %1$s/%2$s</string>
 
 </resources>

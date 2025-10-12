@@ -14,6 +14,7 @@ import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.QueryProductDetailsParams
+import com.android.billingclient.api.QueryProductDetailsResult
 import com.android.billingclient.api.QueryPurchasesParams
 import com.sdk.billinglibrary.LocalConfig.subscribeLocally
 
@@ -58,6 +59,7 @@ class BillingManager(
                 onPurchase.onPurchaseFail()
             }
         }
+        .enableAutoServiceReconnection()
         .enablePendingPurchases(PendingPurchasesParams.newBuilder()
             .enableOneTimeProducts().build())
         .build()
@@ -66,10 +68,7 @@ class BillingManager(
         Log.d(Billing.LOG, "Initialization of billing manager...")
         client.startConnection(object : BillingClientStateListener {
 
-            override fun onBillingServiceDisconnected() {
-                // client.startConnection(this)
-            }
-
+            override fun onBillingServiceDisconnected() {}
             override fun onBillingSetupFinished(result: BillingResult) {
 
                 if (Billing.isInitialized.value == true)
@@ -127,10 +126,13 @@ class BillingManager(
 
         // Async request
         client.queryProductDetailsAsync(params) {
-                result: BillingResult,
-                list: List<ProductDetails?> ->
+                billingResult: BillingResult,
+                result: QueryProductDetailsResult ->
 
-            if (result.responseCode == BillingClient.BillingResponseCode.OK)
+            val list = result.productDetailsList
+            result.unfetchedProductList
+
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK)
             {
                 Log.d(Billing.LOG, "Fetched ${list.size} SUBS")
 

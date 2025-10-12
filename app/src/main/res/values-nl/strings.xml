@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="unlock_all_features">Alle functies ontgrendelen</string>
-    <string name="btn_accept">ACCEPTEREN</string>
-
     <plurals name="days">
         <item quantity="one">%d-Dag</item>
         <item quantity="other">%d-dagen</item>
@@ -35,28 +32,7 @@
     <string name="month">Maand</string>
     <string name="year">Jaar</string>
 
-    <string name="txt_premium_title">%1$s premie</string>
-
-    <string name="txt_premium_disclaimer">Dit maakt een %1$s-abonnement mogelijk voor %2$s (alleen %3$s per %4$s). U kunt op elk moment annuleren!</string>
-    <string name="txt_trial_disclaimer">Dit maakt een gratis proefperiode van %1$s mogelijk. Wordt vervolgens uitgebreid tot een %2$s-abonnement voor %3$s (alleen %4$s per %5$s). Tijdens de gratis proefperiode wordt er geen geld in rekening gebracht. Annuleer op elk moment.</string>
-
-    <string name="dialog_exit_timer_start">Aanbieding eindigt over 24:00:00</string>
-    <string name="dialog_exit_timer">Aanbieding eindigt over %1$d:%2$d:%3$d</string>
-    <string name="dialog_exit_btn_ok">PROBEER GRATIS</string>
-    <string name="dialog_exit_title">Wil je echt stoppen\nGratis proefversie?</string>
-    <string name="dialog_exit_body">Premium-functies hieronder zijn GRATIS om\nPROBEER het nu. U kunt ALTIJD ANNULEREN!</string>
-
     <string name="purchase_done">Je bent geabonneerd!</string>
     <string name="purchase_fail">Er is iets fout gegaan…</string>
-
-    <string name="txt_trial_title">%1$s gratis versie</string>
-    <string name="txt_trial_descr">Dan %1$s per %2$s</string>
-    <string name="txt_premium_descr">Totaal %1$s per %2$s</string>
-    <string name="txt_premium_price_period">per %1$s</string>
-
-    <string name="dialog_disclaimer">De aanbieding omvat een automatisch verlengbaar abonnement. De eerste %1$s zijn gratis, daarna wordt %2$s per %3$s in rekening gebracht</string>
-    <string name="btn_limited">OF PROBEER DE BEPERKTE VERSIE</string>
-
-    <string name="btn_continue">DOORGAAN</string>
 
 </resources>

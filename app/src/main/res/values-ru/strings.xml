@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="unlock_all_features">Разблокировать все функции</string>
-    <string name="btn_accept">ПРИНЯТЬ</string>
-
     <plurals name="days">
         <item quantity="one">%d-День</item>
         <item quantity="two">%d-Дня</item>
@@ -40,41 +37,8 @@
     <string name="month">Мес.</string>
     <string name="year">Год</string>
 
-    <string name="txt_premium_title">%1$s премиум</string>
-
-    <string name="txt_premium_disclaimer">Это включает подписку на %1$s за %2$s (только %3$s за %4$s). Вы можете отменить в любое время!</string>
-    <string name="txt_trial_disclaimer">Это предложение включает пробный период %1$s, после окончания которого деньги начнут автоматически списываться в качестве подписки %2$s за %3$s (%4$s за %5$s).\n\nПодписку можно отменить в любой момент в приложении или в списке подписок в аккаунте Google. В случае отмены в течение пробного периода средства не будут сняты.</string>
-
-    <string name="dialog_exit_timer_start">Предложение заканчивается 24:00:00</string>
-    <string name="dialog_exit_timer">Предложение заканчивается %1$d:%2$d:%3$d</string>
-    <string name="dialog_exit_btn_ok">ПОПРОБУЙ БЕСПЛАТНО</string>
-    <string name="dialog_exit_title">Действительно хотите пропустить\nбесплатную пробную версию?</string>
-    <string name="dialog_exit_body">Премиум-функции, указанные ниже, можно БЕСПЛАТНО\nПОПРОБОВАТЬ прямо сейчас. ВЫ МОЖЕТЕ ОТМЕНИТЬ В ЛЮБОЕ ВРЕМЯ!</string>
-
     <string name="purchase_done">Вы подписаны!</string>
     <string name="purchase_fail">Что-то пошло не так…</string>
-
-    <string name="txt_trial_title">%1$s бесплатная версия</string>
-    <string name="txt_trial_descr">Затем %1$s за %2$s</string>
-    <string name="txt_premium_descr">Всего %1$s за %2$s</string>
-    <string name="txt_premium_price_period">за %1$s</string>
-
-    <string name="dialog_disclaimer">Предложение включает в себя автоматически продлеваемую подписку. Первые %1$s бесплатны, затем будет взиматься плата в размере %2$s за каждый %3$s.</string>
-    <string name="btn_limited">ИЛИ ПОПРОБУЙТЕ ОГРАНИЧЕННУЮ ВЕРСИЮ</string>
-
-    <string name="btn_continue">ПРОДОЛЖИТЬ</string>
-
-    <string name="billing_terms_of_use"><u>Условия использования</u></string>
-    <string name="billing_privacy_policy"><u>Политика конфиденциальности</u></string>
-    <string name="billing_title">Откройте все функции</string>
-    <string name="billing_not_sure">Не уверены? <b>3‑дневный бесплатный тест</b></string>
-    <string name="billing_btn_prem">Продолжить всего за %1$s/%2$s</string>
-    <string name="billing_btn_trial">Попробуйте 3 дня, затем %1$s/%2$s</string>
-    <string name="billing_unlimited">Безлимит за %1$s/%2$s</string>
-    <string name="billing_autorenew">Автопродление. Отменить в любое время.</string>
-    <string name="billing_trial">3‑дня <b>бесплатная проба</b>, затем %1$s/%2$s</string>
-    <string name="billing_enable_trial">Включить 3-дн. пробный период</string>
-    <string name="billing_unlock_features">Откройте все функции за %1$s/%2$s</string>
 
 
 </resources>
