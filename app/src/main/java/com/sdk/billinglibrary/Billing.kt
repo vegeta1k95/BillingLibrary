@@ -61,9 +61,9 @@ object Billing {
         if (mode == BillingMode.TEST) {
             subIds.forEach {
                 if (it.contains("trial"))
-                    products[it] = Price.createTestPrice(context, trial = true)
+                    products[it] = Price.createTestPrice(trial = true)
                 else
-                    products[it] = Price.createTestPrice(context, trial = false)
+                    products[it] = Price.createTestPrice(trial = false)
             }
             isInitialized.postValue(true)
             return

@@ -147,7 +147,7 @@ class BillingManager(
                         subscribeLocally(Billing.UNSUPPORTED)
                     }
 
-                    Billing.products[sub.productId] = Price(context,sub)
+                    Billing.products[sub.productId] = Price(sub)
                 }
             }
             else

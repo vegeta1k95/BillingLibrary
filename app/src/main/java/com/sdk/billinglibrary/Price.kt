@@ -1,31 +1,27 @@
 package com.sdk.billinglibrary
 
-import android.content.Context
 import com.android.billingclient.api.ProductDetails
-import java.util.Locale
 
 fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 class Price(
-    context: Context,
     val product: ProductDetails?) {
     val productId: String? = product?.productId
-    private val res = context.resources
     private val offer = product?.subscriptionOfferDetails?.get(0)
 
     companion object {
 
-        fun createTestPrice(context: Context, trial: Boolean) : Price {
-            val price = Price(context, null)
+        fun createTestPrice(trial: Boolean) : Price {
+            val price = Price(null)
 
-            price.price = 12.34
-            price.currency = "UAH"
+            price.paymentAmount = 12.34
+            price.paymentCurrency = "UAH"
 
             if (trial) {
                 price.periodTrial = Period.parse("P3D")
-                price.periodPremium = Period.parse("P1W")
+                price.paymentInterval = Period.parse("P1W")
             } else {
-                price.periodPremium = Period.parse("P1Y")
+                price.paymentInterval = Period.parse("P1Y")
             }
 
             return price
@@ -34,11 +30,11 @@ class Price(
 
 
 
-    var price: Double = 0.0
-    var currency: String = "USD"
+    var paymentAmount: Double = 0.0
+    var paymentCurrency: String = "USD"
+    var paymentInterval: Period? = null
 
     var periodTrial: Period? = null
-    var periodPremium: Period? = null
 
     val token: String? = offer?.offerToken
 
@@ -56,102 +52,32 @@ class Price(
                 }
                 else
                 {
-                    price = phase.priceAmountMicros.toDouble() / 1000000
-                    currency = phase.priceCurrencyCode
-                    periodPremium = Period.parse(phase.billingPeriod)
+                    paymentAmount = phase.priceAmountMicros.toDouble() / 1000000
+                    paymentCurrency = phase.priceCurrencyCode
+                    paymentInterval = Period.parse(phase.billingPeriod)
                 }
             }
         }
 
     }
 
+    fun pricePer(target: Interval): Double {
+        val period = paymentInterval ?: return 0.0
+        val baseDays = period.totalDays()
+        if (baseDays <= 0.0) return 0.0
+
+        val perDay = paymentAmount / baseDays
+        val targetDays = when (target) {
+            Interval.DAY -> 1.0
+            Interval.WEEK -> Period.DAYS_PER_WEEK
+            Interval.MONTH -> Period.DAYS_PER_MONTH
+            Interval.YEAR -> Period.DAYS_PER_YEAR
+        }
+        return perDay * targetDays
+    }
+
     fun isTrial() : Boolean {
         return periodTrial != null
-    }
-
-    fun getPriceAndCurrency(): String {
-        return "$currency ${price.format(2)}"
-    }
-
-    fun getTrialPeriod(): String {
-        val period = periodTrial ?: return res.getQuantityString(R.plurals.days, 0, 0)
-        if (period.years > 0)
-            return if (period.years == 1)
-                res.getString(R.string.year)
-            else
-                res.getQuantityString(R.plurals.years, period.years, period.years)
-        else if (period.months > 0)
-            return if (period.months == 1)
-                res.getString(R.string.month)
-            else
-                res.getQuantityString(R.plurals.months, period.months, period.months)
-        else if (period.weeks > 0)
-            return if (period.weeks == 1)
-                res.getString(R.string.week)
-            else
-                res.getQuantityString(R.plurals.weeks, period.weeks, period.weeks)
-        else if (period.days > 0)
-            return if (period.days == 1)
-                res.getString(R.string.day)
-            else
-                res.getQuantityString(R.plurals.days, period.days, period.days)
-        return ""
-    }
-
-    fun getSubscriptionPeriod(): String {
-        val period = periodPremium ?: return ""
-        if (period.years > 0)
-            return if (period.years == 1)
-                res.getString(R.string.year)
-            else
-                res.getQuantityString(R.plurals.years, period.years, period.years)
-        else if (period.months > 0)
-            return if (period.months == 1)
-                res.getString(R.string.month)
-            else
-                res.getQuantityString(R.plurals.months, period.months, period.months)
-        else if (period.weeks > 0)
-            return if (period.weeks == 1)
-                res.getString(R.string.week)
-            else
-                res.getQuantityString(R.plurals.weeks, period.weeks, period.weeks)
-        else if (period.days > 0)
-            return if (period.days == 1)
-                res.getString(R.string.day)
-            else
-                res.getQuantityString(R.plurals.days, period.days, period.days)
-        return ""
-    }
-
-    fun getTotalPriceAndCurrency(): String {
-        val period = periodPremium ?: return ""
-        var amount = 0.0
-        if (period.years > 0)
-            amount = price / (12 * period.years)        // PER MONTH
-        else if (period.months > 0)
-            amount = price / (4.35 * period.months)     // PER WEEK
-        else if (period.weeks > 0)
-            amount = price * 4.35 / period.weeks        // PER MONTH
-        else if (period.days > 0)
-            amount = price * 7 / period.days            // PER WEEK
-
-        return if (amount > 0)
-            "$currency ${amount.format(2)}"
-        else
-            ""
-    }
-
-    fun getTotalPeriod(): String {
-        val period = periodPremium ?: return ""
-        if (period.years > 0) 
-            return res.getString(R.string.month).lowercase(Locale.getDefault()) 
-        else if (period.months > 0) 
-            return res.getString(R.string.week).lowercase(Locale.getDefault()) 
-        else if (period.weeks > 0) 
-            return res.getString(R.string.month).lowercase(Locale.getDefault()) 
-        else if (period.days > 0) 
-            return res.getString(R.string.week).lowercase(Locale.getDefault())
-        return ""
     }
 
 }
