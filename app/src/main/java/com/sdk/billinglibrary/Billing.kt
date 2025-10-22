@@ -118,7 +118,7 @@ object Billing {
     @JvmStatic
     fun canShowBilling(): Boolean {
         val status = getStatus()
-        return status == BillingStatus.NOT_SUBSCRIBED
+        return status == BillingStatus.NOT_SUBSCRIBED && isInitialized.value == true
     }
 
     @JvmStatic
