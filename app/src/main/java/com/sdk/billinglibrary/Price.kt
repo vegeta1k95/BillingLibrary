@@ -6,7 +6,7 @@ fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 class Price(
     val product: ProductDetails?) {
-    val productId: String? = product?.productId
+    var productId: String? = product?.productId
     private val offer = product?.subscriptionOfferDetails?.getOrNull(0)
 
     var paymentAmount: Double = 0.0
@@ -50,9 +50,9 @@ class Price(
 
     companion object {
 
-        fun createTestPrice(trial: Boolean) : Price {
+        fun createTestPrice(productId: String? = null, trial: Boolean) : Price {
             val price = Price(null)
-
+            price.productId = productId
             price.paymentAmount = 12.34
             price.paymentCurrency = "UAH"
 

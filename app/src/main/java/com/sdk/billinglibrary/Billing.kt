@@ -43,7 +43,7 @@ object Billing {
     fun initialize(
         application: Application,
         billingMode: BillingMode = BillingMode.LOCKED,
-        vararg subIds: String) {
+        vararg subIds: Pair<String, Boolean>) {
 
         Log.d(LOG, "Initialization of billing...")
 
@@ -59,17 +59,15 @@ object Billing {
         // If test mode ON - do not initialize billing manager / remote config (all data will
         // be fictional)
         if (mode == BillingMode.TEST) {
-            subIds.forEach {
-                if (it.contains("trial"))
-                    products[it] = Price.createTestPrice(trial = true)
-                else
-                    products[it] = Price.createTestPrice(trial = false)
+            subIds.forEach { pair ->
+                products[pair.first] = Price.createTestPrice(pair.first, trial = pair.second)
             }
+            Log.d(LOG, "Initialized ${subIds.size} test subIds: ${subIds.joinToString { it.first }}")
             isInitialized.postValue(true)
             return
         }
 
-        manager.initialize(*subIds)
+        manager.initialize(*subIds.map { it.first }.toTypedArray())
     }
 
     @JvmStatic
