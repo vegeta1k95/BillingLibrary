@@ -31,7 +31,7 @@ object Billing {
     const val LOG = "MYTAG (Billing)"
     const val UNSUPPORTED = "NOT_SUPPORTED"
 
-    private var mode = BillingMode.LOCKED
+    var mode = BillingMode.LOCKED
 
     internal val listeners = mutableListOf<BillingPurchaseListener>()
     internal lateinit var manager: BillingManager
